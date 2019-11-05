@@ -110,30 +110,13 @@ public class SystemController
         return "system/menu/menuRight";
     }
     /**
-     * 跳转到权限管理
+     * 跳转到角色管理
      *
      */
-    @RequestMapping("toPermissionManager")
-    public String toPermissionManager() {
-        return "system/permission/permissionManager";
-    }
-
-    /**
-     * 跳转到权限管理-left
-     *
-     */
-    @RequestMapping("toPermissionLeft")
-    public String toPermissionLeft() {
-        return "system/permission/permissionLeft";
+    @RequestMapping("toRoleManager")
+    public String toRoleManager() {
+        return "system/role/roleManager";
     }
 
 
-    /**
-     * 跳转到权限管理--right
-     *
-     */
-    @RequestMapping("toPermissionRight")
-    public String toPermissionRight() {
-        return "system/permission/permissionRight";
-    }
 }
