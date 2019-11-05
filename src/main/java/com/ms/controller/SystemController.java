@@ -154,7 +154,6 @@ public class SystemController
     }
     /**
      * 跳转到缓存管理
-     *
      */
     @RequestMapping("toCacheManager")
     public String toCacheManager() {
