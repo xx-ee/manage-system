@@ -1,4 +1,4 @@
-package com.ms.common;
+package com.ms.response;
 
 /**
  * @Classname： Constast

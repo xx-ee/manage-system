@@ -1,11 +1,11 @@
-package com.ms.common;
+package com.ms.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * json数据实体
+ * 系统响应：json数据实体
  */
 @Data
 @AllArgsConstructor

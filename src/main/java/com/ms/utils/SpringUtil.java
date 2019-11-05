@@ -1,4 +1,4 @@
-package com.ms.common;
+package com.ms.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

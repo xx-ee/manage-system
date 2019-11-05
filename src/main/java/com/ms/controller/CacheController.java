@@ -2,8 +2,8 @@ package com.ms.controller;
 
 import com.ms.cache.CachePool;
 import com.ms.common.CacheBean;
-import com.ms.common.DataGridView;
-import com.ms.common.ResultObj;
+import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

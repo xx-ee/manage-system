@@ -1,8 +1,8 @@
 package com.ms.controller;
 
 import com.ms.common.ActiverUser;
-import com.ms.common.ResultObj;
-import com.ms.common.WebUtils;
+import com.ms.response.ResultObj;
+import com.ms.utils.WebUtils;
 import com.ms.entity.Loginfo;
 import com.ms.service.ILoginfoService;
 import com.ms.utils.CommonUtil;

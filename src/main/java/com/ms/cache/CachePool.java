@@ -1,6 +1,6 @@
 package com.ms.cache;
 
-import com.ms.common.SpringUtil;
+import com.ms.utils.SpringUtil;
 import com.ms.entity.Dept;
 import com.ms.entity.User;
 import com.ms.mapper.DeptMapper;

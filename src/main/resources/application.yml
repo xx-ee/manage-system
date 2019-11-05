@@ -1,13 +1,12 @@
 #配置端口
 server:
   port: 80
-
 #配置数据源的属性
 spring:
   datasource:
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/ms?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+      url: jdbc:mysql://127.0.0.1:3306/ms?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC&nullCatalogMeansCurrent=true
       username: root
       password: root
       max-active: 20

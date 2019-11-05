@@ -2,7 +2,7 @@ package com.ms.realm;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ms.common.ActiverUser;
-import com.ms.common.Constast;
+import com.ms.response.Constast;
 import com.ms.entity.Permission;
 import com.ms.entity.User;
 import com.ms.service.IPermissionService;

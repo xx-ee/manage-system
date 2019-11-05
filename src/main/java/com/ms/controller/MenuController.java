@@ -6,8 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ms.common.*;
 import com.ms.entity.Permission;
 import com.ms.entity.User;
+import com.ms.response.Constast;
+import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
 import com.ms.service.IPermissionService;
 import com.ms.service.IRoleService;
+import com.ms.utils.WebUtils;
 import com.ms.vo.PermissionVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +41,7 @@ public class MenuController
         //查询所有菜单
         QueryWrapper<Permission> queryWrapper=new QueryWrapper<>();
         //设置只能查询菜单
-        queryWrapper.eq("type",Constast.TYPE_MNEU);
+        queryWrapper.eq("type", Constast.TYPE_MNEU);
         queryWrapper.eq("available", Constast.AVAILABLE_TRUE);
 
         User user = (User) WebUtils.getSession().getAttribute("user");

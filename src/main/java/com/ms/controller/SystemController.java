@@ -160,4 +160,11 @@ public class SystemController
     public String toCacheManager() {
         return "system/cache/cacheManager";
     }
+
+    /****************工作流内容*****************/
+    @RequestMapping("toActiviti")
+    public String toActiviti()
+    {
+        return "activiti/model-list";
+    }
 }
