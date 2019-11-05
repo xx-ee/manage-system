@@ -46,7 +46,7 @@ public class MPGenerator
     private static final String driverName = "com.mysql.cj.jdbc.Driver";
     private static final String userName = "root";
     private static final String password = "root";
-    private static final String table_name = "sys_dept";
+    private static final String table_name = "sys_notice";
 
 
     public static void main(String[] args){

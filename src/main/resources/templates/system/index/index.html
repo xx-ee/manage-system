@@ -2,7 +2,7 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
-	<title>仓库管理后台首页</title>
+	<title>后台管理首页</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -121,6 +121,7 @@
 		function getData(json){
 			$.getJSON(tab.tabConfig.url,function(data){
 					dataStr = data.data;
+					console.log(dataStr)
 					//重新渲染左侧菜单
 					tab.render();
 			})
