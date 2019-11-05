@@ -23,4 +23,14 @@ public class SystemController
     {
         return "system/index/login";
     }
+
+    /**
+     * 跳转到首页
+     * @return
+     */
+    @RequestMapping("index")
+    public String toIndex()
+    {
+        return "system/index/index";
+    }
 }
