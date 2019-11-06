@@ -11,28 +11,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 流程定义控制器
+ * 流程部署控制器
  */
 @Slf4j
+@RequestMapping("prodeploy")
 @RestController
-@RequestMapping("prodef")
-public class ProcessDefinitionController {
+public class ProcessDeployController {
     @Autowired
     private IWorkFlowService workFlowService;
     /**
-     * 加载流程定义信息
+     * 加载流程部署信息
      */
-    @RequestMapping("loadAllProcessDefinition")
-    public DataGridView loadAllProcessDefinition(WorkFlowVo vo) {
-        return workFlowService.queryProcessDefinition(vo);
+    @RequestMapping("loadAllDeployment")
+    @ResponseBody
+    public DataGridView loadAllDeploys(WorkFlowVo vo) {
+        return workFlowService.queryProcessDeploy(vo);
     }
     /**
-     * 删除流程定义
+     * 删除流程部署
      */
     @RequestMapping("deleteworkflow")
-    public ResultObj deleteProcessDefById(Integer id) {
+    public ResultObj deleteProcessDeployById(Integer id) {
         try {
-            this.workFlowService.deleteProcessDefById(id);
+            this.workFlowService.deleteProcessDeployById(id);
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,14 +41,14 @@ public class ProcessDefinitionController {
         }
     }
     /**
-     * 批量删除流程定义
+     * 批量删除流程部署
      */
     @RequestMapping("batchDeleteworkflow")
     @ResponseBody
-    public ResultObj batchDeleteProcessDef(WorkFlowVo vo) {
+    public ResultObj batchDeleteProcessDeploy(WorkFlowVo vo) {
         try {
             for (Integer id : vo.getIds()) {
-                this.deleteProcessDefById(id);
+                this.deleteProcessDeployById(id);
             }
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {

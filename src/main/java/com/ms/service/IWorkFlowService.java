@@ -26,5 +26,11 @@ public interface IWorkFlowService
      * 删除流程定义
      * @param id
      */
-    void deleteworkflow(Integer id);
+    void deleteProcessDefById(Integer id);
+
+    /**
+     * 删除流程部署
+     * @param id
+     */
+    void deleteProcessDeployById(Integer id);
 }

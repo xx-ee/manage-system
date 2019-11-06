@@ -3,10 +3,7 @@ package com.ms.service.Impl;
 import com.ms.response.DataGridView;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
-import com.ms.vo.act.ActDeployment;
-import com.ms.vo.act.ActProcessDefinition;
-import com.ms.vo.act.DeploymentVo;
-import com.ms.vo.act.ModelEntityVo;
+import com.ms.vo.act.*;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
@@ -59,9 +56,9 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         int firstResult=(vo.getPage()-1)*vo.getLimit();
         int maxResult=vo.getLimit();
         List<Deployment> deployments = repositoryService.createDeploymentQuery().deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
-        ArrayList<ActDeployment> data = new ArrayList<>();
+        ArrayList<DeploymentEntityVo> data = new ArrayList<>();
         for(Deployment deployment: deployments){
-            data.add(new ActDeployment(deployment));
+            data.add(new DeploymentEntityVo(deployment));
         }
         return new DataGridView(count,data);
     }
@@ -111,12 +108,17 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     }
 
     @Override
-    public void deleteworkflow(Integer id) {
+    public void deleteProcessDefById(Integer id) {
         try
         {
             this.repositoryService.deleteModel(id+"");
         } catch (Exception e) {
             log.info("删除出现异常",e);
         }
+    }
+
+    @Override
+    public void deleteProcessDeployById(Integer id) {
+        this.repositoryService.deleteDeployment(id+"",true);
     }
 }

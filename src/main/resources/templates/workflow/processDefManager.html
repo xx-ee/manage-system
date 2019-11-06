@@ -69,69 +69,13 @@
 	<div id="workflowRowBar" style="display: none;">
 		<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>编辑</button>
 		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
-		<button type="button" lay-event="viewSPQuery" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>发布</button>
+		<button type="button" lay-event="deploy" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>发布</button>
 		<button type="button" lay-event="viewShow" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>查看流程图</button>
 	</div>
-	<!--<script type="text/html" id="workflowRowBar">-->
-
-		<!--{{#  if(d.state==0){ }}-->
-			<!--<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="startworkflowProcess">提交申请</button>-->
-			<!--<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="update">编辑</button>-->
-			<!--<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</button>-->
-		<!--{{#  } else if(d.state==1){ }}-->
-			<!--<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>-->
-		<!--{{#  } else if(d.state==2){ }}-->
-			<!--<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>-->
-		<!--{{#  } else if(d.state==3){ }}-->
-			<!--<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</button>-->
-			<!--<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>-->
-		<!--{{#  } }}-->
-	<!--</script>-->
 </div>
 
 
 <!-- 数据表格结束 -->
-
-
-<!-- 添加和修改的弹出层开始 -->
-<div style="display: none;padding: 5px" id="addOrUpdateDiv">
-	<form action="" method="post" class="layui-form layui-form-pane" id="dataFrm" lay-filter="dataFrm">
-		<div class="layui-form-item">
-			<label class="layui-form-label">请假标题</label>
-			<div class="layui-input-block">
-				<input type="text" name="title"    autocomplete="off" placeholder="请输入请假标题" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-inline">
-				<label class="layui-form-label">请假天数</label>
-				<div class="layui-input-inline">
-					<input type="tel" name="days" lay-verify="number" autocomplete="off" class="layui-input">
-				</div>
-			</div>
-			<div class="layui-inline">
-				<label class="layui-form-label">请假时间</label>
-				<div class="layui-input-inline">
-					<input type="tel" name="leavetime" id="leavetime"  placeholder="yyyy-MM-dd" class="layui-input">
-					<!--<input type="text" name="leavetime" id="leavetime" lay-verify="datetime" autocomplete="off" class="layui-input">-->
-				</div>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">请假内容</label>
-			<div class="layui-input-block">
-				<textarea placeholder="请输入内容"  id="content"  name="content" class="layui-textarea"></textarea>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-input-block" style="text-align: center;">
-				<button type="button" class="layui-btn" lay-submit="" id="doSubmit" ><span class="layui-icon layui-icon-add-1"></span>提交</button>
-				<button type="reset" class="layui-btn layui-btn-warm"><span class="layui-icon layui-icon-refresh-1"></span>重置</button>
-			</div>
-		</div>
-	</form>
-</div>
-<!-- 添加和修改的弹出层结束 -->
 
 
 <!-- 查看弹出层的开始 -->
@@ -226,6 +170,9 @@
 			    case 'show':
 			   		showworkflow(data);
 			    break;
+				 case 'deploy':
+					 deployprocess(data);
+					 break;
 			  };
 		});
 		
@@ -375,6 +322,7 @@
 		
 		//弹出查看层
 		function showworkflow(data){
+
 			mainIndex=layer.open({
 				type:1,
 				content:$("#showworkflowDiv"),
@@ -387,6 +335,46 @@
 					$("#show_content").html(data.content);
 				}
 			});
+		}
+		//发布流程
+		function deployprocess(data){
+			///models/{{$value.id}}/deployment
+			url="/models/"+data.id+"/deployment";
+			$.post(url,function(result){
+				//如果成功，则读取后端返回的操作指令
+				if (result.status == web_status.SUCCESS) {
+					if(result['msg']){
+						alert(result.msg);
+					}
+					//刷新
+					if(result['refresh']){
+						window.location.reload();
+						return;
+					}
+					//返回
+					if(result['back']){
+						window.location.href = document.referrer;
+					}
+					//跳转
+					if(result['redirectUrl']!=null){
+						window.location.href = result.redirectUrl;
+						return;
+					}
+					return result.data;
+				}
+				//未登录
+				if (result.status == web_status.NO_LOGIN) {
+					alert("您还未登陆！");
+					window.location.href =
+							"http://127.0.0.1:8081/login.html?backToUrl="+encodeURIComponent(btoa(window.location.href));
+				}else{
+					//其他错误情况，直接弹出提示框
+					if(result.msg!=null){
+						alert(result.msg);
+					}
+				}
+				return null;
+			})
 		}
 	});
 </script>

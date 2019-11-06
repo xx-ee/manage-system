@@ -24,24 +24,22 @@ import java.util.Collection;
 @Controller
 @RequestMapping("workflow")
 public class WorkFlowController {
-    @Autowired
-    private IWorkFlowService workFlowService;
+
     /**
      * 跳转到流程定义管理界面
      */
-    @RequestMapping("toWorkFlowDeploy")
-    public String toWorkFlowDeploy()
+    @RequestMapping("toWorkFlowDef")
+    public String toWorkFlowDef()
     {
         return "workflow/processDefManager";
     }
     /**
-     * 加载流程部署信息
+     * 跳转到流程部署管理界面
      */
-    @RequestMapping("loadAllDeployment")
-    @ResponseBody
-    public DataGridView loadAllDeploys(WorkFlowVo vo) {
-        return workFlowService.queryProcessDeploy(vo);
+    @RequestMapping("toWorkFlowDeploy")
+    public String toWorkFlowDeploy()
+    {
+        return "workflow/processDeployManager";
     }
-
 
 }

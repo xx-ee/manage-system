@@ -262,7 +262,7 @@ KISBPM.TOOLBAR = {
         
         closeEditor: function(services) {
         	// window.location.href = "/activiti/model-list.html";
-            window.location.href="http://localhost/workflow/toWorkFlowDeploy";
+            window.location.href="http://localhost/workflow/toWorkFlowDef";
             // top.location.href="http://localhost/sys/index";
         },
         
@@ -329,7 +329,7 @@ var SaveModelCtrl = [ '$rootScope', '$scope', '$http', '$route', '$location',
     $scope.saveAndClose = function () {
     	$scope.save(function() {
     		// window.location.href = "/model-list.html";
-            window.location.href="http://localhost/workflow/toWorkFlowDeploy";
+            window.location.href="http://localhost/workflow/toWorkFlowDef";
     	});
     };
     $scope.save = function (successCallback) {
