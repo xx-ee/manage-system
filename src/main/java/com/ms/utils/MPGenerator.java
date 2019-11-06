@@ -42,11 +42,11 @@ public class MPGenerator
     private static final String TABLE_PREFIX = "sys_";
 
     //数据库
-    private static final String url = "jdbc:mysql://127.0.0.1:3306/0520erp?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC";
+    private static final String url = "jdbc:mysql://39.106.220.50:3306/ms?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC";
     private static final String driverName = "com.mysql.cj.jdbc.Driver";
     private static final String userName = "root";
     private static final String password = "root";
-    private static final String table_name = "sys_notice";
+    private static final String table_name = "sys_leavebill";
 
 
     public static void main(String[] args){

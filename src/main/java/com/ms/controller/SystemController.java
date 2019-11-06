@@ -166,4 +166,11 @@ public class SystemController
     {
         return "activiti/model-list";
     }
+
+    //请假单管理
+    @RequestMapping("toLeaveBillManager")
+    public String toLeaveBillManager()
+    {
+        return "system/leavebill/leavebillManager";
+    }
 }
