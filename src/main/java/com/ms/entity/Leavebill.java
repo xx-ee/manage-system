@@ -64,7 +64,7 @@ public class Leavebill implements Serializable {
     /**
      * 用户标识
      */
-    private Integer userid;
+    private String userid;
 
 
 }

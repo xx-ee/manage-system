@@ -7,22 +7,27 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ms.entity.Leavebill;
 import com.ms.entity.Notice;
 import com.ms.entity.User;
+import com.ms.response.Constast;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.ILeavebillService;
+import com.ms.service.IUserService;
 import com.ms.utils.WebUtils;
 import com.ms.vo.LeaveBillVo;
 import com.ms.vo.LeaveBillVo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.web.session.HttpServletSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -37,17 +42,33 @@ import java.util.Date;
 public class LeavebillController {
     @Autowired
     private ILeavebillService leavebillService;
+    @Autowired
+    private IUserService userService;
+
     @RequestMapping("loadAllBills")
-    public DataGridView loadAllBills(LeaveBillVo leaveBillVo)
+    public DataGridView loadAllBills(LeaveBillVo leaveBillVo,HttpSession session)
     {
         IPage<Leavebill> page=new Page<>(leaveBillVo.getPage(), leaveBillVo.getLimit());
         QueryWrapper<Leavebill> queryWrapper=new QueryWrapper<>();
+        User user = (User)session.getAttribute("user");
+        if (user!=null&&user.getType()== Constast.USER_TYPE_NORMAL)
+        {
+            queryWrapper.eq("userid", user.getId());
+        }
         queryWrapper.like(StringUtils.isNotBlank(leaveBillVo.getTitle()), "title", leaveBillVo.getTitle());
         queryWrapper.like(StringUtils.isNotBlank(leaveBillVo.getContent()), "content", leaveBillVo.getContent());
         queryWrapper.ge(leaveBillVo.getStartTime()!=null, "leavetime", leaveBillVo.getStartTime());
         queryWrapper.le(leaveBillVo.getEndTime()!=null, "leavetime", leaveBillVo.getEndTime());
         queryWrapper.orderByAsc("id");
         this.leavebillService.page(page, queryWrapper);
+        List<Leavebill> records = page.getRecords();
+        for (Leavebill record : records) {
+            String userid = record.getUserid();
+            QueryWrapper<User> temp=new QueryWrapper<>();
+            temp.eq("id", userid);
+            User one = this.userService.getOne(temp);
+            record.setUserid(one.getName());
+        }
         return new DataGridView(page.getTotal(), page.getRecords());
     }
     /**
@@ -58,7 +79,7 @@ public class LeavebillController {
         try {
             leaveBillVo.setLeavetime(new Date());
             User user = (User) WebUtils.getSession().getAttribute("user");
-            leaveBillVo.setUserid(user.getId());
+            leaveBillVo.setUserid(user.getId()+"");
             leaveBillVo.setState(0);
             this.leavebillService.save(leaveBillVo);
             return ResultObj.ADD_SUCCESS;

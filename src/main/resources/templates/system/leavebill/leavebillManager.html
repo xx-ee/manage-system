@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>请假单管理</title>
@@ -102,7 +102,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">请假标题</label>
 			<div class="layui-input-block">
-				<input type="text" name="title"    value="【${user.username }】的请假单" autocomplete="off" placeholder="请输入标题" class="layui-input">
+				<input type="text" name="title"    autocomplete="off" placeholder="请输入请假标题" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -186,6 +186,7 @@
 		    ,cols: [ [
 		      {type: 'checkbox', fixed: 'left'}
 		      ,{field:'id', title:'请假单ID',align:'center',width:100}
+		      ,{field:'userid', title:'请假人',align:'center',width:100}
 		      ,{field:'title', title:'请假单标题',align:'center'}
 		      ,{field:'content', title:'请假内容',align:'center'}
 		      ,{field:'days', title:'请假天数',align:'center',width:100}
