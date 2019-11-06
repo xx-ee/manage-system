@@ -3,11 +3,16 @@ package com.ms.controller;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
+import com.ms.vo.NoticeVo;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @Classname： WorkFlowController
@@ -47,13 +52,29 @@ public class WorkFlowController {
     }
 
     /**
-     * 删除
+     * 删除流程定义
      */
     @RequestMapping("deleteworkflow")
     @ResponseBody
     public ResultObj deleteNotice(Integer id) {
         try {
             this.workFlowService.deleteworkflow(id);
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
+    }
+    /**
+     * 批量删除流程定义
+     */
+    @RequestMapping("batchDeleteNotice")
+    @ResponseBody
+    public ResultObj batchDeleteNotice(WorkFlowVo vo) {
+        try {
+            for (Integer id : vo.getIds()) {
+                this.deleteNotice(id);
+            }
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
