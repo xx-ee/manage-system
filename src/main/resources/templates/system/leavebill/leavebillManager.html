@@ -29,9 +29,9 @@
 		      </div>
 		    </div>
 		    <div class="layui-inline">
-		      <label class="layui-form-label">请假人</label>
+		      <label class="layui-form-label">请假内容</label>
 		      <div class="layui-input-inline">
-		        <input type="text" name="opername"    autocomplete="off" class="layui-input">
+		        <input type="text" name="content"    autocomplete="off" class="layui-input">
 		      </div>
 		    </div>
 		    <div class="layui-inline">
@@ -66,11 +66,30 @@
 		<button type="button" lay-event="batchDelete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>批量删除</button>
 	</div>
 	
-	<div id="leavebillRowBar" style="display: none;">
-		<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>更新</button>
-		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
-		<button type="button" lay-event="show" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>查看</button>
-	</div>
+	<!--<div id="leavebillRowBar" style="display: none;">-->
+		<!--<button type="button" lay-event="startLeaveBillProcess" class="layui-btn layui-btn-normal layui-btn-sm"><span ></span>提交申请</button>-->
+		<!--<button type="button" lay-event="update" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-edit"></span>编辑</button>-->
+		<!--<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>-->
+		<!--<button type="button" lay-event="viewSPQuery" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>审批查询</button>-->
+	<!--</div>-->
+	<script type="text/html" id="leavebillRowBar">
+
+		{{#  if(d.state==0){ }}
+			<button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="startLeaveBillProcess">提交申请</button>
+			<button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="update">编辑</button>
+			<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</button>
+		{{#  } else if(d.state==1){ }}
+			<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>
+		{{#  } else if(d.state==2){ }}
+			<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>
+		{{#  } else if(d.state==3){ }}
+			<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete">删除</button>
+			<button class="layu	i-btn layui-btn-normal layui-btn-sm" lay-event="viewSPQuery">审批查询</button>
+		{{#  } }}
+
+
+
+	</script>
 </div>
 
 
@@ -149,12 +168,27 @@
 		    ,page: true
 		    ,cols: [ [
 		      {type: 'checkbox', fixed: 'left'}
-		      ,{field:'id', title:'请假单ID',align:'center'}
+		      ,{field:'id', title:'请假单ID',align:'center',width:100}
 		      ,{field:'title', title:'请假单标题',align:'center'}
 		      ,{field:'content', title:'请假内容',align:'center'}
-		      ,{field:'days', title:'请假天数',align:'center'}
-		      ,{field:'leavetime', title:'请假时间',align:'center'}
-		      ,{fixed: 'right', title:'操作', toolbar: '#leavebillRowBar',align:'center'}
+		      ,{field:'days', title:'请假天数',align:'center',width:100}
+		      ,{field:'leavetime', title:'请假时间',align:'center',width:150}
+		      ,{field:'state', title:'状态',align:'center',width:150,templet:function (d) {
+						var html="";
+						if (d.state==0){
+						    html="<font color='red'>未提交</font>";
+						}else if (d.state==1){
+                            html="<font color='yellow'>审批中</font>";
+                        } else if (d.state==2){
+                            html="<font color='blue'>审批完成</font>";
+                        }else if (d.state==3){
+                            html="<font color='#a9a9a9'>已放弃</font>";
+                        }else{
+                            html="<font color='gray'>未知状态</font>";
+                        }
+                        return html;
+                    }}
+		      ,{fixed: 'right', title:'操作', toolbar: '#leavebillRowBar',align:'center',width:350}
 		    ] ]
 		});
 		

@@ -53,7 +53,7 @@ public class LeavebillController {
     /**
      * 添加
      */
-    @RequestMapping("addBill")
+    @RequestMapping("addleavebill")
     public ResultObj addNotice(LeaveBillVo leaveBillVo) {
         try {
             leaveBillVo.setLeavetime(new Date());
@@ -69,7 +69,7 @@ public class LeavebillController {
     /**
      * 修改
      */
-    @RequestMapping("updateBill")
+    @RequestMapping("updateleavebill")
     public ResultObj updateNotice(LeaveBillVo leaveBillVo) {
         try {
             this.leavebillService.updateById(leaveBillVo);
@@ -83,7 +83,7 @@ public class LeavebillController {
     /**
      * 删除
      */
-    @RequestMapping("deleteBill")
+    @RequestMapping("deleteleavebill")
     public ResultObj deleteNotice(Integer id) {
         try {
             this.leavebillService.removeById(id);
@@ -98,7 +98,7 @@ public class LeavebillController {
     /**
      * 批量删除
      */
-    @RequestMapping("batchDeleteNotice")
+    @RequestMapping("batchDeleteleavebill")
     public ResultObj batchDeleteNotice(LeaveBillVo leaveBillVo) {
         try {
             Collection<Serializable> idList=new ArrayList<Serializable>();
