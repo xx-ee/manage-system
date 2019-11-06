@@ -1,4 +1,4 @@
-package com.ms.vo;
+package com.ms.vo.act;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.activiti.engine.repository.Deployment;
