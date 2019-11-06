@@ -78,6 +78,7 @@ $(function()
 {
     AJAX.GET("/models", null
             , function (result) {
+        console.log(result)
                 var html = template("models", result);
             // alert(html)
                 $("#model-list").html(html);

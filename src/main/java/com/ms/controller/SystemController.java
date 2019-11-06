@@ -162,11 +162,10 @@ public class SystemController
 
     /****************工作流内容*****************/
     @RequestMapping("toActiviti")
-    public String toActiviti()
-    {
-        return "activiti/model-list";
-    }
-
+    public String toActiviti() { return "activiti/model-list"; }
+    //流程定义管理
+    @RequestMapping("toProDef")
+    public String toProDef() {return "act/process/proDefManager";}
     //请假单管理
     @RequestMapping("toLeaveBillManager")
     public String toLeaveBillManager()
