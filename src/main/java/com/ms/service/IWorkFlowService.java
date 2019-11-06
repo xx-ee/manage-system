@@ -33,4 +33,17 @@ public interface IWorkFlowService
      * @param id
      */
     void deleteProcessDeployById(Integer id);
+
+    /**
+     * 查询流程模型
+     * @param vo
+     * @return
+     */
+    DataGridView queryProcessModel(WorkFlowVo vo);
+
+    /**
+     * 删除流程模型
+     * @param id
+     */
+    void deleteProcessModelById(Integer id);
 }

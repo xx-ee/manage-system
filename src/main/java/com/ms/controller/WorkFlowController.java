@@ -26,6 +26,14 @@ import java.util.Collection;
 public class WorkFlowController {
 
     /**
+     * 跳转到模型管理界面
+     */
+    @RequestMapping("toWorkFlowModel")
+    public String toWorkFlowModel()
+    {
+        return "workflow/processModelManager";
+    }
+    /**
      * 跳转到流程定义管理界面
      */
     @RequestMapping("toWorkFlowDef")

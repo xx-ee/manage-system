@@ -121,4 +121,25 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     public void deleteProcessDeployById(Integer id) {
         this.repositoryService.deleteDeployment(id+"",true);
     }
+
+    @Override
+    public DataGridView queryProcessModel(WorkFlowVo vo) {
+        int firstResult=(vo.getPage()-1)*vo.getLimit();
+        int maxResult=vo.getLimit();
+        List<Model> list = repositoryService.createModelQuery().listPage(firstResult
+                , maxResult);
+        long count = repositoryService.createModelQuery().count();
+        ArrayList<ModelEntityVo> objects = new ArrayList<>();
+
+        for (Model model : list)
+        {
+            objects.add(new ModelEntityVo(model));
+        }
+        return new DataGridView(count,objects);
+    }
+
+    @Override
+    public void deleteProcessModelById(Integer id) {
+        this.repositoryService.deleteModel(id+"");
+    }
 }
