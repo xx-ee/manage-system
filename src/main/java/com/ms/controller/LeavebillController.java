@@ -46,7 +46,7 @@ public class LeavebillController {
         queryWrapper.like(StringUtils.isNotBlank(leaveBillVo.getContent()), "content", leaveBillVo.getContent());
         queryWrapper.ge(leaveBillVo.getStartTime()!=null, "leavetime", leaveBillVo.getStartTime());
         queryWrapper.le(leaveBillVo.getEndTime()!=null, "leavetime", leaveBillVo.getEndTime());
-        queryWrapper.orderByDesc("leavetime");
+        queryWrapper.orderByAsc("id");
         this.leavebillService.page(page, queryWrapper);
         return new DataGridView(page.getTotal(), page.getRecords());
     }
@@ -59,6 +59,7 @@ public class LeavebillController {
             leaveBillVo.setLeavetime(new Date());
             User user = (User) WebUtils.getSession().getAttribute("user");
             leaveBillVo.setUserid(user.getId());
+            leaveBillVo.setState(0);
             this.leavebillService.save(leaveBillVo);
             return ResultObj.ADD_SUCCESS;
         } catch (Exception e) {

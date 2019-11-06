@@ -100,24 +100,38 @@
 <div style="display: none;padding: 5px" id="addOrUpdateDiv">
 	<form action="" method="post" class="layui-form layui-form-pane" id="dataFrm" lay-filter="dataFrm">
 		<div class="layui-form-item">
-		    <label class="layui-form-label">请假单标题</label>
-		    <div class="layui-input-block">
-		      <input type="hidden" name="id">
-		      <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
-		    </div>
- 	   </div>
+			<label class="layui-form-label">请假标题</label>
+			<div class="layui-input-block">
+				<input type="text" name="title"    value="【${user.username }】的请假单" autocomplete="off" placeholder="请输入标题" class="layui-input">
+			</div>
+		</div>
 		<div class="layui-form-item">
-		    <label class="layui-form-label">请假单内容</label>
-		    <div class="layui-input-block">
-		    	 <textarea class="layui-textarea" name="content" id="content"></textarea>
-		    </div>
- 	   </div>
- 	   <div class="layui-form-item">
-		    <div class="layui-input-block" style="text-align: center;">
-		      	<button type="button" class="layui-btn" lay-submit="" id="doSubmit" ><span class="layui-icon layui-icon-add-1"></span>提交</button>
-      			<button type="reset" class="layui-btn layui-btn-warm"><span class="layui-icon layui-icon-refresh-1"></span>重置</button>
-		     </div>
- 	   </div>
+			<div class="layui-inline">
+				<label class="layui-form-label">请假天数</label>
+				<div class="layui-input-inline">
+					<input type="tel" name="days" lay-verify="number" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">请假时间</label>
+				<div class="layui-input-inline">
+					<input type="tel" name="leavetime" id="leavetime"  placeholder="yyyy-MM-dd" class="layui-input">
+					<!--<input type="text" name="leavetime" id="leavetime" lay-verify="datetime" autocomplete="off" class="layui-input">-->
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">请假内容</label>
+			<div class="layui-input-block">
+				<textarea placeholder="请输入内容"  id="content"  name="content" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="text-align: center;">
+				<button type="button" class="layui-btn" lay-submit="" id="doSubmit" ><span class="layui-icon layui-icon-add-1"></span>提交</button>
+				<button type="reset" class="layui-btn layui-btn-warm"><span class="layui-icon layui-icon-refresh-1"></span>重置</button>
+			</div>
+		</div>
 	</form>
 </div>
 <!-- 添加和修改的弹出层结束 -->
@@ -155,7 +169,10 @@
 			elem:'#endTime',
 			type:'datetime'
 		});
-		
+        laydate.render({
+            elem:'#leavetime',
+            type:'date'
+        });
 		//初始化富文本
 		var editIndex = layedit.build('content');
 		//加载 数据
@@ -178,7 +195,7 @@
 						if (d.state==0){
 						    html="<font color='red'>未提交</font>";
 						}else if (d.state==1){
-                            html="<font color='yellow'>审批中</font>";
+                            html="<font color='green'>审批中</font>";
                         } else if (d.state==2){
                             html="<font color='blue'>审批完成</font>";
                         }else if (d.state==3){
@@ -239,7 +256,7 @@
 				type:1,
 				content:$("#addOrUpdateDiv"),
 				area:['800px','600px'],
-				title:'发布请假单',
+				title:'添加请假单',
 				success:function(){
 					$("#dataFrm")[0].reset();
 					layedit.setContent(editIndex,"");	
