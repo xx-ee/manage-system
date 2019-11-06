@@ -261,7 +261,9 @@ KISBPM.TOOLBAR = {
         },
         
         closeEditor: function(services) {
-        	window.location.href = "/model-list.html";
+        	// window.location.href = "/activiti/model-list.html";
+            window.location.href="http://localhost/sys/toActiviti";
+            // top.location.href="http://localhost/sys/index";
         },
         
         /**
