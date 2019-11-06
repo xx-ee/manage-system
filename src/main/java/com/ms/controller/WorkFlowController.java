@@ -50,6 +50,7 @@ public class WorkFlowController {
      * 删除
      */
     @RequestMapping("deleteworkflow")
+    @ResponseBody
     public ResultObj deleteNotice(Integer id) {
         try {
             this.workFlowService.deleteworkflow(id);

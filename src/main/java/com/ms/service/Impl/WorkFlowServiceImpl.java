@@ -7,6 +7,7 @@ import com.ms.vo.act.ActDeployment;
 import com.ms.vo.act.ActProcessDefinition;
 import com.ms.vo.act.DeploymentVo;
 import com.ms.vo.act.ModelEntityVo;
+import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
@@ -26,6 +27,7 @@ import java.util.List;
  * @Version： 1.0
  **/
 @Service
+@Slf4j
 public class WorkFlowServiceImpl implements IWorkFlowService {
     @Autowired
     private RepositoryService repositoryService;
@@ -110,6 +112,11 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
     @Override
     public void deleteworkflow(Integer id) {
-        this.repositoryService.deleteModel(id+"");
+        try
+        {
+            this.repositoryService.deleteModel(id+"");
+        } catch (Exception e) {
+            log.info("删除出现异常",e);
+        }
     }
 }
