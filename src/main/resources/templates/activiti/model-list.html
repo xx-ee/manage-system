@@ -78,12 +78,14 @@ $(function()
 {
     AJAX.GET("/models", null
             , function (result) {
+        console.log(result)
                 var html = template("models", result);
                 $("#model-list").html(html);
             });
 
     AJAX.GET("/deployments", null
             , function (result) {
+            console.log(result)
                 var html = template("deployments", result);
                 $("#deployment-list").html(html);
             });
