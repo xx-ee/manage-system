@@ -1,6 +1,7 @@
 package com.ms.controller;
 
 import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,19 @@ public class WorkFlowController {
     @ResponseBody
     public DataGridView loadAllProcessDefinition(WorkFlowVo vo) {
         return workFlowService.queryProcessDefinition(vo);
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("deleteworkflow")
+    public ResultObj deleteNotice(Integer id) {
+        try {
+            this.workFlowService.deleteworkflow(id);
+            return ResultObj.DELETE_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DELETE_ERROR;
+        }
     }
 }

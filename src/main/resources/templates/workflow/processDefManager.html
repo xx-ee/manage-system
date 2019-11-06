@@ -248,17 +248,20 @@
 		
 		//打开修改的弹出层
 		function openUpdateworkflowLayer(data){
-		    alert(data)
-			console.log(data)
-            layer.confirm('你确定要编辑【'+data.id+'】这条流程定义吗?', {icon: 3, title:'提示'}, function(index){
-                $.post("/workflow/deleteworkflow",{id:data.id},function(res){
-                    if(res.code==200){
-                        tableIns.reload();
-                    }
-                    layer.msg(res.msg);
-                })
-                layer.close(index);
-            });
+			window.location.href="/editor?modelId="+data.id;
+		    // alert(data)
+			// console.log(data)
+            // layer.confirm('你确定要编辑【'+data.id+'】这条流程定义吗?', {icon: 3, title:'提示'}, function(index){
+			// 	window.location.href="/editor?modelId="+data.id;
+				// /editor?modelId={{$value.id}}
+                // $.post("/workflow/deleteworkflow",{id:data.id},function(res){
+                //     if(res.code==200){
+                //         tableIns.reload();
+                //     }
+                //     layer.msg(res.msg);
+                // })
+                // layer.close(index);
+            // });
 			// mainIndex=layer.open({
 			// 	type:1,
 			// 	content:$("#addOrUpdateDiv"),
@@ -287,7 +290,7 @@
 		})
 		//删除
 		function deleteworkflow(data){
-			layer.confirm('你确定要删除【'+data.title+'】这条流程定义吗?', {icon: 3, title:'提示'}, function(index){
+			layer.confirm('你确定要删除【'+data.id+'】这条流程定义吗?', {icon: 3, title:'提示'}, function(index){
 				$.post("/workflow/deleteworkflow",{id:data.id},function(res){
 					if(res.code==200){
 						tableIns.reload();

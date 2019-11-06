@@ -107,4 +107,9 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         }
         return new DataGridView(count,objects);
     }
+
+    @Override
+    public void deleteworkflow(Integer id) {
+        this.repositoryService.deleteModel(id+"");
+    }
 }
