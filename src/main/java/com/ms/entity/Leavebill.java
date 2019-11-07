@@ -1,5 +1,6 @@
 package com.ms.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
@@ -66,5 +67,7 @@ public class Leavebill implements Serializable {
      */
     private String userid;
 
-
+    //用户名
+    @TableField(exist = false) //表示该属性不为数据库表字段，但又是必须使用的。
+    private String username;
 }

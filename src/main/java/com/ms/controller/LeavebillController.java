@@ -67,7 +67,8 @@ public class LeavebillController {
             QueryWrapper<User> temp=new QueryWrapper<>();
             temp.eq("id", userid);
             User one = this.userService.getOne(temp);
-            record.setUserid(one.getName());
+//            record.setUserid(one.getName());
+            record.setUsername(one.getName());
         }
         return new DataGridView(page.getTotal(), page.getRecords());
     }
