@@ -23,11 +23,6 @@ public interface IWorkFlowService
      */
     DataGridView queryProcessDefinition(WorkFlowVo vo);
 
-    /**
-     * 删除流程定义
-     * @param id
-     */
-    void deleteProcessDefById(Integer id);
 
     /**
      * 删除流程部署

@@ -20,7 +20,7 @@ public class WorkFlowVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer[] ids;//接收多个ID
+    private String[] ids;//接收多个ID
     private Integer page=1;
     private Integer limit=10;
 

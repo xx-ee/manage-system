@@ -64,8 +64,8 @@ public class ProcessModelController {
     @RequestMapping("batchdeleteProcessModel")
     public ResultObj batchdeleteProcessModel(WorkFlowVo vo) {
         try {
-            for (Integer id : vo.getIds()) {
-                this.deleteProcessModel(id);
+            for (String id : vo.getIds()) {
+                this.deleteProcessModel(Integer.parseInt(id));
             }
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {

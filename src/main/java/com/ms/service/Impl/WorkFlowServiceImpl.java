@@ -121,19 +121,6 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
     }
 
-    /**
-     * 根据id删除模型
-     * @param id
-     */
-    @Override
-    public void deleteProcessDefById(Integer id) {
-        try
-        {
-            this.repositoryService.deleteModel(id+"");
-        } catch (Exception e) {
-            log.info("删除出现异常",e);
-        }
-    }
 
     /**
      * 根据部署id删除模型

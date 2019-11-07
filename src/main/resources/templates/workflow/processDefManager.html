@@ -69,11 +69,10 @@
 	<table class="layui-hide" id="workflowTable" lay-filter="workflowTable"></table>
 	<div id="workflowToolBar" style="display: none;">
 		<!--<button type="button" lay-event="add" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-add-1"></span>添加流程</button>-->
-		<button type="button" lay-event="batchDelete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>批量删除</button>
+		<!--<button type="button" lay-event="batchDelete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>批量删除</button>-->
 	</div>
 	
 	<div id="workflowRowBar" style="display: none;">
-		<button type="button" lay-event="delete" class="layui-btn layui-btn-sm layui-btn-danger"><span class="layui-icon layui-icon-delete"></span>删除</button>
 		<button type="button" lay-event="viewShow" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>查看流程图</button>
 	</div>
 </div>
@@ -81,19 +80,6 @@
 
 <!-- 数据表格结束 -->
 
-
-<!-- 查看弹出层的开始 -->
-<div style="display: none;padding: 5px" id="showworkflowDiv">
-	<h2 id="show_title" align="center"></h2>
-	<div style="text-align: right;">
-		发布人:<span id="show_opername"></span>
-		发布时间:<span id="show_createtime"></span>
-	</div>
-	<hr>
-	<div id="show_content"></div>
-	
-</div>
-<!-- 查看弹出层的结束-->
 
 
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
@@ -185,56 +171,7 @@
 		
 		var mainIndex;
 		var url;
-		web_status = {
-			SUCCESS : "000",
-			FAIL : "001",
-			NO_LOGIN : "003",
-			NO_PRIVILEGE : "004"
-		};
 
-		//删除
-		function deleteworkflow(data){
-			layer.confirm('你确定要删除【'+data.id+'】这条流程定义吗?', {icon: 3, title:'提示'}, function(index){
-				$.post("/prodef/deleteworkflow",{id:data.id},function(res){
-					if(res.code==200){
-						tableIns.reload();
-					}
-					layer.msg(res.msg);
-				})	
-			   layer.close(index);
-			});
-		}
-		
-		//批量删除
-		function  batchDelete(){
-			//得到选中行
-			var checkStatus = table.checkStatus('workflowTable');
-			var dataLength=checkStatus.data.length;
-			if(dataLength>0){
-				layer.confirm('你确定要删除这些流程定义数据吗?', {icon: 3, title:'提示'}, function(index){
-						var data=checkStatus.data; //获取选中行的数据
-						var ids="";
-						$.each(data,function(index,item){
-							if(index==0){
-								ids+="ids="+item.id;
-							}else{
-								ids+="&ids="+item.id;
-							}
-						})
-						$.post("/prodef/batchDeleteworkflow",ids,function(res){
-							if(res.code==200){
-								tableIns.reload();
-							}
-							layer.msg(res.msg);
-						})	
-					   layer.close(index);
-					});
-				
-			}else{
-				layer.msg("请选中操作行")
-			}
-		}
-		
 		//弹出查看层
 		function showworkflow(data){
 

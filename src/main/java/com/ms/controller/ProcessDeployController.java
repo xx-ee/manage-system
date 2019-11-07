@@ -47,8 +47,8 @@ public class ProcessDeployController {
     @ResponseBody
     public ResultObj batchDeleteProcessDeploy(WorkFlowVo vo) {
         try {
-            for (Integer id : vo.getIds()) {
-                this.deleteProcessDeployById(id);
+            for (String id : vo.getIds()) {
+                this.deleteProcessDeployById(Integer.parseInt(id));
             }
             return ResultObj.DELETE_SUCCESS;
         } catch (Exception e) {

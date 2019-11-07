@@ -26,33 +26,4 @@ public class ProcessDefinitionController {
     public DataGridView loadAllProcessDefinition(WorkFlowVo vo) {
         return workFlowService.queryProcessDefinition(vo);
     }
-    /**
-     * 删除流程定义
-     */
-    @RequestMapping("deleteworkflow")
-    public ResultObj deleteProcessDefById(Integer id) {
-        try {
-            this.workFlowService.deleteProcessDefById(id);
-            return ResultObj.DELETE_SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResultObj.DELETE_ERROR;
-        }
-    }
-    /**
-     * 批量删除流程定义
-     */
-    @RequestMapping("batchDeleteworkflow")
-    @ResponseBody
-    public ResultObj batchDeleteProcessDef(WorkFlowVo vo) {
-        try {
-            for (Integer id : vo.getIds()) {
-                this.deleteProcessDefById(id);
-            }
-            return ResultObj.DELETE_SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResultObj.DELETE_ERROR;
-        }
-    }
 }
