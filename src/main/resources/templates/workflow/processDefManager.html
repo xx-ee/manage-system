@@ -73,7 +73,7 @@
 	</div>
 	
 	<div id="workflowRowBar" style="display: none;">
-		<button type="button" lay-event="viewShow" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>查看流程图</button>
+		<!--<button type="button" lay-event="viewShow" class="layui-btn layui-btn-sm"><span class="layui-icon layui-icon-about"></span>查看流程图</button>-->
 	</div>
 </div>
 
@@ -116,14 +116,14 @@
 		    ,page: true
 		    ,cols: [ [
 		      {type: 'checkbox', fixed: 'left'}
-		      ,{field:'id', title:'定义ID',align:'center',width:150}
-		      ,{field:'name', title:'定义名称',align:'center',width:130}
-		      ,{field:'key', title:'定义key',align:'center',width:130}
-		      ,{field:'version', title:'定义版本',align:'center',width:100}
-		      ,{field:'deploymentId', title:'部署ID',align:'center',width:130}
-		      ,{field:'resourceName', title:'名称[bpmn]',align:'center',width:180}
-		      ,{field:'diagramResourceName', title:'文件名[png]',align:'center',width:180}
-		      ,{fixed: 'right', title:'操作', toolbar: '#workflowRowBar',align:'center'}
+		      ,{field:'id', title:'定义ID',align:'center'}
+		      ,{field:'name', title:'定义名称',align:'center'}
+		      ,{field:'key', title:'定义key',align:'center'}
+		      ,{field:'version', title:'定义版本',align:'center'}
+		      ,{field:'deploymentId', title:'部署ID',align:'center'}
+		      ,{field:'resourceName', title:'名称[bpmn]',align:'center'}
+		      ,{field:'diagramResourceName', title:'文件名[png]',align:'center'}
+
 		    ] ]
 		});
 		
