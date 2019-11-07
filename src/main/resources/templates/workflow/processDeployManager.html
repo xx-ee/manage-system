@@ -23,13 +23,13 @@
 	<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form layui-form-pane">
 		<div class="layui-form-item">
 		    <div class="layui-inline">
-		      <label class="layui-form-label">流程编号</label>
+		      <label class="layui-form-label">部署ID</label>
 		      <div class="layui-input-inline">
-		        <input type="text" name="title"  autocomplete="off" class="layui-input">
+		        <input type="text" name="deploymentId"  autocomplete="off" class="layui-input">
 		      </div>
 		    </div>
 		    <div class="layui-inline">
-		      <label class="layui-form-label">流程名称</label>
+		      <label class="layui-form-label">部署名称</label>
 		      <div class="layui-input-inline">
 		        <input type="text" name="deploymentName"    autocomplete="off" class="layui-input">
 		      </div>
@@ -128,8 +128,8 @@
 		    ,page: true
 		    ,cols: [ [
 		      {type: 'checkbox', fixed: 'left'}
-		      ,{field:'id', title:'流程部署ID',align:'center'}
-		      ,{field:'name', title:'流程名称',align:'center'}
+		      ,{field:'id', title:'部署ID',align:'center'}
+		      ,{field:'name', title:'部署名称',align:'center'}
 		      ,{field:'deploymentTime', title:'部署时间',align:'center'}
 		      ,{fixed: 'right', title:'操作', toolbar: '#workflowRowBar',align:'center',width:400}
 		    ] ]
