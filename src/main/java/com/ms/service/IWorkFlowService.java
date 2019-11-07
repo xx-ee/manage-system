@@ -1,10 +1,12 @@
 package com.ms.service;
 
+import com.ms.entity.Leavebill;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.vo.WorkFlowVo;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * 工作流的服务接口
@@ -76,4 +78,18 @@ public interface IWorkFlowService
      * @return
      */
     DataGridView loadCurrentUserTask(WorkFlowVo vo);
+
+    /**
+     * 根据任务ID查询请假单的信息
+     * @param taskId
+     * @return
+     */
+    Leavebill queryLeaveBillByTaskId(String taskId);
+
+    /**
+     * 根据任务id查询连线信息
+     * @param taskId
+     * @return
+     */
+    List<String> queryOutComeByTaskId(String taskId);
 }

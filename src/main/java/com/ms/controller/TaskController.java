@@ -27,4 +27,12 @@ public class TaskController {
     public DataGridView loadCurrentUserTask(WorkFlowVo vo){
         return this.workFlowService.loadCurrentUserTask(vo);
     }
+    /**
+     * 根据任务ID查询批注信息
+     */
+    @RequestMapping("loadAllComments")
+    public DataGridView loadAllComments(WorkFlowVo vo)
+    {
+        return null;
+    }
 }

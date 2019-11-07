@@ -40,6 +40,8 @@ public class WorkFlowVo implements Serializable {
     //请假单的ID
     private String id;
 
+    //任务id
+    private String taskId;
 
 
 }

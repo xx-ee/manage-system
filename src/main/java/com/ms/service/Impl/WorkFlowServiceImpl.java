@@ -22,9 +22,13 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.PvmTransition;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -341,5 +345,58 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             }
         }
         return new DataGridView(count,datas);
+    }
+
+    /**
+     * 根据任务ID查询请假单的信息
+     * @param taskId
+     * @return
+     */
+    @Override
+    public Leavebill queryLeaveBillByTaskId(String taskId) {
+        //1.根据任务ID查询任务实例
+        Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+        //2.从任务实例中取出流程实例ID
+        String processInstanceId = task.getProcessInstanceId();
+        //3.根据流程实例ID查询流程实例
+        ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        //4.取出business_key
+        String businessKey = processInstance.getBusinessKey();
+        //5.获取请假单ID
+        String leaveBillId = businessKey.split(":")[1];
+        return this.leavebillMapper.selectById(leaveBillId);
+    }
+
+    /**
+     * 根据任务id查询连线信息
+     * @param taskId
+     * @return
+     */
+    @Override
+    public List<String> queryOutComeByTaskId(String taskId) {
+        List<String > names=new ArrayList<>();
+        //1.根据任务ID查询任务实例
+        Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+        //2.取出流程定义ID
+        String processDefinitionId = task.getProcessDefinitionId();
+        //3.从任务实例中取出流程实例ID
+        String processInstanceId = task.getProcessInstanceId();
+        //4.根据流程实例ID查询流程实例
+        ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        //5.根据流程定义ID查询流程定义的XML信息
+        ProcessDefinitionEntity processDefinition = (ProcessDefinitionEntity)this.repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
+        //6.从流程实例对象里面取出当前活动节点ID
+        String activityId = processInstance.getActivityId();
+        //7.使用活动ID取出XML和当前活动ID相关的节点数据
+        ActivityImpl activity = processDefinition.findActivity(activityId);
+        List<PvmTransition> outgoingTransitions = activity.getOutgoingTransitions();
+        if (outgoingTransitions!=null&&outgoingTransitions.size()>0){
+            //链接对象：PvmTransition
+            for (PvmTransition outgoingTransition : outgoingTransitions) {
+                String name = outgoingTransition.getProperty("name").toString();
+                names.add(name);
+            }
+        }
+        return names;
     }
 }

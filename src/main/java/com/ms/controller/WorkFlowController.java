@@ -1,5 +1,6 @@
 package com.ms.controller;
 
+import com.ms.entity.Leavebill;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @Classname： WorkFlowController
@@ -26,6 +28,8 @@ import java.util.Collection;
 @RequestMapping("workflow")
 public class WorkFlowController {
 
+    @Autowired
+    private IWorkFlowService workFlowService;
     /**
      * 跳转到模型管理界面
      */
@@ -56,7 +60,6 @@ public class WorkFlowController {
     @RequestMapping("toViewProcessImage")
     public String toViewProcessImage(Model model, WorkFlowVo workFlowVo){
         model.addAttribute("deploymentId", workFlowVo.getDeploymentId());
-//        model.addAttribute("deploymentId", "67515");
         return "workflow/viewProcessImage";}
 
     /**
@@ -65,4 +68,20 @@ public class WorkFlowController {
      */
     @RequestMapping("toTaskManager")
     public String toTaskManager() {return "workflow/taskManager";}
+    /**
+     * 跳转到办理任务界面
+     */
+    @RequestMapping("toDoTask")
+    public String toDoTask(Model model, WorkFlowVo vo){
+        model.addAttribute("taskId", vo.getTaskId());
+        //1.根据任务id查询请假单的信息
+        Leavebill leavebill =this.workFlowService.queryLeaveBillByTaskId(vo.getTaskId());
+        model.addAttribute("leaveBill",leavebill);
+        //2.根据任务id查询连线信息
+       List<String> outComeNames =this.workFlowService.queryOutComeByTaskId(vo.getTaskId());
+        model.addAttribute("outcomes",outComeNames);
+        return"workflow/doTaskManager";
+    }
+
+
 }
