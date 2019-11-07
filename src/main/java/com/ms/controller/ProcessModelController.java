@@ -25,7 +25,7 @@ public class ProcessModelController {
         return workFlowService.queryProcessModel(vo);
     }
     /**
-     * 删除流程定义
+     * 删除模型
      */
     @RequestMapping("deleteProcessModel")
     public ResultObj deleteProcessModel(Integer id) {
@@ -38,10 +38,9 @@ public class ProcessModelController {
         }
     }
     /**
-     * 批量删除流程定义
+     * 批量删除模型
      */
     @RequestMapping("batchdeleteProcessModel")
-    @ResponseBody
     public ResultObj batchdeleteProcessModel(WorkFlowVo vo) {
         try {
             for (Integer id : vo.getIds()) {

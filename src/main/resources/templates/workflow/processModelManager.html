@@ -23,29 +23,29 @@
 	<form action="" method="post" id="searchFrm" lay-filter="searchFrm" class="layui-form layui-form-pane">
 		<div class="layui-form-item">
 		    <div class="layui-inline">
-		      <label class="layui-form-label">流程编号</label>
+		      <label class="layui-form-label">模型ID</label>
 		      <div class="layui-input-inline">
-		        <input type="text" name="title"  autocomplete="off" class="layui-input">
+		        <input type="text" name="modelId"  autocomplete="off" class="layui-input">
 		      </div>
 		    </div>
 		    <div class="layui-inline">
-		      <label class="layui-form-label">流程名称</label>
+		      <label class="layui-form-label">模型名称</label>
 		      <div class="layui-input-inline">
-		        <input type="text" name="deploymentName"    autocomplete="off" class="layui-input">
+		        <input type="text" name="modelName"    autocomplete="off" class="layui-input">
 		      </div>
 		    </div>
-		    <div class="layui-inline">
-		      <label class="layui-form-label">开始时间</label>
-		      <div class="layui-input-inline">
-		        <input type="tel" name="startTime" id="startTime" readonly="readonly" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">
-		      </div>
-		    </div>
-		    <div class="layui-inline">
-		      <label class="layui-form-label">结束时间</label>
-		      <div class="layui-input-inline">
-		        <input type="tel" name="endTime"  id="endTime"  readonly="readonly" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">
-		      </div>
-		    </div>
+		    <!--<div class="layui-inline">-->
+		      <!--<label class="layui-form-label">开始时间</label>-->
+		      <!--<div class="layui-input-inline">-->
+		        <!--<input type="tel" name="startTime" id="startTime" readonly="readonly" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">-->
+		      <!--</div>-->
+		    <!--</div>-->
+		    <!--<div class="layui-inline">-->
+		      <!--<label class="layui-form-label">结束时间</label>-->
+		      <!--<div class="layui-input-inline">-->
+		        <!--<input type="tel" name="endTime"  id="endTime"  readonly="readonly" placeholder="yyyy-MM-dd HH:mm:ss" class="layui-input">-->
+		      <!--</div>-->
+		    <!--</div>-->
 		  </div>
 		  <div class="layui-form-item">
 		      <div class="layui-input-block" style="text-align: center;">
@@ -110,10 +110,6 @@
 			elem:'#endTime',
 			type:'datetime'
 		});
-        laydate.render({
-            elem:'#leavetime',
-            type:'date'
-        });
 		//初始化富文本
 		var editIndex = layedit.build('content');
 		//加载 数据
@@ -128,8 +124,8 @@
 		      {type: 'checkbox', fixed: 'left'}
 		      ,{field:'id', title:'模型ID',align:'center'}
 		      ,{field:'name', title:'流程名称',align:'center'}
-		      ,{field:'version', title:'版本',align:'center'}
 		      ,{field:'createTime', title:'创建时间',align:'center'}
+		      ,{field:'lastUpdateTime', title:'最后操作时间',align:'center'}
 		      ,{fixed: 'right', title:'操作', toolbar: '#workflowRowBar',align:'center',width:400}
 		    ] ]
 		});

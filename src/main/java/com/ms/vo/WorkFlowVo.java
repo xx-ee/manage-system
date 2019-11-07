@@ -24,7 +24,14 @@ public class WorkFlowVo implements Serializable {
     private Integer page=1;
     private Integer limit=10;
 
+    //模型ID
+    private String modelId="";
+    //模型名称
+    private String modelName="";
+
     //流程部署名称
-    private String deploymentName;
+    private String deploymentName="";
+
+
 
 }

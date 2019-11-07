@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
+import org.activiti.engine.repository.ModelQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -126,18 +127,34 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     public DataGridView queryProcessModel(WorkFlowVo vo) {
         int firstResult=(vo.getPage()-1)*vo.getLimit();
         int maxResult=vo.getLimit();
-        List<Model> list = repositoryService.createModelQuery().listPage(firstResult
-                , maxResult);
-        long count = repositoryService.createModelQuery().count();
+        List<Model> queryResult=new ArrayList<>();
+//        boolean fl = vo.getModelId().equals("");
+        if (vo.getModelId()!=null&&!vo.getModelId().equals(""))
+        {
+            queryResult = repositoryService.createModelQuery().modelId(vo.getModelId()).modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
+        }
+        //根据模型名称查询
+        if (vo.getModelId()==null||vo.getModelId().equals(""))
+        {
+            if (vo.getModelName()==null){
+                vo.setModelName("");
+            }
+            queryResult = repositoryService.createModelQuery().modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
+        }
+        long count = queryResult.size();
         ArrayList<ModelEntityVo> objects = new ArrayList<>();
 
-        for (Model model : list)
+        for (Model model : queryResult)
         {
             objects.add(new ModelEntityVo(model));
         }
         return new DataGridView(count,objects);
     }
 
+    /**
+     * 删除流程模型
+     * @param id
+     */
     @Override
     public void deleteProcessModelById(Integer id) {
         this.repositoryService.deleteModel(id+"");
