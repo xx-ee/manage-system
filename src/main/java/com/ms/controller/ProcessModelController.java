@@ -24,6 +24,17 @@ public class ProcessModelController {
     public DataGridView loadAllProcessDefinition(WorkFlowVo vo) {
         return workFlowService.queryProcessModel(vo);
     }
+
+    /**
+     * 发布模型为流程定义
+     * @param id
+     * @return
+     */
+    @RequestMapping("deployModel")
+    public ResultObj deployModel(Integer id)
+    {
+        return this.workFlowService.deployModel(id+"");
+    }
     /**
      * 删除模型
      */

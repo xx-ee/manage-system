@@ -1,10 +1,18 @@
 package com.ms.service.Impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
+import com.ms.response.Status;
+import com.ms.response.ToWeb;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
 import com.ms.vo.act.*;
 import lombok.extern.slf4j.Slf4j;
+import org.activiti.bpmn.converter.BpmnXMLConverter;
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
@@ -13,6 +21,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -158,5 +167,49 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     @Override
     public void deleteProcessModelById(Integer id) {
         this.repositoryService.deleteModel(id+"");
+    }
+
+    /**
+     * 发布模型为流程定义
+     * @param id
+     */
+    @Override
+    public  ResultObj deployModel(String id) {
+        try {
+            //获取模型
+            Model modelData = repositoryService.getModel(id);
+            byte[] bytes = repositoryService.getModelEditorSource(modelData.getId());
+
+            if (bytes == null)
+            {
+                return  ResultObj.DEPLOY_ERROR;
+    //            return ToWeb.buildResult().status(Status.FAIL)
+    //                    .msg("模型数据为空，请先设计流程并成功保存，再进行发布。");
+            }
+
+            JsonNode modelNode = new ObjectMapper().readTree(bytes);
+
+            BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
+            if(model.getProcesses().size()==0){
+                return  ResultObj.DEPLOY_ERROR;
+    //            return ToWeb.buildResult().status(Status.FAIL)
+    //                    .msg("数据模型不符要求，请至少设计一条主线流程。");
+            }
+            byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+
+            //发布流程
+            String processName = modelData.getName() + ".bpmn20.xml";
+            Deployment deployment = repositoryService.createDeployment()
+                    .name(modelData.getName())
+                    .addString(processName, new String(bpmnBytes, "UTF-8"))
+                    .deploy();
+            modelData.setDeploymentId(deployment.getId());
+            repositoryService.saveModel(modelData);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("【{}】流程部署出现问题", id,e);
+            return ResultObj.DEPLOY_ERROR;
+        }
+        return ResultObj.DEPLOY_SUCCESS;
     }
 }

@@ -1,6 +1,7 @@
 package com.ms.service;
 
 import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
 import com.ms.vo.WorkFlowVo;
 
 /**
@@ -46,4 +47,10 @@ public interface IWorkFlowService
      * @param id
      */
     void deleteProcessModelById(Integer id);
+
+    /**
+     * 发布模型为流程定义
+     * @param id
+     */
+    ResultObj deployModel(String id);
 }

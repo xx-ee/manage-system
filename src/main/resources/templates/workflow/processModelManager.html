@@ -234,32 +234,6 @@
 		//打开修改的弹出层
 		function openUpdateworkflowLayer(data){
 			window.location.href="/editor?modelId="+data.id;
-		    // alert(data)
-			// console.log(data)
-            // layer.confirm('你确定要编辑【'+data.id+'】这条模型吗?', {icon: 3, title:'提示'}, function(index){
-			// 	window.location.href="/editor?modelId="+data.id;
-				// /editor?modelId={{$value.id}}
-                // $.post("/workflow/deleteworkflow",{id:data.id},function(res){
-                //     if(res.code==200){
-                //         tableIns.reload();
-                //     }
-                //     layer.msg(res.msg);
-                // })
-                // layer.close(index);
-            // });
-			// mainIndex=layer.open({
-			// 	type:1,
-			// 	content:$("#addOrUpdateDiv"),
-			// 	area:['800px','600px'],
-			// 	title:'修改模型',
-			// 	success:function(){
-			// 		$("#dataFrm")[0].reset();
-			// 		//装载新的数据
-			// 		form.val("dataFrm",data);
-			// 		layedit.setContent(editIndex,data.content);
-			// 		url="/workflow/updateworkflow";
-			// 	}
-			// });
 		}
 		$("#doSubmit").click(function(){
 			//同步富文本和textarea里面的内容
@@ -335,42 +309,13 @@
 		//发布流程
 		function deployprocess(data){
 			///models/{{$value.id}}/deployment
-			url="/models/"+data.id+"/deployment";
-			$.post(url,function(result){
-				//如果成功，则读取后端返回的操作指令
-				if (result.status == web_status.SUCCESS) {
-					if(result['msg']){
-						alert(result.msg);
-					}
-					//刷新
-					if(result['refresh']){
-						window.location.reload();
-						layer.msg("发布成功");
-						return;
-					}
-					//返回
-					if(result['back']){
-						window.location.href = document.referrer;
-					}
-					//跳转
-					if(result['redirectUrl']!=null){
-						window.location.href = result.redirectUrl;
-						return;
-					}
-					return result.data;
-				}
-				//未登录
-				if (result.status == web_status.NO_LOGIN) {
-					alert("您还未登陆！");
-					window.location.href =
-							"http://127.0.0.1:8081/login.html?backToUrl="+encodeURIComponent(btoa(window.location.href));
-				}else{
-					//其他错误情况，直接弹出提示框
-					if(result.msg!=null){
-						alert(result.msg);
-					}
-				}
-				return null;
+			// url="/models/"+data.id+"/deployment";
+			url="/promodel/deployModel";
+			$.post(url,{id:data.id},function(res){
+                layer.msg(res.msg);
+                if(res.code==200){
+                    tableIns.reload();
+                }
 			})
 		}
 	});
