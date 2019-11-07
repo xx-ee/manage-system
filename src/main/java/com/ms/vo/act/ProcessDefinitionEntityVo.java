@@ -2,24 +2,18 @@ package com.ms.vo.act;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.activiti.engine.impl.form.StartFormHandler;
-import org.activiti.engine.impl.task.TaskDefinition;
 import org.activiti.engine.repository.ProcessDefinition;
 
-import java.io.Serializable;
-import java.util.Map;
-
 /**
- * @Classname： ActProcessDefinition
+ * @Classname： ProcessDefinitionEntityVo
  * @Description：
  * @Author： xiedong
- * @Date： 2019/11/6 17:22
+ * @Date： 2019/11/7 10:38
  * @Version： 1.0
  **/
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class ActProcessDefinition implements Serializable
-{
+public class ProcessDefinitionEntityVo {
     private String id;
     private String name;
     protected String key;
@@ -30,7 +24,7 @@ public class ActProcessDefinition implements Serializable
     protected String tenantId = "";
     protected String diagramResourceName;
 
-    public ActProcessDefinition(ProcessDefinition processDefinition) {
+    public ProcessDefinitionEntityVo(ProcessDefinition processDefinition) {
         setId(processDefinition.getId());
         setName(processDefinition.getName());
         setKey(processDefinition.getKey());

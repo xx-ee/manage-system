@@ -34,6 +34,11 @@ public class WorkFlowVo implements Serializable {
     //流程部署ID
     private String deploymentId="";
 
+    //流程定义ID
+    private String definitionId;
+    //流程定义名称
+    private String definitionName;
+
 
 
 }

@@ -66,7 +66,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         List<Deployment> queryResult=new ArrayList<>();
         if (vo.getDeploymentId()!=null&&!vo.getDeploymentId().equals(""))
         {
-            queryResult = repositoryService.createDeploymentQuery().deploymentId(vo.getDeploymentId()).deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
+            queryResult = this.repositoryService.createDeploymentQuery().deploymentId(vo.getDeploymentId()).deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
         }
 
         if (vo.getDeploymentId()==null||vo.getDeploymentId().equals(""))
@@ -74,7 +74,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             if (vo.getDeploymentName()==null){
                 vo.setDeploymentName("");
             }
-            queryResult = repositoryService.createDeploymentQuery().deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
+            queryResult = this.repositoryService.createDeploymentQuery().deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
         }
         //查询总条数
         long size = queryResult.size();
@@ -93,31 +93,38 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     @Override
     public DataGridView queryProcessDefinition(WorkFlowVo vo)
     {
-        if (vo.getDeploymentName()==null)
-        {
-            vo.setDeploymentName("");
-        }
-        String deploymentName = vo.getDeploymentName();
-        //根据部署的名称模糊查询出所有的部署ID
-        List<Deployment> list = repositoryService.createDeploymentQuery().deploymentNameLike("%" + vo.getDeploymentName() + "%").list();
-        HashSet<String> deploymentIds = new HashSet<>();
-        for (Deployment deployment : list) {
-            deploymentIds.add(deployment.getId());
-        }
-        long count = this.repositoryService.createProcessDefinitionQuery().deploymentIds(deploymentIds).count();
-        //查询
         int firstResult=(vo.getPage()-1)*vo.getLimit();
         int maxResult=vo.getLimit();
-        List<ProcessDefinition> processDefinitions = this.repositoryService.createProcessDefinitionQuery().deploymentIds(deploymentIds).listPage(firstResult, maxResult);
-        ArrayList<ActProcessDefinition> objects = new ArrayList<>();
-        for (ProcessDefinition processDefinition : processDefinitions) {
-            ActProcessDefinition actProcessDefinition = new ActProcessDefinition(processDefinition);
-            objects.add(actProcessDefinition);
+        List<ProcessDefinition> queryResult=new ArrayList<>();
+        if (vo.getDefinitionId()!=null&&!vo.getDefinitionId().equals(""))
+        {
+            queryResult = this.repositoryService.createProcessDefinitionQuery().processDefinitionId(vo.getDefinitionId()).processDefinitionKeyLike("%" + vo.getDefinitionName() + "%").listPage(firstResult, maxResult);
         }
-        return new DataGridView(count,objects);
+
+        if (vo.getDefinitionId()==null||vo.getDefinitionId().equals(""))
+        {
+            if (vo.getDefinitionName()==null){
+                vo.setDefinitionName("");
+            }
+
+            queryResult = this.repositoryService.createProcessDefinitionQuery().processDefinitionKeyLike("%" + vo.getDefinitionName() + "%").listPage(firstResult, maxResult);
+        }
+
+        long size = queryResult.size();
+
+        ArrayList<ProcessDefinitionEntityVo> objects = new ArrayList<>();
+        for (ProcessDefinition processDefinition : queryResult) {
+            ProcessDefinitionEntityVo processDefinitionEntityVo = new ProcessDefinitionEntityVo(processDefinition);
+            objects.add(processDefinitionEntityVo);
+        }
+        return new DataGridView(size,objects);
 
     }
 
+    /**
+     * 根据id删除模型
+     * @param id
+     */
     @Override
     public void deleteProcessDefById(Integer id) {
         try
@@ -128,6 +135,10 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         }
     }
 
+    /**
+     * 根据部署id删除模型
+     * @param id
+     */
     @Override
     public void deleteProcessDeployById(Integer id) {
         this.repositoryService.deleteDeployment(id+"",true);
@@ -146,7 +157,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 //        boolean fl = vo.getModelId().equals("");
         if (vo.getModelId()!=null&&!vo.getModelId().equals(""))
         {
-            queryResult = repositoryService.createModelQuery().modelId(vo.getModelId()).modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
+            queryResult = this.repositoryService.createModelQuery().modelId(vo.getModelId()).modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
         }
         //根据模型名称查询
         if (vo.getModelId()==null||vo.getModelId().equals(""))
@@ -154,7 +165,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             if (vo.getModelName()==null){
                 vo.setModelName("");
             }
-            queryResult = repositoryService.createModelQuery().modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
+            queryResult = this.repositoryService.createModelQuery().modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
         }
         long count = queryResult.size();
         ArrayList<ModelEntityVo> objects = new ArrayList<>();
@@ -183,8 +194,8 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     public  ResultObj deployModel(String id) {
         try {
             //获取模型
-            Model modelData = repositoryService.getModel(id);
-            byte[] bytes = repositoryService.getModelEditorSource(modelData.getId());
+            Model modelData = this.repositoryService.getModel(id);
+            byte[] bytes = this.repositoryService.getModelEditorSource(modelData.getId());
 
             if (bytes == null)
             {
@@ -205,12 +216,12 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
             //发布流程
             String processName = modelData.getName() + ".bpmn20.xml";
-            Deployment deployment = repositoryService.createDeployment()
+            Deployment deployment = this.repositoryService.createDeployment()
                     .name(modelData.getName())
                     .addString(processName, new String(bpmnBytes, "UTF-8"))
                     .deploy();
             modelData.setDeploymentId(deployment.getId());
-            repositoryService.saveModel(modelData);
+            this.repositoryService.saveModel(modelData);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("【{}】流程部署出现问题", id,e);
@@ -230,7 +241,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         try
         {
             //初始化一个空模型
-            Model model = repositoryService.newModel();
+            Model model = this.repositoryService.newModel();
 
             //设置一些默认信息
             String name = "new-process";
@@ -247,7 +258,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             model.setKey(key);
             model.setMetaInfo(modelNode.toString());
 
-            repositoryService.saveModel(model);
+            this.repositoryService.saveModel(model);
             id = model.getId();
 
             //完善ModelEditorSource
@@ -258,7 +269,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             stencilSetNode.put("namespace",
                     "http://b3mn.org/stencilset/bpmn2.0#");
             editorNode.put("stencilset", stencilSetNode);
-            repositoryService.addModelEditorSource(id,editorNode.toString().getBytes("utf-8"));
+            this.repositoryService.addModelEditorSource(id,editorNode.toString().getBytes("utf-8"));
         } catch (Exception e)
         {
             e.printStackTrace();
