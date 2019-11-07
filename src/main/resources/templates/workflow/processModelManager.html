@@ -123,7 +123,7 @@
 		    ,cols: [ [
 		      {type: 'checkbox', fixed: 'left'}
 		      ,{field:'id', title:'模型ID',align:'center'}
-		      ,{field:'name', title:'流程名称',align:'center'}
+		      ,{field:'name', title:'模型名称',align:'center'}
 		      ,{field:'createTime', title:'创建时间',align:'center'}
 		      ,{field:'lastUpdateTime', title:'最后操作时间',align:'center'}
 		      ,{fixed: 'right', title:'操作', toolbar: '#workflowRowBar',align:'center',width:400}
@@ -174,61 +174,18 @@
 		
 		var mainIndex;
 		var url;
-		web_status = {
-			SUCCESS : "000",
-			FAIL : "001",
-			NO_LOGIN : "003",
-			NO_PRIVILEGE : "004"
-		};
+
 		//打开添加的弹出层
 		function openAddLayer(){
-			url="/models/newModel";
-			$.post(url,function(result){
-				//如果成功，则读取后端返回的操作指令
-				if (result.status == web_status.SUCCESS) {
-					if(result['msg']){
-						alert(result.msg);
-					}
-					//刷新
-					if(result['refresh']){
-						window.location.reload();
-						return;
-					}
-					//返回
-					if(result['back']){
-						window.location.href = document.referrer;
-					}
-					//跳转
-					if(result['redirectUrl']!=null){
-						window.location.href = result.redirectUrl;
-						return;
-					}
-					return result.data;
+			// url="/models/newModel";
+			url="/promodel/onlineModel"
+			$.post(url,function(res){
+				if (res.data!=null) {
+				    // console.log(res)
+                    window.location.href="/editor?modelId="+res.data;
 				}
-				//未登录
-				if (result.status == web_status.NO_LOGIN) {
-					alert("您还未登陆！");
-					window.location.href =
-							"http://127.0.0.1:8081/login.html?backToUrl="+encodeURIComponent(btoa(window.location.href));
-				}else{
-					//其他错误情况，直接弹出提示框
-					if(result.msg!=null){
-						alert(result.msg);
-					}
-				}
-				return null;
+
 			})
-			// mainIndex=layer.open({
-			// 	type:1,
-			// 	content:$("#addOrUpdateDiv"),
-			// 	area:['800px','600px'],
-			// 	title:'添加模型',
-			// 	success:function(){
-			// 		$("#dataFrm")[0].reset();
-			// 		layedit.setContent(editIndex,"");
-			// 		url="/workflow/addworkflow";
-			// 	}
-			// });
 		}
 		
 		//打开修改的弹出层

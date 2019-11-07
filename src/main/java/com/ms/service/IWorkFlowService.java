@@ -53,4 +53,11 @@ public interface IWorkFlowService
      * @param id
      */
     ResultObj deployModel(String id);
+
+    /**
+     * 在线设计模型
+     * @return
+     */
+    DataGridView onlineModel();
+
 }

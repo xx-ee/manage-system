@@ -1,5 +1,6 @@
 package com.ms.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
@@ -17,12 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProcessModelController {
     @Autowired
     private IWorkFlowService workFlowService;
+
     /**
      * 加载模型信息
      */
     @RequestMapping("loadAllProcessModel")
     public DataGridView loadAllProcessDefinition(WorkFlowVo vo) {
         return workFlowService.queryProcessModel(vo);
+    }
+    /**
+     * 在线设计模型
+     */
+    @RequestMapping("onlineModel")
+    public DataGridView onlineModel()
+    {
+        return this.workFlowService.onlineModel();
     }
 
     /**
