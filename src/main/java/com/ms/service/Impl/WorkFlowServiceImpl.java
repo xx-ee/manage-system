@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
-import com.ms.response.Status;
-import com.ms.response.ToWeb;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
-import com.ms.vo.act.*;
+import com.ms.vo.act.DeploymentEntityVo;
+import com.ms.vo.act.ModelEntityVo;
+import com.ms.vo.act.ProcessDefinitionEntityVo;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -18,16 +18,13 @@ import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
-import org.activiti.engine.repository.ModelQuery;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -281,6 +278,19 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
                 return stream;
             }
         }
+        return null;
+    }
+
+    /**
+     * 启动请假流程
+     * @param leaveBillId
+     * @return
+     */
+    @Override
+    @Transactional
+    public ResultObj startProcess(String leaveBillId) {
+
+//        this.runtimeService.startProcessInstanceByKey(, , )
         return null;
     }
 }

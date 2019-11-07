@@ -63,4 +63,10 @@ public interface IWorkFlowService
      * @return
      */
     InputStream viewProcessImage(String deploymentId);
+
+    /**
+     * 启动请假工作流
+     * @param leaveBillId
+     */
+    ResultObj startProcess(String leaveBillId);
 }

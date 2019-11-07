@@ -2,10 +2,8 @@ package com.ms.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Classname： WorkFlowVo
@@ -38,6 +36,9 @@ public class WorkFlowVo implements Serializable {
     private String definitionId;
     //流程定义名称
     private String definitionName;
+
+    //请假单的ID
+    private String id;
 
 
 
