@@ -230,7 +230,7 @@
 		//弹出查看层
 		function showworkflow(data){
 			mainIndex=layer.open({
-                title:"流程图",
+                title:"查看【"+data.name+"】流程图",
                 type:2,//0-4 默认为0
                 content:"/workflow/toViewProcessImage?deploymentId="+data.id,
                 skin:'layui-layer-molv',
