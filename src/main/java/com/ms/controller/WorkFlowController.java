@@ -7,6 +7,7 @@ import com.ms.vo.NoticeVo;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -49,5 +50,13 @@ public class WorkFlowController {
     {
         return "workflow/processDeployManager";
     }
+    /**
+     * 查看流程图
+     */
+    @RequestMapping("toViewProcessImage")
+    public String toViewProcessImage(Model model, WorkFlowVo workFlowVo){
+        model.addAttribute("deploymentId", workFlowVo.getDeploymentId());
+//        model.addAttribute("deploymentId", "67515");
+        return "workflow/viewProcessImage";}
 
 }

@@ -168,7 +168,7 @@
 			    case 'delete':
 			   		deleteworkflow(data);
 			    break;
-			    case 'show':
+			    case 'viewShow':
 			   		showworkflow(data);
 			    break;
 			  };
@@ -230,16 +230,15 @@
 		//弹出查看层
 		function showworkflow(data){
 			mainIndex=layer.open({
-				type:1,
-				content:$("#showworkflowDiv"),
-				area:['800px','600px'],
-				title:'查看流程部署',
-				success:function(){
-					$("#show_title").html(data.title);
-					$("#show_opername").html(data.opername);
-					$("#show_createtime").html(data.createtime);
-					$("#show_content").html(data.content);
-				}
+                title:"流程图",
+                type:2,//0-4 默认为0
+                content:"/workflow/toViewProcessImage?deploymentId="+data.id,
+                skin:'layui-layer-molv',
+                area:['800px','550px'], //设置宽高
+                closeBtn:2,  //可以写1  2  boolean   false=不显示关闭按钮
+                shadeClose:true,//点击弹出层之外的位置是否自动关闭
+                maxmin:true,//是否显示最大化和最小化的按钮
+                resize:true//设置是否允许拉伸
 			});
 		}
 	});

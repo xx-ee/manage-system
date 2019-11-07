@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -263,5 +264,23 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             return new DataGridView();
         }
         return new DataGridView(id);
+    }
+
+    /**
+     * 查看流程图
+     * @param deploymentId
+     * @return
+     */
+    @Override
+    public InputStream viewProcessImage(String deploymentId) {
+        List<String> names = this.repositoryService.getDeploymentResourceNames(deploymentId);
+        for (String resourceName : names) {
+            System.out.println(resourceName);
+            if (resourceName.endsWith(".png")) {
+                InputStream stream = repositoryService.getResourceAsStream(deploymentId, resourceName);
+                return stream;
+            }
+        }
+        return null;
     }
 }

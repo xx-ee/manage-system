@@ -4,6 +4,8 @@ import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.vo.WorkFlowVo;
 
+import java.io.InputStream;
+
 /**
  * 工作流的服务接口
  */
@@ -55,4 +57,10 @@ public interface IWorkFlowService
      */
     DataGridView onlineModel();
 
+    /**
+     * 查看流程图片
+     * @param deploymentId
+     * @return
+     */
+    InputStream viewProcessImage(String deploymentId);
 }
