@@ -15,6 +15,7 @@ import com.ms.vo.WorkFlowVo;
 import com.ms.vo.act.DeploymentEntityVo;
 import com.ms.vo.act.ModelEntityVo;
 import com.ms.vo.act.ProcessDefinitionEntityVo;
+import com.ms.vo.act.TaskEntityVo;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
@@ -24,6 +25,7 @@ import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -313,5 +315,31 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             this.runtimeService.deleteProcessInstance(processDefinitionKey, businessKey);
             return ResultObj.START_PROCESS_ERROR;
         }
+    }
+
+    /**
+     * 查询当前用户的代办任务
+     * @param vo
+     * @return
+     */
+    @Override
+    public DataGridView loadCurrentUserTask(WorkFlowVo vo) {
+        int firstResult = (vo.getPage() - 1) * vo.getLimit();
+        int maxResult = vo.getLimit();
+        //1.得到办理人的信息
+        User user = (User) WebUtils.getSession().getAttribute("user");
+        String assignee = user.getName();
+        //2.查询总数
+        long count = this.taskService.createTaskQuery().taskAssignee(assignee).count();
+        //3.查询集合
+        List<Task> tasks = this.taskService.createTaskQuery().taskAssignee(assignee).listPage(firstResult, maxResult);
+        ArrayList<TaskEntityVo> datas = new ArrayList<>();
+        if (tasks!=null&&tasks.size()>0)
+        {
+            for (Task task : tasks) {
+                datas.add(new TaskEntityVo(task));
+            }
+        }
+        return new DataGridView(count,datas);
     }
 }

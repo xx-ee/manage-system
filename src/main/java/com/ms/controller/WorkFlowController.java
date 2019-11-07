@@ -59,4 +59,10 @@ public class WorkFlowController {
 //        model.addAttribute("deploymentId", "67515");
         return "workflow/viewProcessImage";}
 
+    /**
+     * 跳转到待办任务界面
+     * @return
+     */
+    @RequestMapping("toTaskManager")
+    public String toTaskManager() {return "workflow/taskManager";}
 }

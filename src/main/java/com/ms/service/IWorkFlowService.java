@@ -69,4 +69,11 @@ public interface IWorkFlowService
      * @param leaveBillId
      */
     ResultObj startProcess(String leaveBillId);
+
+    /**
+     * 查询用户的代办任务
+     * @param vo
+     * @return
+     */
+    DataGridView loadCurrentUserTask(WorkFlowVo vo);
 }
