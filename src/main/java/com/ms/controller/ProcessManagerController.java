@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version： 1.0
  **/
 @Slf4j
-@RestController("process")
+@RestController()
+@RequestMapping("process")
 public class ProcessManagerController {
     @Autowired
     private IWorkFlowService workFlowService;
@@ -29,6 +30,6 @@ public class ProcessManagerController {
     public ResultObj startProcess(WorkFlowVo workFlowVo)
     {
         //启动请假流程
-        return this.workFlowService.startProcess(workFlowVo.getId());
+        return this.workFlowService.startProcess(workFlowVo.getId()+"");
     }
 }

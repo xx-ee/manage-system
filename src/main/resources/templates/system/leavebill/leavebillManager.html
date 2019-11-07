@@ -137,20 +137,6 @@
 <!-- 添加和修改的弹出层结束 -->
 
 
-<!-- 查看弹出层的开始 -->
-<div style="display: none;padding: 5px" id="showleavebillDiv">
-	<h2 id="show_title" align="center"></h2>
-	<div style="text-align: right;">
-		发布人:<span id="show_opername"></span>
-		发布时间:<span id="show_createtime"></span>
-	</div>
-	<hr>
-	<div id="show_content"></div>
-	
-</div>
-<!-- 查看弹出层的结束-->
-
-
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
 <script type="text/javascript">
 	layui.use(['jquery','form','table','layer','laydate','layedit'],function(){
@@ -358,8 +344,11 @@
 		//=============================
 		//启动请假流程
 		function startLeaveBillProcess(data){
+			console.log(data)
             layer.confirm('你确定要提交【'+data.title+'】请假单吗?', {icon: 3, title:'提示'}, function(index){
-                $.post("/process/startProcess",data.id,function(res){
+                $.post("/process/startProcess",{id:data.id},function(res){
+                	console.log(res)
+
                     if(res.code==200){
                         tableIns.reload();
                     }

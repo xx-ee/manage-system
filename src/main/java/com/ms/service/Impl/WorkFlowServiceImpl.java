@@ -3,9 +3,14 @@ package com.ms.service.Impl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.ms.entity.Leavebill;
+import com.ms.entity.User;
+import com.ms.mapper.LeavebillMapper;
+import com.ms.response.Constast;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
+import com.ms.utils.WebUtils;
 import com.ms.vo.WorkFlowVo;
 import com.ms.vo.act.DeploymentEntityVo;
 import com.ms.vo.act.ModelEntityVo;
@@ -25,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,23 +59,23 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     private ManagementService managementService;
     @Autowired
     ObjectMapper objectMapper;
+    @Autowired
+    private LeavebillMapper leavebillMapper;
 
     /**
      * 查询流程部署信息
      */
     @Override
-    public DataGridView queryProcessDeploy(WorkFlowVo vo){
-        int firstResult=(vo.getPage()-1)*vo.getLimit();
-        int maxResult=vo.getLimit();
-        List<Deployment> queryResult=new ArrayList<>();
-        if (vo.getDeploymentId()!=null&&!vo.getDeploymentId().equals(""))
-        {
+    public DataGridView queryProcessDeploy(WorkFlowVo vo) {
+        int firstResult = (vo.getPage() - 1) * vo.getLimit();
+        int maxResult = vo.getLimit();
+        List<Deployment> queryResult = new ArrayList<>();
+        if (vo.getDeploymentId() != null && !vo.getDeploymentId().equals("")) {
             queryResult = this.repositoryService.createDeploymentQuery().deploymentId(vo.getDeploymentId()).deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
         }
 
-        if (vo.getDeploymentId()==null||vo.getDeploymentId().equals(""))
-        {
-            if (vo.getDeploymentName()==null){
+        if (vo.getDeploymentId() == null || vo.getDeploymentId().equals("")) {
+            if (vo.getDeploymentName() == null) {
                 vo.setDeploymentName("");
             }
             queryResult = this.repositoryService.createDeploymentQuery().deploymentNameLike("%" + vo.getDeploymentName() + "%").listPage(firstResult, maxResult);
@@ -77,31 +83,29 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         //查询总条数
         long size = queryResult.size();
         ArrayList<DeploymentEntityVo> data = new ArrayList<>();
-        for(Deployment deployment: queryResult){
+        for (Deployment deployment : queryResult) {
             data.add(new DeploymentEntityVo(deployment));
         }
-        return new DataGridView(size,data);
+        return new DataGridView(size, data);
     }
 
     /**
      * 查询流程定义信息
+     *
      * @param vo
      * @return
      */
     @Override
-    public DataGridView queryProcessDefinition(WorkFlowVo vo)
-    {
-        int firstResult=(vo.getPage()-1)*vo.getLimit();
-        int maxResult=vo.getLimit();
-        List<ProcessDefinition> queryResult=new ArrayList<>();
-        if (vo.getDefinitionId()!=null&&!vo.getDefinitionId().equals(""))
-        {
+    public DataGridView queryProcessDefinition(WorkFlowVo vo) {
+        int firstResult = (vo.getPage() - 1) * vo.getLimit();
+        int maxResult = vo.getLimit();
+        List<ProcessDefinition> queryResult = new ArrayList<>();
+        if (vo.getDefinitionId() != null && !vo.getDefinitionId().equals("")) {
             queryResult = this.repositoryService.createProcessDefinitionQuery().processDefinitionId(vo.getDefinitionId()).processDefinitionKeyLike("%" + vo.getDefinitionName() + "%").listPage(firstResult, maxResult);
         }
 
-        if (vo.getDefinitionId()==null||vo.getDefinitionId().equals(""))
-        {
-            if (vo.getDefinitionName()==null){
+        if (vo.getDefinitionId() == null || vo.getDefinitionId().equals("")) {
+            if (vo.getDefinitionName() == null) {
                 vo.setDefinitionName("");
             }
 
@@ -115,39 +119,39 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             ProcessDefinitionEntityVo processDefinitionEntityVo = new ProcessDefinitionEntityVo(processDefinition);
             objects.add(processDefinitionEntityVo);
         }
-        return new DataGridView(size,objects);
+        return new DataGridView(size, objects);
 
     }
 
 
     /**
      * 根据部署id删除模型
+     *
      * @param id
      */
     @Override
     public void deleteProcessDeployById(Integer id) {
-        this.repositoryService.deleteDeployment(id+"",true);
+        this.repositoryService.deleteDeployment(id + "", true);
     }
 
     /**
      * 查询流程模型信息
+     *
      * @param vo
      * @return
      */
     @Override
     public DataGridView queryProcessModel(WorkFlowVo vo) {
-        int firstResult=(vo.getPage()-1)*vo.getLimit();
-        int maxResult=vo.getLimit();
-        List<Model> queryResult=new ArrayList<>();
+        int firstResult = (vo.getPage() - 1) * vo.getLimit();
+        int maxResult = vo.getLimit();
+        List<Model> queryResult = new ArrayList<>();
 //        boolean fl = vo.getModelId().equals("");
-        if (vo.getModelId()!=null&&!vo.getModelId().equals(""))
-        {
+        if (vo.getModelId() != null && !vo.getModelId().equals("")) {
             queryResult = this.repositoryService.createModelQuery().modelId(vo.getModelId()).modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
         }
         //根据模型名称查询
-        if (vo.getModelId()==null||vo.getModelId().equals(""))
-        {
-            if (vo.getModelName()==null){
+        if (vo.getModelId() == null || vo.getModelId().equals("")) {
+            if (vo.getModelName() == null) {
                 vo.setModelName("");
             }
             queryResult = this.repositoryService.createModelQuery().modelNameLike("%" + vo.getModelName() + "%").listPage(firstResult, maxResult);
@@ -155,47 +159,47 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         long count = queryResult.size();
         ArrayList<ModelEntityVo> objects = new ArrayList<>();
 
-        for (Model model : queryResult)
-        {
+        for (Model model : queryResult) {
             objects.add(new ModelEntityVo(model));
         }
-        return new DataGridView(count,objects);
+        return new DataGridView(count, objects);
     }
 
     /**
      * 删除流程模型
+     *
      * @param id
      */
     @Override
     public void deleteProcessModelById(Integer id) {
-        this.repositoryService.deleteModel(id+"");
+        this.repositoryService.deleteModel(id + "");
     }
 
     /**
      * 发布模型为流程定义
+     *
      * @param id
      */
     @Override
-    public  ResultObj deployModel(String id) {
+    public ResultObj deployModel(String id) {
         try {
             //获取模型
             Model modelData = this.repositoryService.getModel(id);
             byte[] bytes = this.repositoryService.getModelEditorSource(modelData.getId());
 
-            if (bytes == null)
-            {
-                return  ResultObj.DEPLOY_ERROR;
-    //            return ToWeb.buildResult().status(Status.FAIL)
-    //                    .msg("模型数据为空，请先设计流程并成功保存，再进行发布。");
+            if (bytes == null) {
+                return ResultObj.DEPLOY_ERROR;
+                //            return ToWeb.buildResult().status(Status.FAIL)
+                //                    .msg("模型数据为空，请先设计流程并成功保存，再进行发布。");
             }
 
             JsonNode modelNode = new ObjectMapper().readTree(bytes);
 
             BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
-            if(model.getProcesses().size()==0){
-                return  ResultObj.DEPLOY_ERROR;
-    //            return ToWeb.buildResult().status(Status.FAIL)
-    //                    .msg("数据模型不符要求，请至少设计一条主线流程。");
+            if (model.getProcesses().size() == 0) {
+                return ResultObj.DEPLOY_ERROR;
+                //            return ToWeb.buildResult().status(Status.FAIL)
+                //                    .msg("数据模型不符要求，请至少设计一条主线流程。");
             }
             byte[] bpmnBytes = new BpmnXMLConverter().convertToXML(model);
 
@@ -209,7 +213,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             this.repositoryService.saveModel(modelData);
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("【{}】流程部署出现问题", id,e);
+            log.info("【{}】流程部署出现问题", id, e);
             return ResultObj.DEPLOY_ERROR;
         }
         return ResultObj.DEPLOY_SUCCESS;
@@ -217,14 +221,13 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
     /**
      * 在线设计模型
+     *
      * @return
      */
     @Override
-    public DataGridView onlineModel()
-    {
-        String id="";
-        try
-        {
+    public DataGridView onlineModel() {
+        String id = "";
+        try {
             //初始化一个空模型
             Model model = this.repositoryService.newModel();
 
@@ -254,9 +257,8 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             stencilSetNode.put("namespace",
                     "http://b3mn.org/stencilset/bpmn2.0#");
             editorNode.put("stencilset", stencilSetNode);
-            this.repositoryService.addModelEditorSource(id,editorNode.toString().getBytes("utf-8"));
-        } catch (Exception e)
-        {
+            this.repositoryService.addModelEditorSource(id, editorNode.toString().getBytes("utf-8"));
+        } catch (Exception e) {
             e.printStackTrace();
             return new DataGridView();
         }
@@ -265,6 +267,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
     /**
      * 查看流程图
+     *
      * @param deploymentId
      * @return
      */
@@ -283,14 +286,32 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
 
     /**
      * 启动请假流程
+     *
      * @param leaveBillId
      * @return
      */
     @Override
     @Transactional
     public ResultObj startProcess(String leaveBillId) {
-
-//        this.runtimeService.startProcessInstanceByKey(, , )
-        return null;
+        //流程的key
+        String processDefinitionKey = Leavebill.class.getSimpleName();
+        String businessKey = processDefinitionKey.concat(":").concat(processDefinitionKey);
+        HashMap<String, Object> variables = new HashMap<>();
+        User user = (User) WebUtils.getSession().getAttribute("user");
+        //设置流程变量去设置下一个办理人
+        variables.put("username", user.getName());
+        try {
+            this.runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey, variables);
+            //更新请假单的状态
+            Leavebill leavebill = this.leavebillMapper.selectById(leaveBillId);
+            leavebill.setState(Integer.parseInt(Constast.STATE_LEAVEBILL_INAPPROVAL));
+            this.leavebillMapper.updateById(leavebill);
+            return ResultObj.START_PROCESS_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("流程启动失败",e);
+            this.runtimeService.deleteProcessInstance(processDefinitionKey, businessKey);
+            return ResultObj.START_PROCESS_ERROR;
+        }
     }
 }

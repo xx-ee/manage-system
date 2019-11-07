@@ -49,4 +49,12 @@ public interface Constast {
 	 */
 	public static final String IMAGES_DEFAULTGOODSIMG_PNG = "images/defaultgoodsimg.png";
 
+	/**
+	 * 请假单的状态
+	 */
+	public static final String STATE_LEAVEBILL_UNCOMMIT="0";//未提交
+	public static final String STATE_LEAVEBILL_INAPPROVAL="1";//审批中
+	public static final String STATE_LEAVEBILL_APPROVALED="2";//审批完成
+	public static final String STATE_LEAVEBILL_GIVEUP="3";//已放弃
+
 }
