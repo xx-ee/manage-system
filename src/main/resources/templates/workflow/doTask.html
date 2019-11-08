@@ -22,20 +22,20 @@
 		<label class="layui-form-label">请假标题</label>
 		<div class="layui-input-block">
 			<input type="hidden" name="id">
-			<input type="text" name="title"  disabled="disabled"  autocomplete="off"  class="layui-input">
+			<input type="text" name="title"  disabled="disabled"  th:value="${leaveBill.title}" autocomplete="off"  class="layui-input">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<div class="layui-inline">
 			<label class="layui-form-label">请假天数</label>
 			<div class="layui-input-inline">
-				<input type="tel" name="days"  disabled="disabled"  autocomplete="off" class="layui-input">
+				<input type="tel" name="days"  disabled="disabled" th:value="${leaveBill.days}" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">开始时间</label>
 			<div class="layui-input-inline">
-				<input type="tel" name="days"  disabled="disabled"  autocomplete="off" class="layui-input">
+				<input type="tel" name="days"  disabled="disabled" th:value="${#dates.format(leaveBill.leavetime, 'yyyy-MM-dd')}" autocomplete="off" class="layui-input">
 
 			</div>
 		</div>
@@ -43,7 +43,7 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">请假原因</label>
 		<div class="layui-input-block">
-			<textarea placeholder="请输入内容"  rows="1" disabled="disabled" class="layui-textarea"></textarea>
+			<textarea placeholder="请输入内容"  rows="1" disabled="disabled" th:value="${leaveBill.content}" class="layui-textarea"></textarea>
 		</div>
 	</div>
 	<div class="layui-form-item">
@@ -51,6 +51,11 @@
 		<div class="layui-input-block">
 			<textarea placeholder="请输入批注内容"  id="comment" rows="1"  class="layui-textarea"></textarea>
 		</div>
+	</div>
+	<div class="layui-form-item" style="text-align: center;">
+		<!--<c:forEach var="sn" items="${outcomes }">-->
+			<!--<input type="button" class="doTask layui-btn layui-btn-normal" value="${sn }"></input>-->
+		<!--</c:forEach>-->
 	</div>
 </form>
 <!-- 请假单结束 -->
