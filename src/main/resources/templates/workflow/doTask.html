@@ -54,7 +54,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">批注</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入批注内容" id="comment" rows="1" class="layui-textarea"></textarea>
+            <textarea placeholder="请输入批注内容" id="comment"  class="layui-textarea"></textarea>
         </div>
     </div>
     <div style="text-align: center;margin:0 auto;">
@@ -69,47 +69,47 @@
 </form>
 <!-- 请假单结束 -->
 <!-- 数据表格开始 -->
-<table class="layui-hide" id="commentTable" lay-filter="commentTable"></table>
+<table class="layui-hide" id="commentTable" lay-filter="commentTable" style="margin-top:50px;"></table>
 <!-- 数据表格结束 -->
 <script type="text/javascript" src="/resources/layui/layui.js"></script>
-<!--<script type="text/javascript">-->
-<!--layui.use(['jquery','form','table','layer','laydate','layedit'],function(){-->
-<!--var $=layui.jquery;-->
-<!--var form=layui.form;-->
-<!--var table=layui.table;-->
-<!--var layer=layui.layer;-->
-<!--var laydate=layui.laydate;-->
-<!--var layedit=layui.layedit;-->
-<!--//初始化富文本-->
-<!--var editIndex = layedit.build('content');-->
-<!--//加载 数据-->
-<!--var tableIns=table.render({-->
-<!--elem: '#commentTable'-->
-<!--,url:''-->
-<!--,title: '请假单数据表',-->
-<!--loading:true//是否显示加载成功条-->
-<!--,cols: [[   //解析json.data的数据-->
-<!--{field:'time', title:'批注时间',align:'center'}-->
-<!--,{field:'userId', title:'批注人',align:'center'}-->
-<!--,{field:'message', title:'批注内容',align:'center'}-->
-<!--]]-->
-<!--});-->
+<script th:inline="javascript">
 
-<!--$("#doSubmit").click(function(){-->
-<!--//同步富文本和textarea里面的内容-->
-<!--layedit.sync(editIndex);-->
-<!--var data=$("#dataFrm").serialize();-->
-<!--$.post(url,data,function(res){-->
-<!--if(res.code==200){-->
-<!--tableIns.reload();-->
-<!--}-->
-<!--layer.msg(res.msg);-->
-<!--layer.close(mainIndex);-->
-<!--})-->
-<!--})-->
+    layui.use(['jquery', 'form', 'table', 'layer', 'laydate', 'layedit'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var table = layui.table;
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        var layedit = layui.layedit;
+        var editIndex = layedit.build('content');
+        var taskId=[[${taskId}]];
+        // alert(taskId);
+        var tableIns = table.render({
+            elem: '#commentTable'
+            , url: '/task/loadCommentsByTaskId?taskId='+taskId
+            , title: '请假单数据表',
+            loading: true//是否显示加载成功条
+            , cols: [[   //解析json.data的数据
+                {field: 'time', title: '批注时间', align: 'center'}
+                , {field: 'userId', title: '批注人', align: 'center'}
+                , {field: 'message', title: '批注内容', align: 'center'}
+            ]]
+        });
 
-<!--});-->
-<!--</script>-->
+        $(".doTask").click(function () {
+            // layedit.sync(editIndex);
+            // var data = $("#dataFrm").serialize();
+            // $.post(url, data, function (res) {
+            //     if (res.code == 200) {
+            //         tableIns.reload();
+            //     }
+            //     layer.msg(res.msg);
+            //     layer.close(mainIndex);
+            // })
+        })
+
+    });
+</script>
 
 </body>
 </html>
