@@ -30,9 +30,9 @@ public class TaskController {
     /**
      * 根据任务ID查询批注信息
      */
-    @RequestMapping("loadAllComments")
-    public DataGridView loadAllComments(WorkFlowVo vo)
+    @RequestMapping("loadCommentsByTaskId")
+    public DataGridView loadCommentsByTaskId(WorkFlowVo vo)
     {
-        return null;
+        return this.workFlowService.queryCommentsByTaskId(vo.getTaskId());
     }
 }

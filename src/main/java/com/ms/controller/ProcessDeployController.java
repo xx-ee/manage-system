@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
@@ -31,7 +30,6 @@ public class ProcessDeployController {
      * 加载流程部署信息
      */
     @RequestMapping("loadAllDeployment")
-    @ResponseBody
     public DataGridView loadAllDeploys(WorkFlowVo vo) {
         return workFlowService.queryProcessDeploy(vo);
     }
@@ -52,7 +50,6 @@ public class ProcessDeployController {
      * 批量删除流程部署
      */
     @RequestMapping("batchDeleteworkflow")
-    @ResponseBody
     public ResultObj batchDeleteProcessDeploy(WorkFlowVo vo) {
         try {
             for (String id : vo.getIds()) {

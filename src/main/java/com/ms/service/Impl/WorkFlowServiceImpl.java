@@ -12,23 +12,19 @@ import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
 import com.ms.utils.WebUtils;
 import com.ms.vo.WorkFlowVo;
-import com.ms.vo.act.DeploymentEntityVo;
-import com.ms.vo.act.ModelEntityVo;
-import com.ms.vo.act.ProcessDefinitionEntityVo;
-import com.ms.vo.act.TaskEntityVo;
+import com.ms.vo.act.*;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
-import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.*;
+import org.activiti.bpmn.model.Process;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
-import org.activiti.engine.impl.pvm.PvmTransition;
-import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -301,7 +298,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     public ResultObj startProcess(String leaveBillId) {
         //流程的key
         String processDefinitionKey = Leavebill.class.getSimpleName();
-        String businessKey = processDefinitionKey.concat(":").concat(processDefinitionKey);
+        String businessKey = processDefinitionKey.concat(":").concat(leaveBillId);
         HashMap<String, Object> variables = new HashMap<>();
         User user = (User) WebUtils.getSession().getAttribute("user");
         //设置流程变量去设置下一个办理人
@@ -374,29 +371,56 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
      */
     @Override
     public List<String> queryOutComeByTaskId(String taskId) {
-        List<String > names=new ArrayList<>();
-        //1.根据任务ID查询任务实例
+        List<String> outcomes = new ArrayList<>();
+        // 根据任务ID查询任务对象
         Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
-        //2.取出流程定义ID
+        // 取出任务定义的KEY
+        String taskDefinitionKey = task.getTaskDefinitionKey();
+        // 找出流程定义的ID
         String processDefinitionId = task.getProcessDefinitionId();
-        //3.从任务实例中取出流程实例ID
-        String processInstanceId = task.getProcessInstanceId();
-        //4.根据流程实例ID查询流程实例
-        ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        //5.根据流程定义ID查询流程定义的XML信息
-        ProcessDefinitionEntity processDefinition = (ProcessDefinitionEntity)this.repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
-        //6.从流程实例对象里面取出当前活动节点ID
-        String activityId = processInstance.getActivityId();
-        //7.使用活动ID取出XML和当前活动ID相关的节点数据
-        ActivityImpl activity = processDefinition.findActivity(activityId);
-        List<PvmTransition> outgoingTransitions = activity.getOutgoingTransitions();
-        if (outgoingTransitions!=null&&outgoingTransitions.size()>0){
-            //链接对象：PvmTransition
-            for (PvmTransition outgoingTransition : outgoingTransitions) {
-                String name = outgoingTransition.getProperty("name").toString();
-                names.add(name);
+        // 根据流程定义ID找到流程定义对象
+        ProcessDefinition processDefinition = this.repositoryService.createProcessDefinitionQuery()
+                .processDefinitionId(processDefinitionId).singleResult();
+        // 取出流程定义的KEY
+        String key = processDefinition.getKey();
+        // 通过流程定义ID找到BPM的对象
+        BpmnModel bpmnModel = this.repositoryService.getBpmnModel(processDefinitionId);
+        // 根据流程定义KEY找到从bpmnModel里面找出流程定义
+        Process process = bpmnModel.getProcessById(key);
+        // 取出流程定义对象里面的所有节点
+        Collection<FlowElement> flowElements = process.getFlowElements();
+        for (FlowElement flowElement : flowElements) {
+            // 找出里面的UserTask节点
+            if (flowElement instanceof UserTask) {
+                UserTask userTask = (UserTask) flowElement;
+                if (userTask.getId().equals(taskDefinitionKey)) {
+                    // 取出出口连线信息
+                    List<SequenceFlow> outgoingFlows = userTask.getOutgoingFlows();
+                    for (SequenceFlow sequenceFlow : outgoingFlows) {
+                        outcomes.add(sequenceFlow.getName());// 取出名字 【页面按钮上的名字】
+                    }
+                    break;
+                }
             }
         }
-        return names;
+        return outcomes;
+    }
+
+    /**
+     * 根据任务ID查询批注信息
+     */
+    @Override
+    public DataGridView queryCommentsByTaskId(String taskId) {
+        // 根据任务ID查询任务实例
+        Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+        // 取出流程实例ID
+        String processInstanceId = task.getProcessInstanceId();
+        // 根据流程实例ID查询批注
+        List<Comment> comments = this.taskService.getProcessInstanceComments(processInstanceId);
+        List<CommentEntityVo> commentEntities = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentEntities.add(new CommentEntityVo(comment));
+        }
+        return new DataGridView(Long.valueOf(commentEntities.size()), commentEntities);
     }
 }

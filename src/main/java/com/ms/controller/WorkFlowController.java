@@ -1,20 +1,13 @@
 package com.ms.controller;
 
 import com.ms.entity.Leavebill;
-import com.ms.response.DataGridView;
-import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
-import com.ms.vo.NoticeVo;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -80,7 +73,7 @@ public class WorkFlowController {
         //2.根据任务id查询连线信息
        List<String> outComeNames =this.workFlowService.queryOutComeByTaskId(vo.getTaskId());
         model.addAttribute("outcomes",outComeNames);
-        return"workflow/doTaskManager";
+        return"workflow/doTask";
     }
 
 

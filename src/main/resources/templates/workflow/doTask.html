@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>办理任务</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="icon" href="/favicon.ico">
+	<link rel="stylesheet" href="/resources/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/resources/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+
+<!-- 请假单信息-->
+<form class="layui-form" action="" style="margin-top: 20px" id="searchFrm">
+	<div class="layui-form-item">
+		<label class="layui-form-label">请假标题</label>
+		<div class="layui-input-block">
+			<input type="hidden" name="id">
+			<input type="text" name="title"  disabled="disabled"  autocomplete="off"  class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">请假天数</label>
+			<div class="layui-input-inline">
+				<input type="tel" name="days"  disabled="disabled"  autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">开始时间</label>
+			<div class="layui-input-inline">
+				<input type="tel" name="days"  disabled="disabled"  autocomplete="off" class="layui-input">
+
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">请假原因</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入内容"  rows="1" disabled="disabled" class="layui-textarea"></textarea>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">批注</label>
+		<div class="layui-input-block">
+			<textarea placeholder="请输入批注内容"  id="comment" rows="1"  class="layui-textarea"></textarea>
+		</div>
+	</div>
+</form>
+<!-- 请假单结束 -->
+<!-- 数据表格开始 -->
+<table class="layui-hide" id="commentTable" lay-filter="commentTable"></table>
+<!-- 数据表格结束 -->
+<script type="text/javascript" src="/resources/layui/layui.js"></script>
+<!--<script type="text/javascript">-->
+    <!--layui.use(['jquery','form','table','layer','laydate','layedit'],function(){-->
+        <!--var $=layui.jquery;-->
+        <!--var form=layui.form;-->
+        <!--var table=layui.table;-->
+        <!--var layer=layui.layer;-->
+        <!--var laydate=layui.laydate;-->
+        <!--var layedit=layui.layedit;-->
+        <!--//初始化富文本-->
+        <!--var editIndex = layedit.build('content');-->
+        <!--//加载 数据-->
+        <!--var tableIns=table.render({-->
+            <!--elem: '#commentTable'-->
+            <!--,url:''-->
+            <!--,title: '请假单数据表',-->
+			<!--loading:true//是否显示加载成功条-->
+            <!--,cols: [[   //解析json.data的数据-->
+                <!--{field:'time', title:'批注时间',align:'center'}-->
+                <!--,{field:'userId', title:'批注人',align:'center'}-->
+                <!--,{field:'message', title:'批注内容',align:'center'}-->
+            <!--]]-->
+        <!--});-->
+
+        <!--$("#doSubmit").click(function(){-->
+            <!--//同步富文本和textarea里面的内容-->
+            <!--layedit.sync(editIndex);-->
+            <!--var data=$("#dataFrm").serialize();-->
+            <!--$.post(url,data,function(res){-->
+                <!--if(res.code==200){-->
+                    <!--tableIns.reload();-->
+                <!--}-->
+                <!--layer.msg(res.msg);-->
+                <!--layer.close(mainIndex);-->
+            <!--})-->
+        <!--})-->
+
+    <!--});-->
+<!--</script>-->
+
+</body>
+</html>

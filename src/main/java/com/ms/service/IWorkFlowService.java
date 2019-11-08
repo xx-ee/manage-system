@@ -92,4 +92,6 @@ public interface IWorkFlowService
      * @return
      */
     List<String> queryOutComeByTaskId(String taskId);
+
+    DataGridView queryCommentsByTaskId(String taskId);
 }
