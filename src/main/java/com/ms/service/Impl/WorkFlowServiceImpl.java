@@ -22,14 +22,15 @@ import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.identity.Authentication;
-import org.activiti.engine.impl.persistence.entity.CommentEntity;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -516,5 +517,26 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             commentEntities.add(new CommentEntityVo(comment));
         }
         return new DataGridView(Long.valueOf(commentEntities.size()), commentEntities);
+    }
+    /**
+     * 根据当前登陆的用户信息查询审批记录
+     */
+    @Override
+    public DataGridView queryCurrentUserHistoryTask(WorkFlowVo workFlowVo) {
+        User user = WebUtils.getCurrentUser();// 找出当前用户
+        String assignee = user.getName();
+        long count = this.historyService.createHistoricTaskInstanceQuery().taskAssignee(assignee).count();
+        List<HistoricTaskInstance> list = this.historyService.createHistoricTaskInstanceQuery().taskAssignee(assignee)
+                .orderByHistoricTaskInstanceEndTime().desc()
+                .listPage((workFlowVo.getPage() - 1) * workFlowVo.getLimit(), workFlowVo.getLimit());
+
+        List<TaskEntityVo> data = new ArrayList<>();
+        for (HistoricTaskInstance task : list) {
+            TaskEntityVo entity = new TaskEntityVo();
+            // 对象之间的属性值的copy
+            BeanUtils.copyProperties(task, entity);
+            data.add(entity);
+        }
+        return new DataGridView(count, data);
     }
 }

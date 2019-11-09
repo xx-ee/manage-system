@@ -121,4 +121,11 @@ public interface IWorkFlowService
      * 根据请假单ID查询审批信息
      */
     DataGridView queryCommentsByLeaveBillId(String id);
+
+    /**
+     * 查询当前用户的审批记录
+     * @param vo
+     * @return
+     */
+    DataGridView queryCurrentUserHistoryTask(WorkFlowVo vo);
 }
