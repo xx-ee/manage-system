@@ -4,10 +4,17 @@ import com.ms.entity.Leavebill;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -76,5 +83,47 @@ public class WorkFlowController {
         return"workflow/doTask";
     }
 
+    /**
+     * 根据任务ID查看流程图
+     * @param vo
+     * @return
+     */
+    @RequestMapping("toViewProcessByTaskId")
+    public String toViewProcessByTaskId(WorkFlowVo vo,Model model){
+        model.addAttribute("taskId",vo.getTaskId());
+        return "workflow/viewProcessTaskImage";
+    }
+    /**
+     * 根据任务ID查看流程图的高亮显示
+     */
+    @RequestMapping("viewTaskProcessImageByTaskId")
+    public ResponseEntity<Object> viewTaskProcessImageByTaskId(WorkFlowVo workFlowVo) {
+        String deploymentId = workFlowVo.getDeploymentId();
+        InputStream is = this.workFlowService.viewTaskProcessImageByTaskId(workFlowVo.getTaskId());
+        //把输入流转成字节数组
+        ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
+        byte[] buff = new byte[100]; //buff用于存放循环读取的临时数据
+        int rc = 0;
+        try {
+            while ((rc = is.read(buff, 0, 100)) > 0) {
+                swapStream.write(buff, 0, rc);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 将下载的文件，封装byte[]
+        byte[] bytes = swapStream.toByteArray();
+        // 创建封装响应头信息的对象
+        HttpHeaders header = new HttpHeaders();
+        // 封装响应内容类型(APPLICATION_OCTET_STREAM 响应的内容不限定)
+        header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        // 设置下载的文件的名称
+        header.setContentDispositionFormData("attachment", "saaa.jpg");
 
+        // 创建ResponseEntity对象
+        ResponseEntity<Object> entity = new ResponseEntity<Object>(bytes, header, HttpStatus.CREATED);
+
+        return entity;
+
+    }
 }

@@ -4,6 +4,7 @@ import com.ms.entity.Leavebill;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.vo.WorkFlowVo;
+import org.activiti.engine.repository.ProcessDefinition;
 
 import java.io.InputStream;
 import java.util.List;
@@ -106,4 +107,13 @@ public interface IWorkFlowService
      * @return
      */
     ResultObj completeTask(WorkFlowVo vo);
+
+    /**
+     * 根据任务Id查询流程实例
+     * @param taskId
+     * @return
+     */
+    ProcessDefinition queryProcessDefinitionByTaskId(String taskId);
+
+    InputStream viewTaskProcessImageByTaskId(String taskId);
 }

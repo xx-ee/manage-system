@@ -10,6 +10,7 @@ import com.ms.response.Constast;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
+import com.ms.utils.ActivitiProcessImageUtils;
 import com.ms.utils.WebUtils;
 import com.ms.vo.WorkFlowVo;
 import com.ms.vo.act.*;
@@ -44,6 +45,8 @@ import java.util.*;
 @Service
 @Slf4j
 public class WorkFlowServiceImpl implements IWorkFlowService {
+    @Autowired
+    private ProcessEngine processEngine;
     @Autowired
     private RepositoryService repositoryService;
     @Autowired
@@ -472,5 +475,26 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             log.info("任务完成失败", e);
             return ResultObj.MISSION_FAILURE;
         }
+    }
+
+    /**
+     * 根据任务Id查询流程实例
+     * @param taskId
+     * @return
+     */
+    @Override
+    public ProcessDefinition queryProcessDefinitionByTaskId(String taskId) {
+
+        return null;
+    }
+
+    @Override
+    public InputStream viewTaskProcessImageByTaskId(String taskId) {
+        //根据任务ID查询任务对象
+        Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+        //取出流程实例ID
+        String processInstanceId = task.getProcessInstanceId();
+        InputStream inputStream= ActivitiProcessImageUtils.getActivitiProccessImage(processInstanceId, processEngine);
+        return inputStream;
     }
 }
