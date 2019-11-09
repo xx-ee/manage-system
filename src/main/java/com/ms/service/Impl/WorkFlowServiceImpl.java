@@ -20,6 +20,7 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
+import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -31,10 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Classname： WorkFlowServiceImpl
@@ -64,7 +62,7 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
     ObjectMapper objectMapper;
     @Autowired
     private LeavebillMapper leavebillMapper;
-
+//
     /**
      * 查询流程部署信息
      */
@@ -422,5 +420,57 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
             commentEntities.add(new CommentEntityVo(comment));
         }
         return new DataGridView(Long.valueOf(commentEntities.size()), commentEntities);
+    }
+
+    /**
+     * 完成任务
+     * @param vo
+     * @return
+     */
+    @Override
+    @Transactional
+    public ResultObj completeTask(WorkFlowVo vo)
+    {
+        String taskId = vo.getTaskId();
+        String outcome = vo.getOutcome();
+        String comment = vo.getComment();
+        String  leveBillId = vo.getId();// 请假单ID
+        try {
+            // 根据任务ID查询任务对象
+            Task task = this.taskService.createTaskQuery().taskId(taskId).singleResult();
+            // 取出流程实例ID
+            String processInstanceId = task.getProcessInstanceId();
+            // 添加批注信息
+            /**
+             * 说明，如果直接添加会发现没有办法显示最哪一个人添加的批注可以查看AddCommentCmd里面的第95行代码 它使用一个线程局部变量去取的值
+             * 所以在添加批注 之前可以先设置批注人放到Authentication authenticatedUserIdThreadLocal里面
+             */
+            Authentication.setAuthenticatedUserId(WebUtils.getCurrentUser().getName());
+            this.taskService.addComment(taskId, processInstanceId, "[" + outcome + "]" + comment);
+
+            // 完成任务
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("outcome", outcome);
+            this.taskService.complete(taskId, variables);
+
+            // 判断流程是否结束
+            ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery()
+                    .processInstanceId(processInstanceId).singleResult();
+            if (null == processInstance) {// 说明流程结束
+                Leavebill bill = new Leavebill();
+                bill.setId(Integer.parseInt(leveBillId));
+                if (outcome.equals("放弃")) {// 请假单状态为 3
+                    bill.setState(Integer.parseInt(Constast.STATE_LEAVEBILL_GIVEUP));
+                } else { // 请假单状态为2
+                    bill.setState(Integer.parseInt(Constast.STATE_LEAVEBILL_APPROVALED));
+                }
+                this.leavebillMapper.updateById(bill);// 更新请假单的状态
+            }
+            return ResultObj.MISSION_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("任务完成失败", e);
+            return ResultObj.MISSION_FAILURE;
+        }
     }
 }

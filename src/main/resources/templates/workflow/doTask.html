@@ -83,6 +83,7 @@
         var layedit = layui.layedit;
         var editIndex = layedit.build('content');
         var taskId=[[${taskId}]];
+        var leaveBillId=[[${leaveBill.id}]];
         // alert(taskId);
         var tableIns = table.render({
             elem: '#commentTable'
@@ -96,16 +97,24 @@
             ]]
         });
 
-        $(".doTask").click(function () {
-            // layedit.sync(editIndex);
-            // var data = $("#dataFrm").serialize();
-            // $.post(url, data, function (res) {
-            //     if (res.code == 200) {
-            //         tableIns.reload();
-            //     }
-            //     layer.msg(res.msg);
-            //     layer.close(mainIndex);
-            // })
+        $(".doTask").click(function (obj) {
+            console.log(obj)
+            // alert(this.value)
+            var outcome=$(this).val();
+            var comment=$("#comment").val();
+            $.post("/task/completeTask",{
+                taskId:taskId,
+                outcome:outcome,
+                id:leaveBillId,
+                comment:comment
+            },function (res) {
+                layer.msg(res.msg);
+                window.parent.tableIns.reload();
+                //关闭当前弹出层
+                var index=parent.layer.getFrameIndex(window.name);
+                window.parent.layer.close(index);
+
+            });
         })
 
     });

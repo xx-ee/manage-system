@@ -1,6 +1,7 @@
 package com.ms.controller;
 
 import com.ms.response.DataGridView;
+import com.ms.response.ResultObj;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
 import lombok.extern.slf4j.Slf4j;
@@ -34,5 +35,16 @@ public class TaskController {
     public DataGridView loadCommentsByTaskId(WorkFlowVo vo)
     {
         return this.workFlowService.queryCommentsByTaskId(vo.getTaskId());
+    }
+
+    /**
+     * 完成任务
+     * @param vo
+     * @return
+     */
+    @RequestMapping("completeTask")
+    public ResultObj completeTask(WorkFlowVo vo)
+    {
+        return this.workFlowService.completeTask(vo);
     }
 }

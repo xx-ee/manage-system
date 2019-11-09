@@ -93,5 +93,17 @@ public interface IWorkFlowService
      */
     List<String> queryOutComeByTaskId(String taskId);
 
+    /**
+     * 根据任务ID查询批注信息
+     * @param taskId
+     * @return
+     */
     DataGridView queryCommentsByTaskId(String taskId);
+
+    /**
+     * 完成任务
+     * @param vo
+     * @return
+     */
+    ResultObj completeTask(WorkFlowVo vo);
 }

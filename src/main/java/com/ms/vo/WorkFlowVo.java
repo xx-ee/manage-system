@@ -42,6 +42,10 @@ public class WorkFlowVo implements Serializable {
 
     //任务id
     private String taskId;
+    //批注
+    private String comment;
+    //
+    private String outcome;
 
 
 }
