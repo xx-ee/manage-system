@@ -5,21 +5,19 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ms.entity.Leavebill;
-import com.ms.entity.Notice;
 import com.ms.entity.User;
 import com.ms.response.Constast;
 import com.ms.response.DataGridView;
 import com.ms.response.ResultObj;
 import com.ms.service.ILeavebillService;
 import com.ms.service.IUserService;
+import com.ms.service.IWorkFlowService;
 import com.ms.utils.WebUtils;
 import com.ms.vo.LeaveBillVo;
-import com.ms.vo.LeaveBillVo;
+import com.ms.vo.WorkFlowVo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.web.session.HttpServletSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -44,6 +42,8 @@ public class LeavebillController {
     private ILeavebillService leavebillService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IWorkFlowService workFlowService;
 
     @RequestMapping("loadAllBills")
     public DataGridView loadAllBills(LeaveBillVo leaveBillVo,HttpSession session)
@@ -134,6 +134,13 @@ public class LeavebillController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+    /**
+     * 根据请假单ID查询审批信息
+     */
+    @RequestMapping("loadCommentsByLeaveBillId")
+    public DataGridView loadCommentsByLeaveBillId(WorkFlowVo workFlowVo) {
+        return this.workFlowService.queryCommentsByLeaveBillId(workFlowVo.getId());
     }
 }
 

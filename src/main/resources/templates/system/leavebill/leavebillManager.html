@@ -229,6 +229,9 @@
 			    case 'delete':
 			   		deleteleavebill(data);
 			    break;
+			    case 'viewSPQuery':
+                    viewSPQuery(data);
+			    break;
 			    case 'show':
 			   		showleavebill(data);
 			    break;
@@ -271,6 +274,20 @@
 				}
 			});
 		}
+        //打开审批进度查询的弹出层
+        function viewSPQuery(data){
+            mainIndex=layer.open({
+                title:"审批进度查询",
+                type:2,//0-4 默认为0
+                content:'/workflow/toViewSPQuery?id='+data.id,
+                skin:'layui-layer-molv',
+                area:['800px','500px'], //设置宽高
+                closeBtn:2,  //可以写1  2  boolean   false=不显示关闭按钮
+                shadeClose:true,//点击弹出层之外的位置是否自动关闭
+                maxmin:true,//是否显示最大化和最小化的按钮
+                resize:true//设置是否允许拉伸
+            });
+        }
 		$("#doSubmit").click(function(){
 			//同步富文本和textarea里面的内容
 			layedit.sync(editIndex);

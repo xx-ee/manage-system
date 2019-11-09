@@ -108,11 +108,14 @@
                 id:leaveBillId,
                 comment:comment
             },function (res) {
-                layer.msg(res.msg);
-                window.parent.tableIns.reload();
-                //关闭当前弹出层
-                var index=parent.layer.getFrameIndex(window.name);
-                window.parent.layer.close(index);
+                layer.msg(res.msg,{icon: 6,time:2000, shade:0.4});
+                tableIns.reload();
+                // //关闭当前弹出层
+                // var index=parent.layer.getFrameIndex(window.name);
+                // window.parent.layer.close(index);
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.location.reload();//刷新父页面，注意一定要在关闭当前iframe层之前执行刷新
+                parent.layer.close(index); //再执行关闭
 
             });
         })

@@ -21,7 +21,9 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.editor.constants.ModelDataJsonConstants;
 import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.identity.Authentication;
+import org.activiti.engine.impl.persistence.entity.CommentEntity;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -496,5 +498,23 @@ public class WorkFlowServiceImpl implements IWorkFlowService {
         String processInstanceId = task.getProcessInstanceId();
         InputStream inputStream= ActivitiProcessImageUtils.getActivitiProccessImage(processInstanceId, processEngine);
         return inputStream;
+    }
+
+
+    @Override
+    public DataGridView queryCommentsByLeaveBillId(String id) {
+        // 组装businessKey
+        String businessKey = Leavebill.class.getSimpleName() .concat(":").concat(id) ;
+        // 根据businessKey查询历史流程实例
+        HistoricProcessInstance historicProcessInstance = this.historyService.createHistoricProcessInstanceQuery()
+                .processInstanceBusinessKey(businessKey).singleResult();
+        // 取出流程实例ID
+        String processInstanceId = historicProcessInstance.getId();
+        List<Comment> comments = this.taskService.getProcessInstanceComments(processInstanceId);
+        List<CommentEntityVo> commentEntities = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentEntities.add(new CommentEntityVo(comment));
+        }
+        return new DataGridView(Long.valueOf(commentEntities.size()), commentEntities);
     }
 }

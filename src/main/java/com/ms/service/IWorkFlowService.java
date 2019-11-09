@@ -116,4 +116,9 @@ public interface IWorkFlowService
     ProcessDefinition queryProcessDefinitionByTaskId(String taskId);
 
     InputStream viewTaskProcessImageByTaskId(String taskId);
+
+    /**
+     * 根据请假单ID查询审批信息
+     */
+    DataGridView queryCommentsByLeaveBillId(String id);
 }

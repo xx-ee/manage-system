@@ -1,6 +1,7 @@
 package com.ms.controller;
 
 import com.ms.entity.Leavebill;
+import com.ms.service.ILeavebillService;
 import com.ms.service.IWorkFlowService;
 import com.ms.vo.WorkFlowVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class WorkFlowController {
 
     @Autowired
     private IWorkFlowService workFlowService;
+    @Autowired
+    private ILeavebillService leavebillService;
     /**
      * 跳转到模型管理界面
      */
@@ -125,5 +128,17 @@ public class WorkFlowController {
 
         return entity;
 
+    }
+
+    /**
+     * 请假单的审批进度查询
+     * @param vo
+     * @return
+     */
+    @RequestMapping("toViewSPQuery")
+    public String toViewSPQuery(WorkFlowVo vo,Model model){
+        Leavebill leavebill = this.leavebillService.getById(vo.getId());
+        model.addAttribute("leavebill", leavebill);
+        return "workflow/viewSpManager";
     }
 }
