@@ -179,7 +179,7 @@
             var hotNewsHtml = "<tr><td align='left'>待办标题</td>" +
                 "<td align='right'>创建时间</td>" +
                 "<td align='right'>待办人</td>" +
-                "<td align='right'>操作</td></tr>";
+                "<td align='right' colspan='2' width=\"60\">操作</td></tr>";
             var length = data.data.length;
             if (length > 5) {
                 length = 5
@@ -190,7 +190,8 @@
                     + '<td align="right">' + data.data[i].createTime + '</td>'
                     + '<td align="right">' + data.data[i].assignee + '</td>'
                     // +'<td><a href="/workflow/toViewSPQuery?id='+data.data[i].id+'" class="layui-btn layui-btn-sm layui-btn-danger">查看</a></td>'
-                    + '<td align="right"><a href="#" onclick="viewApply(' + data.data[i].id + ')" class="layui-btn layui-btn-sm layui-btn-danger">查看</a></td>'
+                    + '<td align="right"><a href="#" onclick="doTask(' + data.data[i].id + ')" class="layui-btn layui-btn-sm layui-btn-danger">办理</a></td>'
+                    + '<td width="50" align="left"><a href="#" onclick="viewTaskImage(' + data.data[i].id + ')" class="layui-btn layui-btn-sm layui-btn-danger">查看流程图</a></td>'
                     + '</tr>';
             }
             $(".task_TODO").html(hotNewsHtml);
@@ -198,10 +199,9 @@
         //获取我的经办任务
         $.post("/desk/loadHistoyTask", function (data) {
             console.log(data);
-            var hotNewsHtml = "<tr><td align='left'>待办标题</td>" +
+            var hotNewsHtml = "<tr><td align='left'>经办标题</td>" +
                 "<td align='right'>创建时间</td>" +
-                "<td align='right'>待办人</td>" +
-                "<td align='right'>操作</td></tr>";
+                "<td align='right'>经办人</td>" ;
             var length = data.data.length;
             if (length > 5) {
                 length = 5
@@ -212,7 +212,6 @@
                     + '<td align="right">' + data.data[i].createTime + '</td>'
                     + '<td align="right">' + data.data[i].assignee + '</td>'
                     // +'<td><a href="/workflow/toViewSPQuery?id='+data.data[i].id+'" class="layui-btn layui-btn-sm layui-btn-danger">查看</a></td>'
-                    + '<td align="right"><a href="#" onclick="viewApply(' + data.data[i].id + ')" class="layui-btn layui-btn-sm layui-btn-danger">查看</a></td>'
                     + '</tr>';
             }
             $(".retain_task").html(hotNewsHtml);
@@ -233,7 +232,34 @@
             resize: true//设置是否允许拉伸
         });
     }
-
+    //办理任务
+    function doTask(id) {
+        var mainIndex=layer.open({
+            title:"办理任务",
+            type:2,//0-4 默认为0
+            content:"/workflow/toDoTask?taskId="+id,
+            skin:'layui-layer-molv',
+            area:['1000px','550px'], //设置宽高
+            closeBtn:2,  //可以写1  2  boolean   false=不显示关闭按钮
+            shadeClose:true,//点击弹出层之外的位置是否自动关闭
+            maxmin:true,//是否显示最大化和最小化的按钮
+            resize:true//设置是否允许拉伸
+        });
+    }
+    //查看流程图
+    function viewTaskImage(id) {
+        var mainIndex=layer.open({
+            title:"查看流程图",
+            type:2,//0-4 默认为0
+            content:"/workflow/toViewProcessByTaskId?taskId="+id,
+            skin:'layui-layer-molv',
+            area:['1000px','550px'], //设置宽高
+            closeBtn:2,  //可以写1  2  boolean   false=不显示关闭按钮
+            shadeClose:true,//点击弹出层之外的位置是否自动关闭
+            maxmin:true,//是否显示最大化和最小化的按钮
+            resize:true//设置是否允许拉伸
+        });
+    }
 </script>
 </body>
 </html>
