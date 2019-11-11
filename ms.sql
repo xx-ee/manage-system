@@ -1,836 +1,68 @@
 /*
- Navicat Premium Data Transfer
-
- Source Server         : localhost
- Source Server Type    : MySQL
- Source Server Version : 50724
- Source Host           : localhost:3306
- Source Schema         : 0520erp
-
- Target Server Type    : MySQL
- Target Server Version : 50724
- File Encoding         : 65001
-
- Date: 28/09/2019 15:44:49
+SQLyog Ultimate v12.5.0 (64 bit)
+MySQL - 5.7.22 : Database - ms
+*********************************************************************
 */
 
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+/*!40101 SET NAMES utf8 */;
 
--- ----------------------------
--- Table structure for bus_customer
--- ----------------------------
-DROP TABLE IF EXISTS `bus_customer`;
-CREATE TABLE `bus_customer`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customername` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `zip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `telephone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `connectionperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `bank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `account` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fax` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+/*!40101 SET SQL_MODE=''*/;
 
--- ----------------------------
--- Records of bus_customer
--- ----------------------------
-INSERT INTO `bus_customer` VALUES (1, '小张超市', '111', '武汉', '027-9123131', '张大明', '138123123123', '中国银行', '654431331343413', '213123@sina.com', '430000', 1);
-INSERT INTO `bus_customer` VALUES (2, '小明超市', '222', '深圳', '0755-9123131', '张小明', '138123123123', '中国银行', '654431331343413', '213123@sina.com', '430000', 1);
-INSERT INTO `bus_customer` VALUES (3, '快七超市', '430000', '武汉', '027-11011011', '雷生', '13434134131', '招商银行', '6543123341334133', '6666@66.com', '545341', 1);
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`ms` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
--- ----------------------------
--- Table structure for bus_goods
--- ----------------------------
-DROP TABLE IF EXISTS `bus_goods`;
-CREATE TABLE `bus_goods`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `goodsname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `produceplace` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `size` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `goodspackage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `productcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `promitcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `price` double NULL DEFAULT NULL,
-  `number` int(11) NULL DEFAULT NULL,
-  `dangernum` int(11) NULL DEFAULT NULL,
-  `goodsimg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL,
-  `providerid` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FK_sq0btr2v2lq8gt8b4gb8tlk0i`(`providerid`) USING BTREE,
-  CONSTRAINT `bus_goods_ibfk_1` FOREIGN KEY (`providerid`) REFERENCES `bus_provider` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+USE `ms`;
 
--- ----------------------------
--- Records of bus_goods
--- ----------------------------
-INSERT INTO `bus_goods` VALUES (1, '娃哈哈', '武汉', '120ML', '瓶', 'PH12345', 'PZ1234', '小孩子都爱的', 2, 1000, 10, '2018-12-25/userface1.jpg', 1, 3);
-INSERT INTO `bus_goods` VALUES (2, '旺旺雪饼[小包]', '仙桃', '包', '袋', 'PH12312312', 'PZ12312', '好吃不上火', 4, 1000, 10, '2018-12-25/userface2.jpg', 1, 1);
-INSERT INTO `bus_goods` VALUES (3, '旺旺大礼包', '仙桃', '盒', '盒', '11', '11', '111', 28, 1009, 100, '2018-12-25/userface3.jpg', 1, 1);
-INSERT INTO `bus_goods` VALUES (4, '娃哈哈', '武汉', '200ML', '瓶', '11', '111', '12321', 3, 1000, 10, '2018-12-25/userface4.jpg', 1, 3);
-INSERT INTO `bus_goods` VALUES (5, '娃哈哈', '武汉', '300ML', '瓶', '1234', '12321', '22221111', 3, 1000, 100, '2018-12-25/userface5.jpg', 1, 3);
-INSERT INTO `bus_goods` VALUES (7, '123123', '123123', '123123123', '312321', '12312', '2132', '213', 123, 1000, 3123, '2019-09-27/48E8C8FE8F2D4536820435CCCD968AEC.jpg', 1, 2);
+/*Table structure for table `ACT_EVT_LOG` */
 
--- ----------------------------
--- Table structure for bus_inport
--- ----------------------------
-DROP TABLE IF EXISTS `bus_inport`;
-CREATE TABLE `bus_inport`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `paytype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `inporttime` datetime(0) NULL DEFAULT NULL,
-  `operateperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `number` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `inportprice` double NULL DEFAULT NULL,
-  `providerid` int(11) NULL DEFAULT NULL,
-  `goodsid` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FK_1o4bujsyd2kl4iqw48fie224v`(`providerid`) USING BTREE,
-  INDEX `FK_ho29poeu4o2dxu4rg1ammeaql`(`goodsid`) USING BTREE,
-  CONSTRAINT `bus_inport_ibfk_1` FOREIGN KEY (`providerid`) REFERENCES `bus_provider` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `bus_inport_ibfk_2` FOREIGN KEY (`goodsid`) REFERENCES `bus_goods` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS `ACT_EVT_LOG`;
 
--- ----------------------------
--- Records of bus_inport
--- ----------------------------
-INSERT INTO `bus_inport` VALUES (1, '微信', '2018-05-07 00:00:00', '张三', 100, '备注', 3.5, 1, 1);
-INSERT INTO `bus_inport` VALUES (2, '支付宝', '2018-05-07 00:00:00', '张三', 1000, '无', 2.5, 3, 3);
-INSERT INTO `bus_inport` VALUES (3, '银联', '2018-05-07 00:00:00', '张三', 100, '1231', 111, 3, 3);
-INSERT INTO `bus_inport` VALUES (4, '银联', '2018-05-07 00:00:00', '张三', 1000, '无', 2, 3, 1);
-INSERT INTO `bus_inport` VALUES (5, '银联', '2018-05-07 00:00:00', '张三', 100, '无', 1, 3, 1);
-INSERT INTO `bus_inport` VALUES (6, '银联', '2018-05-07 00:00:00', '张三', 100, '1231', 2.5, 1, 2);
-INSERT INTO `bus_inport` VALUES (8, '支付宝', '2018-05-07 00:00:00', '张三', 100, '', 1, 3, 1);
-INSERT INTO `bus_inport` VALUES (10, '支付宝', '2018-08-07 17:17:57', '超级管理员', 100, 'sadfasfdsa', 1.5, 3, 1);
-INSERT INTO `bus_inport` VALUES (11, '支付宝', '2018-09-17 16:12:25', '超级管理员', 21, '21', 21, 1, 3);
-INSERT INTO `bus_inport` VALUES (12, '微信', '2018-12-25 16:48:24', '超级管理员', 100, '123213213', 12321321, 3, 1);
-INSERT INTO `bus_inport` VALUES (14, '支付宝', '2019-09-28 03:47:16', '超级管理员', 100, '1111', 4.5, 1, 3);
+CREATE TABLE `ACT_EVT_LOG` (
+  `LOG_NR_` bigint(20) NOT NULL AUTO_INCREMENT,
+  `TYPE_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `PROC_DEF_ID_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `PROC_INST_ID_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `EXECUTION_ID_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `TASK_ID_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `TIME_STAMP_` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  `USER_ID_` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `DATA_` longblob,
+  `LOCK_OWNER_` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `LOCK_TIME_` timestamp(3) NULL DEFAULT NULL,
+  `IS_PROCESSED_` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`LOG_NR_`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- ----------------------------
--- Table structure for bus_outport
--- ----------------------------
-DROP TABLE IF EXISTS `bus_outport`;
-CREATE TABLE `bus_outport`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `providerid` int(11) NULL DEFAULT NULL,
-  `paytype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `outputtime` datetime(0) NULL DEFAULT NULL,
-  `operateperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `outportprice` double(10, 2) NULL DEFAULT NULL,
-  `number` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `goodsid` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+/*Data for the table `ACT_EVT_LOG` */
 
--- ----------------------------
--- Records of bus_outport
--- ----------------------------
-INSERT INTO `bus_outport` VALUES (1, 3, '微信', '2019-08-16 08:19:50', '超级管理员', 12321321.00, 1, '', 1);
-INSERT INTO `bus_outport` VALUES (2, 3, '微信', '2019-08-16 08:26:54', '超级管理员', 12321321.00, 11, '11', 1);
-INSERT INTO `bus_outport` VALUES (7, 1, '支付宝', '2019-09-28 06:56:13', '超级管理员', 4.50, 1, '111', 3);
+/*Table structure for table `ACT_GE_BYTEARRAY` */
 
--- ----------------------------
--- Table structure for bus_provider
--- ----------------------------
-DROP TABLE IF EXISTS `bus_provider`;
-CREATE TABLE `bus_provider`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `providername` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `zip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `telephone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `connectionperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `bank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `account` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fax` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+DROP TABLE IF EXISTS `ACT_GE_BYTEARRAY`;
 
--- ----------------------------
--- Records of bus_provider
--- ----------------------------
-INSERT INTO `bus_provider` VALUES (1, '旺旺食品', '434000', '仙桃', '0728-4124312', '小明', '13413441141', '中国农业银行', '654124345131', '12312321@sina.com', '5123123', 1);
-INSERT INTO `bus_provider` VALUES (2, '达利园食品', '430000', '汉川', '0728-4124312', '大明', '13413441141', '中国农业银行', '654124345131', '12312321@sina.com', '5123123', 1);
-INSERT INTO `bus_provider` VALUES (3, '娃哈哈集团', '513131', '杭州', '21312', '小晨', '12312', '建设银行', '512314141541', '123131', '312312', 1);
+CREATE TABLE `ACT_GE_BYTEARRAY` (
+  `ID_` varchar(64) COLLATE utf8_bin NOT NULL,
+  `REV_` int(11) DEFAULT NULL,
+  `NAME_` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `DEPLOYMENT_ID_` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `BYTES_` longblob,
+  `GENERATED_` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`ID_`),
+  KEY `ACT_FK_BYTEARR_DEPL` (`DEPLOYMENT_ID_`),
+  CONSTRAINT `ACT_FK_BYTEARR_DEPL` FOREIGN KEY (`DEPLOYMENT_ID_`) REFERENCES `ACT_RE_DEPLOYMENT` (`ID_`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- ----------------------------
--- Table structure for bus_sales
--- ----------------------------
-DROP TABLE IF EXISTS `bus_sales`;
-CREATE TABLE `bus_sales`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customerid` int(11) NULL DEFAULT NULL,
-  `paytype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `salestime` datetime(0) NULL DEFAULT NULL,
-  `operateperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `number` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `saleprice` decimal(10, 2) NULL DEFAULT NULL,
-  `goodsid` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+/*Data for the table `ACT_GE_BYTEARRAY` */
 
--- ----------------------------
--- Table structure for bus_salesback
--- ----------------------------
-DROP TABLE IF EXISTS `bus_salesback`;
-CREATE TABLE `bus_salesback`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customerid` int(11) NULL DEFAULT NULL,
-  `paytype` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `salesbacktime` datetime(0) NULL DEFAULT NULL,
-  `salebackprice` double(10, 2) NULL DEFAULT NULL,
-  `operateperson` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `number` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `goodsid` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for sys_dept
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pid` int(11) NULL DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `open` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL COMMENT '状态【0不可用1可用】',
-  `ordernum` int(11) NULL DEFAULT NULL COMMENT '排序码【为了调事显示顺序】',
-  `createtime` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_dept
--- ----------------------------
-INSERT INTO `sys_dept` VALUES (1, 0, '总经办', 1, '大BOSS', '深圳', 1, 1, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (2, 1, '销售部', 0, '程序员屌丝', '武汉', 1, 2, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (3, 1, '运营部', 0, '无', '武汉', 1, 3, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (4, 1, '生产部', 0, '无', '武汉', 1, 4, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (5, 2, '销售一部', 0, '销售一部', '武汉', 1, 5, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (6, 2, '销售二部', 0, '销售二部', '武汉', 1, 6, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (7, 3, '运营一部', 0, '运营一部', '武汉', 1, 7, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (8, 2, '销售三部', 0, '销售三部', '11', 1, 8, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (9, 2, '销售四部', 0, '销售四部', '222', 1, 9, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (10, 2, '销售五部', 0, '销售五部', '33', 1, 10, '2019-04-10 14:06:32');
-INSERT INTO `sys_dept` VALUES (24, 4, '33', 1, '333', '33', 1, 12, '2019-09-24 02:11:09');
-INSERT INTO `sys_dept` VALUES (25, 4, '444', 1, '444', '44', 1, 13, '2019-09-24 02:11:25');
-
--- ----------------------------
--- Table structure for sys_loginfo
--- ----------------------------
-DROP TABLE IF EXISTS `sys_loginfo`;
-CREATE TABLE `sys_loginfo`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `loginname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `loginip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `logintime` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 256 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_loginfo
--- ----------------------------
-INSERT INTO `sys_loginfo` VALUES (2, '超级管理员-system', '127.0.0.1', '2018-12-21 16:54:52');
-INSERT INTO `sys_loginfo` VALUES (3, '超级管理员-system', '127.0.0.1', '2018-12-21 16:55:15');
-INSERT INTO `sys_loginfo` VALUES (4, '超级管理员-system', '127.0.0.1', '2018-12-21 17:29:22');
-INSERT INTO `sys_loginfo` VALUES (5, '超级管理员-system', '127.0.0.1', '2018-12-22 09:05:22');
-INSERT INTO `sys_loginfo` VALUES (6, '超级管理员-system', '127.0.0.1', '2018-12-22 09:20:43');
-INSERT INTO `sys_loginfo` VALUES (7, '超级管理员-system', '127.0.0.1', '2018-12-22 09:25:40');
-INSERT INTO `sys_loginfo` VALUES (8, '超级管理员-system', '127.0.0.1', '2018-12-22 09:27:11');
-INSERT INTO `sys_loginfo` VALUES (9, '超级管理员-system', '127.0.0.1', '2018-12-22 09:29:58');
-INSERT INTO `sys_loginfo` VALUES (10, '超级管理员-system', '127.0.0.1', '2018-12-22 09:36:49');
-INSERT INTO `sys_loginfo` VALUES (11, '超级管理员-system', '127.0.0.1', '2018-12-22 09:46:56');
-INSERT INTO `sys_loginfo` VALUES (12, '超级管理员-system', '127.0.0.1', '2018-12-22 09:48:29');
-INSERT INTO `sys_loginfo` VALUES (13, '超级管理员-system', '127.0.0.1', '2018-12-22 09:49:13');
-INSERT INTO `sys_loginfo` VALUES (14, '超级管理员-system', '127.0.0.1', '2018-12-22 09:49:57');
-INSERT INTO `sys_loginfo` VALUES (15, '超级管理员-system', '127.0.0.1', '2018-12-22 09:57:46');
-INSERT INTO `sys_loginfo` VALUES (16, '超级管理员-system', '127.0.0.1', '2018-12-22 10:21:53');
-INSERT INTO `sys_loginfo` VALUES (17, '超级管理员-system', '127.0.0.1', '2018-12-22 10:38:25');
-INSERT INTO `sys_loginfo` VALUES (18, '超级管理员-system', '127.0.0.1', '2018-12-22 10:49:21');
-INSERT INTO `sys_loginfo` VALUES (19, '超级管理员-system', '127.0.0.1', '2018-12-22 14:01:42');
-INSERT INTO `sys_loginfo` VALUES (20, '超级管理员-system', '127.0.0.1', '2018-12-22 14:19:48');
-INSERT INTO `sys_loginfo` VALUES (21, '超级管理员-system', '127.0.0.1', '2018-12-22 14:45:29');
-INSERT INTO `sys_loginfo` VALUES (22, '超级管理员-system', '127.0.0.1', '2018-12-22 15:58:05');
-INSERT INTO `sys_loginfo` VALUES (23, '超级管理员-system', '127.0.0.1', '2018-12-22 16:40:53');
-INSERT INTO `sys_loginfo` VALUES (24, '超级管理员-system', '127.0.0.1', '2018-12-22 17:12:01');
-INSERT INTO `sys_loginfo` VALUES (25, '超级管理员-system', '127.0.0.1', '2018-12-24 09:19:15');
-INSERT INTO `sys_loginfo` VALUES (26, '超级管理员-system', '127.0.0.1', '2018-12-24 09:37:28');
-INSERT INTO `sys_loginfo` VALUES (27, '超级管理员-system', '127.0.0.1', '2018-12-24 09:46:51');
-INSERT INTO `sys_loginfo` VALUES (28, '超级管理员-system', '127.0.0.1', '2018-12-24 09:50:40');
-INSERT INTO `sys_loginfo` VALUES (29, '超级管理员-system', '127.0.0.1', '2018-12-24 09:52:52');
-INSERT INTO `sys_loginfo` VALUES (30, '超级管理员-system', '127.0.0.1', '2018-12-24 10:00:26');
-INSERT INTO `sys_loginfo` VALUES (31, '超级管理员-system', '127.0.0.1', '2018-12-24 10:10:58');
-INSERT INTO `sys_loginfo` VALUES (32, '超级管理员-system', '127.0.0.1', '2018-12-24 10:21:28');
-INSERT INTO `sys_loginfo` VALUES (33, '超级管理员-system', '127.0.0.1', '2018-12-24 11:22:27');
-INSERT INTO `sys_loginfo` VALUES (34, '超级管理员-system', '127.0.0.1', '2018-12-24 11:35:28');
-INSERT INTO `sys_loginfo` VALUES (35, '超级管理员-system', '127.0.0.1', '2018-12-24 14:05:28');
-INSERT INTO `sys_loginfo` VALUES (36, '超级管理员-system', '127.0.0.1', '2018-12-24 15:16:29');
-INSERT INTO `sys_loginfo` VALUES (37, '李四-ls', '127.0.0.1', '2018-12-24 15:16:50');
-INSERT INTO `sys_loginfo` VALUES (38, '王五-ww', '127.0.0.1', '2018-12-24 15:17:36');
-INSERT INTO `sys_loginfo` VALUES (39, '赵六-zl', '127.0.0.1', '2018-12-24 15:17:47');
-INSERT INTO `sys_loginfo` VALUES (40, '孙七-sq', '127.0.0.1', '2018-12-24 15:17:58');
-INSERT INTO `sys_loginfo` VALUES (41, '刘八-lb', '127.0.0.1', '2018-12-24 15:18:09');
-INSERT INTO `sys_loginfo` VALUES (42, '超级管理员-system', '127.0.0.1', '2018-12-24 15:34:59');
-INSERT INTO `sys_loginfo` VALUES (43, '超级管理员-system', '127.0.0.1', '2018-12-24 15:35:09');
-INSERT INTO `sys_loginfo` VALUES (44, '刘八-lb', '127.0.0.1', '2018-12-24 15:36:09');
-INSERT INTO `sys_loginfo` VALUES (45, '刘八-lb', '127.0.0.1', '2018-12-24 15:42:58');
-INSERT INTO `sys_loginfo` VALUES (46, '刘八-lb', '127.0.0.1', '2018-12-24 15:43:04');
-INSERT INTO `sys_loginfo` VALUES (47, '超级管理员-system', '127.0.0.1', '2018-12-24 15:46:01');
-INSERT INTO `sys_loginfo` VALUES (48, '超级管理员-system', '127.0.0.1', '2018-12-24 17:03:54');
-INSERT INTO `sys_loginfo` VALUES (49, '超级管理员-system', '127.0.0.1', '2018-12-24 17:26:32');
-INSERT INTO `sys_loginfo` VALUES (50, '超级管理员-system', '127.0.0.1', '2018-12-25 09:07:42');
-INSERT INTO `sys_loginfo` VALUES (51, '超级管理员-system', '127.0.0.1', '2018-12-25 09:16:27');
-INSERT INTO `sys_loginfo` VALUES (52, '超级管理员-system', '127.0.0.1', '2018-12-25 09:59:03');
-INSERT INTO `sys_loginfo` VALUES (53, '超级管理员-system', '127.0.0.1', '2018-12-25 10:05:13');
-INSERT INTO `sys_loginfo` VALUES (54, '超级管理员-system', '127.0.0.1', '2018-12-25 10:05:47');
-INSERT INTO `sys_loginfo` VALUES (55, '超级管理员-system', '127.0.0.1', '2018-12-25 10:11:17');
-INSERT INTO `sys_loginfo` VALUES (56, '超级管理员-system', '127.0.0.1', '2018-12-25 10:14:06');
-INSERT INTO `sys_loginfo` VALUES (57, '超级管理员-system', '127.0.0.1', '2018-12-25 10:36:16');
-INSERT INTO `sys_loginfo` VALUES (58, '超级管理员-system', '127.0.0.1', '2018-12-25 14:17:21');
-INSERT INTO `sys_loginfo` VALUES (59, '超级管理员-system', '127.0.0.1', '2018-12-25 14:20:00');
-INSERT INTO `sys_loginfo` VALUES (60, '超级管理员-system', '127.0.0.1', '2018-12-25 14:34:22');
-INSERT INTO `sys_loginfo` VALUES (61, '超级管理员-system', '127.0.0.1', '2018-12-25 14:34:27');
-INSERT INTO `sys_loginfo` VALUES (62, '超级管理员-system', '127.0.0.1', '2018-12-25 14:38:37');
-INSERT INTO `sys_loginfo` VALUES (63, '超级管理员-system', '127.0.0.1', '2018-12-25 14:50:37');
-INSERT INTO `sys_loginfo` VALUES (64, '超级管理员-system', '127.0.0.1', '2018-12-25 16:01:35');
-INSERT INTO `sys_loginfo` VALUES (65, '超级管理员-system', '127.0.0.1', '2018-12-25 16:25:28');
-INSERT INTO `sys_loginfo` VALUES (66, '超级管理员-system', '127.0.0.1', '2018-12-25 16:27:37');
-INSERT INTO `sys_loginfo` VALUES (67, '超级管理员-system', '127.0.0.1', '2018-12-25 16:28:28');
-INSERT INTO `sys_loginfo` VALUES (68, '超级管理员-system', '127.0.0.1', '2018-12-25 16:44:02');
-INSERT INTO `sys_loginfo` VALUES (69, '超级管理员-system', '127.0.0.1', '2018-12-25 16:47:55');
-INSERT INTO `sys_loginfo` VALUES (70, '超级管理员-system', '127.0.0.1', '2018-12-28 15:59:34');
-INSERT INTO `sys_loginfo` VALUES (71, '超级管理员-system', '127.0.0.1', '2018-12-28 17:27:16');
-INSERT INTO `sys_loginfo` VALUES (72, '超级管理员-system', '127.0.0.1', '2018-12-28 17:29:40');
-INSERT INTO `sys_loginfo` VALUES (73, '超级管理员-system', '127.0.0.1', '2018-12-28 17:51:10');
-INSERT INTO `sys_loginfo` VALUES (74, '超级管理员-system', '127.0.0.1', '2019-04-15 17:05:02');
-INSERT INTO `sys_loginfo` VALUES (75, '超级管理员-system', '127.0.0.1', '2019-04-15 17:05:12');
-INSERT INTO `sys_loginfo` VALUES (76, '超级管理员-system', '127.0.0.1', '2019-04-15 17:10:22');
-INSERT INTO `sys_loginfo` VALUES (77, '刘八-lb', '127.0.0.1', '2019-04-15 17:11:45');
-INSERT INTO `sys_loginfo` VALUES (78, '刘八-lb', '127.0.0.1', '2019-04-15 17:28:50');
-INSERT INTO `sys_loginfo` VALUES (79, '超级管理员-system', '127.0.0.1', '2019-04-15 17:29:13');
-INSERT INTO `sys_loginfo` VALUES (80, '刘八-lb', '127.0.0.1', '2019-04-15 17:30:59');
-INSERT INTO `sys_loginfo` VALUES (81, '刘八-lb', '127.0.0.1', '2019-04-15 17:32:42');
-INSERT INTO `sys_loginfo` VALUES (82, '刘八-lb', '127.0.0.1', '2019-04-15 17:33:48');
-INSERT INTO `sys_loginfo` VALUES (83, '刘八-lb', '127.0.0.1', '2019-04-15 17:34:17');
-INSERT INTO `sys_loginfo` VALUES (84, '超级管理员-system', '127.0.0.1', '2019-04-15 17:36:40');
-INSERT INTO `sys_loginfo` VALUES (85, '超级管理员-system', '127.0.0.1', '2019-04-15 17:47:21');
-INSERT INTO `sys_loginfo` VALUES (86, '超级管理员-system', '127.0.0.1', '2019-04-15 17:54:10');
-INSERT INTO `sys_loginfo` VALUES (87, '超级管理员-system', '127.0.0.1', '2019-04-15 17:55:52');
-INSERT INTO `sys_loginfo` VALUES (88, '超级管理员-system', '127.0.0.1', '2019-04-16 09:26:01');
-INSERT INTO `sys_loginfo` VALUES (89, '超级管理员-system', '127.0.0.1', '2019-04-16 09:26:25');
-INSERT INTO `sys_loginfo` VALUES (90, '超级管理员-system', '127.0.0.1', '2019-04-16 09:46:54');
-INSERT INTO `sys_loginfo` VALUES (91, '超级管理员-system', '127.0.0.1', '2019-04-16 10:07:48');
-INSERT INTO `sys_loginfo` VALUES (92, '超级管理员-system', '127.0.0.1', '2019-04-16 10:10:30');
-INSERT INTO `sys_loginfo` VALUES (93, '超级管理员-system', '127.0.0.1', '2019-04-16 10:14:29');
-INSERT INTO `sys_loginfo` VALUES (94, '超级管理员-system', '127.0.0.1', '2019-04-16 10:15:04');
-INSERT INTO `sys_loginfo` VALUES (95, '超级管理员-system', '127.0.0.1', '2019-04-16 10:15:58');
-INSERT INTO `sys_loginfo` VALUES (96, '超级管理员-system', '127.0.0.1', '2019-04-16 10:28:14');
-INSERT INTO `sys_loginfo` VALUES (97, '超级管理员-system', '127.0.0.1', '2019-04-16 10:32:42');
-INSERT INTO `sys_loginfo` VALUES (98, '超级管理员-system', '127.0.0.1', '2019-04-16 10:33:03');
-INSERT INTO `sys_loginfo` VALUES (99, '超级管理员-system', '127.0.0.1', '2019-04-16 11:02:01');
-INSERT INTO `sys_loginfo` VALUES (100, '超级管理员-system', '127.0.0.1', '2019-04-16 11:03:09');
-INSERT INTO `sys_loginfo` VALUES (101, '超级管理员-system', '127.0.0.1', '2019-04-16 11:13:42');
-INSERT INTO `sys_loginfo` VALUES (102, '超级管理员-system', '127.0.0.1', '2019-04-16 11:24:55');
-INSERT INTO `sys_loginfo` VALUES (104, '超级管理员-system', '127.0.0.1', '2019-08-14 01:11:34');
-INSERT INTO `sys_loginfo` VALUES (105, '超级管理员-system', '127.0.0.1', '2019-08-14 01:24:03');
-INSERT INTO `sys_loginfo` VALUES (106, '李四-ls', '127.0.0.1', '2019-08-14 01:25:47');
-INSERT INTO `sys_loginfo` VALUES (107, '李四-ls', '127.0.0.1', '2019-08-14 01:26:41');
-INSERT INTO `sys_loginfo` VALUES (108, '孙七-sq', '127.0.0.1', '2019-08-14 01:28:22');
-INSERT INTO `sys_loginfo` VALUES (109, '刘八-lb', '127.0.0.1', '2019-08-14 01:28:32');
-INSERT INTO `sys_loginfo` VALUES (110, '超级管理员-system', '127.0.0.1', '2019-08-14 01:46:18');
-INSERT INTO `sys_loginfo` VALUES (111, '超级管理员-system', '127.0.0.1', '2019-08-14 02:18:44');
-INSERT INTO `sys_loginfo` VALUES (112, '超级管理员-system', '127.0.0.1', '2019-08-14 02:32:06');
-INSERT INTO `sys_loginfo` VALUES (113, '李四-ls', '127.0.0.1', '2019-08-14 03:00:19');
-INSERT INTO `sys_loginfo` VALUES (114, '李四-ls', '127.0.0.1', '2019-08-14 03:00:56');
-INSERT INTO `sys_loginfo` VALUES (115, '李四-ls', '127.0.0.1', '2019-08-14 03:01:31');
-INSERT INTO `sys_loginfo` VALUES (116, '李四-ls', '127.0.0.1', '2019-08-14 03:01:39');
-INSERT INTO `sys_loginfo` VALUES (117, '李四-ls', '127.0.0.1', '2019-08-14 03:02:25');
-INSERT INTO `sys_loginfo` VALUES (118, '李四-ls', '127.0.0.1', '2019-08-14 03:04:57');
-INSERT INTO `sys_loginfo` VALUES (119, '李四-ls', '127.0.0.1', '2019-08-14 03:07:19');
-INSERT INTO `sys_loginfo` VALUES (120, '李四-ls', '127.0.0.1', '2019-08-14 03:07:54');
-INSERT INTO `sys_loginfo` VALUES (121, '超级管理员-system', '127.0.0.1', '2019-08-14 03:13:06');
-INSERT INTO `sys_loginfo` VALUES (122, '李四-ls', '127.0.0.1', '2019-08-14 03:14:46');
-INSERT INTO `sys_loginfo` VALUES (123, '超级管理员-system', '127.0.0.1', '2019-08-14 06:03:47');
-INSERT INTO `sys_loginfo` VALUES (124, '超级管理员-system', '127.0.0.1', '2019-08-14 07:20:12');
-INSERT INTO `sys_loginfo` VALUES (125, '超级管理员-system', '127.0.0.1', '2019-08-14 07:23:05');
-INSERT INTO `sys_loginfo` VALUES (126, '超级管理员-system', '127.0.0.1', '2019-08-14 07:25:30');
-INSERT INTO `sys_loginfo` VALUES (127, '超级管理员-system', '127.0.0.1', '2019-08-14 07:26:34');
-INSERT INTO `sys_loginfo` VALUES (128, '超级管理员-system', '127.0.0.1', '2019-08-14 07:27:22');
-INSERT INTO `sys_loginfo` VALUES (129, '超级管理员-system', '127.0.0.1', '2019-08-14 07:27:51');
-INSERT INTO `sys_loginfo` VALUES (130, '超级管理员-system', '127.0.0.1', '2019-08-14 08:22:05');
-INSERT INTO `sys_loginfo` VALUES (131, '超级管理员-system', '127.0.0.1', '2019-08-14 08:43:53');
-INSERT INTO `sys_loginfo` VALUES (132, '超级管理员-system', '127.0.0.1', '2019-08-14 08:45:55');
-INSERT INTO `sys_loginfo` VALUES (133, '超级管理员-system', '127.0.0.1', '2019-08-14 08:47:13');
-INSERT INTO `sys_loginfo` VALUES (134, '超级管理员-system', '127.0.0.1', '2019-08-14 09:35:20');
-INSERT INTO `sys_loginfo` VALUES (135, '超级管理员-system', '127.0.0.1', '2019-08-14 09:41:02');
-INSERT INTO `sys_loginfo` VALUES (136, '超级管理员-system', '127.0.0.1', '2019-08-14 09:44:04');
-INSERT INTO `sys_loginfo` VALUES (137, '超级管理员-system', '127.0.0.1', '2019-08-14 09:50:27');
-INSERT INTO `sys_loginfo` VALUES (138, '超级管理员-system', '127.0.0.1', '2019-08-14 09:56:57');
-INSERT INTO `sys_loginfo` VALUES (139, '超级管理员-system', '127.0.0.1', '2019-08-14 09:59:02');
-INSERT INTO `sys_loginfo` VALUES (140, '超级管理员-system', '127.0.0.1', '2019-08-16 01:05:37');
-INSERT INTO `sys_loginfo` VALUES (141, '超级管理员-system', '127.0.0.1', '2019-08-16 02:01:44');
-INSERT INTO `sys_loginfo` VALUES (142, '超级管理员-system', '127.0.0.1', '2019-08-16 02:05:57');
-INSERT INTO `sys_loginfo` VALUES (143, '超级管理员-system', '127.0.0.1', '2019-08-16 02:07:04');
-INSERT INTO `sys_loginfo` VALUES (144, '超级管理员-system', '127.0.0.1', '2019-08-16 02:20:02');
-INSERT INTO `sys_loginfo` VALUES (145, '超级管理员-system', '127.0.0.1', '2019-08-16 02:20:20');
-INSERT INTO `sys_loginfo` VALUES (146, '超级管理员-system', '127.0.0.1', '2019-08-16 02:21:42');
-INSERT INTO `sys_loginfo` VALUES (147, '超级管理员-system', '127.0.0.1', '2019-08-16 03:37:37');
-INSERT INTO `sys_loginfo` VALUES (148, '超级管理员-system', '127.0.0.1', '2019-08-16 03:52:40');
-INSERT INTO `sys_loginfo` VALUES (149, '超级管理员-system', '127.0.0.1', '2019-08-16 03:59:37');
-INSERT INTO `sys_loginfo` VALUES (150, '超级管理员-system', '127.0.0.1', '2019-08-16 06:11:45');
-INSERT INTO `sys_loginfo` VALUES (151, '超级管理员-system', '127.0.0.1', '2019-08-16 06:23:27');
-INSERT INTO `sys_loginfo` VALUES (153, '超级管理员-system', '127.0.0.1', '2019-08-16 06:54:49');
-INSERT INTO `sys_loginfo` VALUES (154, '超级管理员-system', '127.0.0.1', '2019-08-16 07:00:48');
-INSERT INTO `sys_loginfo` VALUES (155, '超级管理员-system', '127.0.0.1', '2019-08-16 07:01:18');
-INSERT INTO `sys_loginfo` VALUES (156, '超级管理员-system', '127.0.0.1', '2019-08-16 07:03:35');
-INSERT INTO `sys_loginfo` VALUES (157, '超级管理员-system', '127.0.0.1', '2019-08-16 07:09:55');
-INSERT INTO `sys_loginfo` VALUES (158, '超级管理员-system', '127.0.0.1', '2019-08-16 07:46:09');
-INSERT INTO `sys_loginfo` VALUES (159, '超级管理员-system', '127.0.0.1', '2019-08-16 08:17:59');
-INSERT INTO `sys_loginfo` VALUES (160, '超级管理员-system', '127.0.0.1', '2019-08-16 08:22:29');
-INSERT INTO `sys_loginfo` VALUES (161, '超级管理员-system', '127.0.0.1', '2019-08-16 08:23:32');
-INSERT INTO `sys_loginfo` VALUES (162, '超级管理员-system', '127.0.0.1', '2019-08-16 08:26:48');
-INSERT INTO `sys_loginfo` VALUES (169, '超级管理员-system', '127.0.0.1', '2019-09-21 06:27:30');
-INSERT INTO `sys_loginfo` VALUES (170, '超级管理员-system', '127.0.0.1', '2019-09-21 08:21:06');
-INSERT INTO `sys_loginfo` VALUES (171, '超级管理员-system', '127.0.0.1', '2019-09-21 08:37:15');
-INSERT INTO `sys_loginfo` VALUES (172, '超级管理员-system', '127.0.0.1', '2019-09-21 09:06:00');
-INSERT INTO `sys_loginfo` VALUES (173, '超级管理员-system', '127.0.0.1', '2019-09-23 01:15:49');
-INSERT INTO `sys_loginfo` VALUES (174, '超级管理员-system', '127.0.0.1', '2019-09-23 01:33:24');
-INSERT INTO `sys_loginfo` VALUES (175, '超级管理员-system', '127.0.0.1', '2019-09-23 03:29:51');
-INSERT INTO `sys_loginfo` VALUES (176, '超级管理员-system', '127.0.0.1', '2019-09-23 06:13:27');
-INSERT INTO `sys_loginfo` VALUES (177, '超级管理员-system', '127.0.0.1', '2019-09-23 06:47:14');
-INSERT INTO `sys_loginfo` VALUES (178, '超级管理员-system', '127.0.0.1', '2019-09-23 07:06:44');
-INSERT INTO `sys_loginfo` VALUES (180, '超级管理员-system', '127.0.0.1', '2019-09-23 09:54:08');
-INSERT INTO `sys_loginfo` VALUES (181, '超级管理员-system', '127.0.0.1', '2019-09-23 09:56:48');
-INSERT INTO `sys_loginfo` VALUES (182, '超级管理员-system', '127.0.0.1', '2019-09-23 13:41:31');
-INSERT INTO `sys_loginfo` VALUES (183, '超级管理员-system', '127.0.0.1', '2019-09-23 14:36:22');
-INSERT INTO `sys_loginfo` VALUES (184, '超级管理员-system', '127.0.0.1', '2019-09-24 01:05:42');
-INSERT INTO `sys_loginfo` VALUES (185, '超级管理员-system', '127.0.0.1', '2019-09-24 01:31:22');
-INSERT INTO `sys_loginfo` VALUES (186, '超级管理员-system', '127.0.0.1', '2019-09-24 02:10:56');
-INSERT INTO `sys_loginfo` VALUES (187, '超级管理员-system', '127.0.0.1', '2019-09-24 06:18:21');
-INSERT INTO `sys_loginfo` VALUES (188, '超级管理员-system', '127.0.0.1', '2019-09-24 06:59:55');
-INSERT INTO `sys_loginfo` VALUES (189, '超级管理员-system', '127.0.0.1', '2019-09-24 07:22:44');
-INSERT INTO `sys_loginfo` VALUES (190, '超级管理员-system', '127.0.0.1', '2019-09-24 07:34:33');
-INSERT INTO `sys_loginfo` VALUES (191, '超级管理员-system', '127.0.0.1', '2019-09-24 08:58:13');
-INSERT INTO `sys_loginfo` VALUES (192, '超级管理员-system', '127.0.0.1', '2019-09-24 12:43:54');
-INSERT INTO `sys_loginfo` VALUES (193, '超级管理员-system', '127.0.0.1', '2019-09-25 01:05:12');
-INSERT INTO `sys_loginfo` VALUES (194, '超级管理员-system', '127.0.0.1', '2019-09-25 01:37:40');
-INSERT INTO `sys_loginfo` VALUES (195, '超级管理员-system', '127.0.0.1', '2019-09-25 01:43:26');
-INSERT INTO `sys_loginfo` VALUES (196, '超级管理员-system', '127.0.0.1', '2019-09-25 01:46:40');
-INSERT INTO `sys_loginfo` VALUES (197, '超级管理员-system', '127.0.0.1', '2019-09-25 01:55:27');
-INSERT INTO `sys_loginfo` VALUES (198, '超级管理员-system', '127.0.0.1', '2019-09-25 02:27:40');
-INSERT INTO `sys_loginfo` VALUES (199, '超级管理员-system', '127.0.0.1', '2019-09-25 02:32:48');
-INSERT INTO `sys_loginfo` VALUES (200, '超级管理员-system', '127.0.0.1', '2019-09-25 02:35:53');
-INSERT INTO `sys_loginfo` VALUES (201, '超级管理员-system', '127.0.0.1', '2019-09-25 03:33:17');
-INSERT INTO `sys_loginfo` VALUES (202, '超级管理员-system', '127.0.0.1', '2019-09-25 06:05:49');
-INSERT INTO `sys_loginfo` VALUES (203, '超级管理员-system', '127.0.0.1', '2019-09-25 06:44:21');
-INSERT INTO `sys_loginfo` VALUES (204, '超级管理员-system', '127.0.0.1', '2019-09-25 06:47:39');
-INSERT INTO `sys_loginfo` VALUES (205, '超级管理员-system', '127.0.0.1', '2019-09-25 06:54:08');
-INSERT INTO `sys_loginfo` VALUES (206, '小小明-xiaoxiaoming', '127.0.0.1', '2019-09-25 06:55:09');
-INSERT INTO `sys_loginfo` VALUES (207, '超级管理员-system', '127.0.0.1', '2019-09-25 06:55:18');
-INSERT INTO `sys_loginfo` VALUES (208, '超级管理员-system', '127.0.0.1', '2019-09-25 08:23:32');
-INSERT INTO `sys_loginfo` VALUES (209, '超级管理员-system', '127.0.0.1', '2019-09-25 09:32:37');
-INSERT INTO `sys_loginfo` VALUES (210, '超级管理员-system', '127.0.0.1', '2019-09-25 09:41:34');
-INSERT INTO `sys_loginfo` VALUES (211, '超级管理员-system', '127.0.0.1', '2019-09-25 09:57:10');
-INSERT INTO `sys_loginfo` VALUES (212, '李四-ls', '127.0.0.1', '2019-09-25 09:58:02');
-INSERT INTO `sys_loginfo` VALUES (213, '王五-ww', '127.0.0.1', '2019-09-25 09:58:13');
-INSERT INTO `sys_loginfo` VALUES (214, '习大大-xidada', '127.0.0.1', '2019-09-25 09:58:24');
-INSERT INTO `sys_loginfo` VALUES (215, '刘八-lb', '127.0.0.1', '2019-09-25 10:06:07');
-INSERT INTO `sys_loginfo` VALUES (216, '刘八-lb', '127.0.0.1', '2019-09-25 10:09:17');
-INSERT INTO `sys_loginfo` VALUES (217, '刘八-lb', '127.0.0.1', '2019-09-25 10:11:39');
-INSERT INTO `sys_loginfo` VALUES (218, '刘八-lb', '127.0.0.1', '2019-09-25 10:13:49');
-INSERT INTO `sys_loginfo` VALUES (219, '刘八-lb', '127.0.0.1', '2019-09-25 10:14:16');
-INSERT INTO `sys_loginfo` VALUES (220, '超级管理员-system', '127.0.0.1', '2019-09-27 01:12:10');
-INSERT INTO `sys_loginfo` VALUES (221, '超级管理员-system', '127.0.0.1', '2019-09-27 01:34:40');
-INSERT INTO `sys_loginfo` VALUES (222, '超级管理员-system', '127.0.0.1', '2019-09-27 01:36:20');
-INSERT INTO `sys_loginfo` VALUES (223, '超级管理员-system', '127.0.0.1', '2019-09-27 03:03:01');
-INSERT INTO `sys_loginfo` VALUES (224, '超级管理员-system', '127.0.0.1', '2019-09-27 06:12:41');
-INSERT INTO `sys_loginfo` VALUES (225, '超级管理员-system', '127.0.0.1', '2019-09-27 06:30:55');
-INSERT INTO `sys_loginfo` VALUES (226, '超级管理员-system', '127.0.0.1', '2019-09-27 06:32:23');
-INSERT INTO `sys_loginfo` VALUES (227, '超级管理员-system', '127.0.0.1', '2019-09-27 06:35:18');
-INSERT INTO `sys_loginfo` VALUES (228, '超级管理员-system', '127.0.0.1', '2019-09-27 06:41:36');
-INSERT INTO `sys_loginfo` VALUES (229, '超级管理员-system', '127.0.0.1', '2019-09-27 06:54:10');
-INSERT INTO `sys_loginfo` VALUES (230, '超级管理员-system', '127.0.0.1', '2019-09-27 07:21:43');
-INSERT INTO `sys_loginfo` VALUES (231, '超级管理员-system', '127.0.0.1', '2019-09-27 07:22:43');
-INSERT INTO `sys_loginfo` VALUES (232, '超级管理员-system', '127.0.0.1', '2019-09-27 07:23:35');
-INSERT INTO `sys_loginfo` VALUES (233, '超级管理员-system', '127.0.0.1', '2019-09-27 07:35:38');
-INSERT INTO `sys_loginfo` VALUES (234, '超级管理员-system', '127.0.0.1', '2019-09-27 08:38:42');
-INSERT INTO `sys_loginfo` VALUES (235, '超级管理员-system', '127.0.0.1', '2019-09-27 08:49:03');
-INSERT INTO `sys_loginfo` VALUES (236, '超级管理员-system', '127.0.0.1', '2019-09-27 08:50:09');
-INSERT INTO `sys_loginfo` VALUES (237, '超级管理员-system', '127.0.0.1', '2019-09-27 08:55:53');
-INSERT INTO `sys_loginfo` VALUES (238, '超级管理员-system', '127.0.0.1', '2019-09-27 09:03:14');
-INSERT INTO `sys_loginfo` VALUES (239, '超级管理员-system', '127.0.0.1', '2019-09-27 09:05:30');
-INSERT INTO `sys_loginfo` VALUES (240, '超级管理员-system', '127.0.0.1', '2019-09-27 09:13:24');
-INSERT INTO `sys_loginfo` VALUES (241, '超级管理员-system', '127.0.0.1', '2019-09-27 11:40:15');
-INSERT INTO `sys_loginfo` VALUES (242, '超级管理员-system', '127.0.0.1', '2019-09-28 01:06:10');
-INSERT INTO `sys_loginfo` VALUES (243, '超级管理员-system', '127.0.0.1', '2019-09-28 01:34:38');
-INSERT INTO `sys_loginfo` VALUES (244, '超级管理员-system', '127.0.0.1', '2019-09-28 01:37:49');
-INSERT INTO `sys_loginfo` VALUES (245, '超级管理员-system', '127.0.0.1', '2019-09-28 01:41:24');
-INSERT INTO `sys_loginfo` VALUES (246, '超级管理员-system', '127.0.0.1', '2019-09-28 02:04:47');
-INSERT INTO `sys_loginfo` VALUES (247, '超级管理员-system', '127.0.0.1', '2019-09-28 02:10:42');
-INSERT INTO `sys_loginfo` VALUES (248, '超级管理员-system', '127.0.0.1', '2019-09-28 03:09:10');
-INSERT INTO `sys_loginfo` VALUES (249, '超级管理员-system', '127.0.0.1', '2019-09-28 03:16:51');
-INSERT INTO `sys_loginfo` VALUES (250, '超级管理员-system', '127.0.0.1', '2019-09-28 03:46:59');
-INSERT INTO `sys_loginfo` VALUES (251, '超级管理员-system', '127.0.0.1', '2019-09-28 06:44:10');
-INSERT INTO `sys_loginfo` VALUES (252, '超级管理员-system', '127.0.0.1', '2019-09-28 06:51:39');
-INSERT INTO `sys_loginfo` VALUES (253, '超级管理员-system', '127.0.0.1', '2019-09-28 06:56:05');
-INSERT INTO `sys_loginfo` VALUES (254, '超级管理员-system', '127.0.0.1', '2019-09-28 07:32:20');
-INSERT INTO `sys_loginfo` VALUES (255, '超级管理员-system', '127.0.0.1', '2019-09-28 07:37:57');
-
--- ----------------------------
--- Table structure for sys_notice
--- ----------------------------
-DROP TABLE IF EXISTS `sys_notice`;
-CREATE TABLE `sys_notice`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `createtime` datetime(0) NULL DEFAULT NULL,
-  `opername` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_notice
--- ----------------------------
-INSERT INTO `sys_notice` VALUES (1, '关于系统V1.3更新公告', '2', '2018-08-07 00:00:00', '管理员');
-INSERT INTO `sys_notice` VALUES (10, '关于系统V1.2更新公告', '12312312<img src=\"/resources/layui/images/face/42.gif\" alt=\"[抓狂]\">', '2018-08-07 00:00:00', '超级管理员');
-INSERT INTO `sys_notice` VALUES (11, '关于系统V1.1更新公告', '21321321321<img src=\"/resources/layui/images/face/18.gif\" alt=\"[右哼哼]\">', '2018-08-07 00:00:00', '超级管理员');
-INSERT INTO `sys_notice` VALUES (17, 'x', 'a', '2019-09-24 08:57:03', 'b');
-
--- ----------------------------
--- Table structure for sys_permission
--- ----------------------------
-DROP TABLE IF EXISTS `sys_permission`;
-CREATE TABLE `sys_permission`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pid` int(11) NULL DEFAULT NULL,
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限类型[menu/permission]',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `percode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限编码[只有type= permission才有  user:view]',
-  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `href` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `target` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `open` int(11) NULL DEFAULT NULL,
-  `ordernum` int(11) NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL COMMENT '状态【0不可用1可用】',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_permission
--- ----------------------------
-INSERT INTO `sys_permission` VALUES (1, 0, 'menu', '尚学堂进销存管理系统', NULL, '&#xe68e;', '', '', 1, 1, 1);
-INSERT INTO `sys_permission` VALUES (2, 1, 'menu', '基础管理', NULL, '&#xe857;', '', '', 1, 2, 1);
-INSERT INTO `sys_permission` VALUES (3, 1, 'menu', '进货管理', NULL, '&#xe645;', '', NULL, 0, 3, 1);
-INSERT INTO `sys_permission` VALUES (4, 1, 'menu', '销售管理', NULL, '&#xe611;', '', '', 0, 4, 1);
-INSERT INTO `sys_permission` VALUES (5, 1, 'menu', '系统管理', NULL, '&#xe614;', '', '', 0, 5, 1);
-INSERT INTO `sys_permission` VALUES (6, 1, 'menu', '其它管理', NULL, '&#xe628;', '', '', 0, 6, 1);
-INSERT INTO `sys_permission` VALUES (7, 2, 'menu', '客户管理', NULL, '&#xe651;', '/bus/toCustomerManager', '', 0, 7, 1);
-INSERT INTO `sys_permission` VALUES (8, 2, 'menu', '供应商管理', NULL, '&#xe658;', '/bus/toProviderManager', '', 0, 8, 1);
-INSERT INTO `sys_permission` VALUES (9, 2, 'menu', '商品管理', NULL, '&#xe657;', '/bus/toGoodsManager', '', 0, 9, 1);
-INSERT INTO `sys_permission` VALUES (10, 3, 'menu', '商品进货', NULL, '&#xe756;', '/bus/toInportManager', '', 0, 10, 1);
-INSERT INTO `sys_permission` VALUES (11, 3, 'menu', '商品退货查询', NULL, '&#xe65a;', '/bus/toOutportManager', '', 0, 11, 1);
-INSERT INTO `sys_permission` VALUES (12, 4, 'menu', '商品销售', NULL, '&#xe65b;', '', '', 0, 12, 1);
-INSERT INTO `sys_permission` VALUES (13, 4, 'menu', '销售退货查询', NULL, '&#xe770;', '', '', 0, 13, 1);
-INSERT INTO `sys_permission` VALUES (14, 5, 'menu', '部门管理', NULL, '&#xe770;', '/sys/toDeptManager', '', 0, 14, 1);
-INSERT INTO `sys_permission` VALUES (15, 5, 'menu', '菜单管理', NULL, '&#xe857;', '/sys/toMenuManager', '', 0, 15, 1);
-INSERT INTO `sys_permission` VALUES (16, 5, 'menu', '权限管理', '', '&#xe857;', '/sys/toPermissionManager', '', 0, 16, 1);
-INSERT INTO `sys_permission` VALUES (17, 5, 'menu', '角色管理', '', '&#xe650;', '/sys/toRoleManager', '', 0, 17, 1);
-INSERT INTO `sys_permission` VALUES (18, 5, 'menu', '用户管理', '', '&#xe612;', '/sys/toUserManager', '', 0, 18, 1);
-INSERT INTO `sys_permission` VALUES (21, 6, 'menu', '登陆日志', NULL, '&#xe675;', '/sys/toLoginfoManager', '', 0, 21, 1);
-INSERT INTO `sys_permission` VALUES (22, 6, 'menu', '系统公告', NULL, '&#xe756;', '/sys/toNoticeManager', NULL, 0, 22, 1);
-INSERT INTO `sys_permission` VALUES (23, 6, 'menu', '图标管理', NULL, '&#xe670;', '../resources/page/icon.html', NULL, 0, 23, 1);
-INSERT INTO `sys_permission` VALUES (30, 14, 'permission', '添加部门', 'dept:create', '', NULL, NULL, 0, 24, 1);
-INSERT INTO `sys_permission` VALUES (31, 14, 'permission', '修改部门', 'dept:update', '', NULL, NULL, 0, 26, 1);
-INSERT INTO `sys_permission` VALUES (32, 14, 'permission', '删除部门', 'dept:delete', '', NULL, NULL, 0, 27, 1);
-INSERT INTO `sys_permission` VALUES (34, 15, 'permission', '添加菜单', 'menu:create', '', '', '', 0, 29, 1);
-INSERT INTO `sys_permission` VALUES (35, 15, 'permission', '修改菜单', 'menu:update', '', NULL, NULL, 0, 30, 1);
-INSERT INTO `sys_permission` VALUES (36, 15, 'permission', '删除菜单', 'menu:delete', '', NULL, NULL, 0, 31, 1);
-INSERT INTO `sys_permission` VALUES (38, 16, 'permission', '添加权限', 'permission:create', '', NULL, NULL, 0, 33, 1);
-INSERT INTO `sys_permission` VALUES (39, 16, 'permission', '修改权限', 'permission:update', '', NULL, NULL, 0, 34, 1);
-INSERT INTO `sys_permission` VALUES (40, 16, 'permission', '删除权限', 'permission:delete', '', NULL, NULL, 0, 35, 1);
-INSERT INTO `sys_permission` VALUES (42, 17, 'permission', '添加角色', 'role:create', '', NULL, NULL, 0, 37, 1);
-INSERT INTO `sys_permission` VALUES (43, 17, 'permission', '修改角色', 'role:update', '', NULL, NULL, 0, 38, 1);
-INSERT INTO `sys_permission` VALUES (44, 17, 'permission', '角色删除', 'role:delete', '', NULL, NULL, 0, 39, 1);
-INSERT INTO `sys_permission` VALUES (46, 17, 'permission', '分配权限', 'role:selectPermission', '', NULL, NULL, 0, 41, 1);
-INSERT INTO `sys_permission` VALUES (47, 18, 'permission', '添加用户', 'user:create', '', NULL, NULL, 0, 42, 1);
-INSERT INTO `sys_permission` VALUES (48, 18, 'permission', '修改用户', 'user:update', '', NULL, NULL, 0, 43, 1);
-INSERT INTO `sys_permission` VALUES (49, 18, 'permission', '删除用户', 'user:delete', '', NULL, NULL, 0, 44, 1);
-INSERT INTO `sys_permission` VALUES (51, 18, 'permission', '用户分配角色', 'user:selectRole', '', NULL, NULL, 0, 46, 1);
-INSERT INTO `sys_permission` VALUES (52, 18, 'permission', '重置密码', 'user:resetPwd', NULL, NULL, NULL, 0, 47, 1);
-INSERT INTO `sys_permission` VALUES (53, 14, 'permission', '部门查询', 'dept:view', NULL, NULL, NULL, 0, 48, 1);
-INSERT INTO `sys_permission` VALUES (54, 15, 'permission', '菜单查询', 'menu:view', NULL, NULL, NULL, 0, 49, 1);
-INSERT INTO `sys_permission` VALUES (55, 16, 'permission', '权限查询', 'permission:view', NULL, NULL, NULL, 0, 50, 1);
-INSERT INTO `sys_permission` VALUES (56, 17, 'permission', '角色查询', 'role:view', NULL, NULL, NULL, 0, 51, 1);
-INSERT INTO `sys_permission` VALUES (57, 18, 'permission', '用户查询', 'user:view', NULL, NULL, NULL, 0, 52, 1);
-INSERT INTO `sys_permission` VALUES (68, 7, 'permission', '客户查询', 'customer:view', NULL, NULL, NULL, NULL, 60, 1);
-INSERT INTO `sys_permission` VALUES (69, 7, 'permission', '客户添加', 'customer:create', NULL, NULL, NULL, NULL, 61, 1);
-INSERT INTO `sys_permission` VALUES (70, 7, 'permission', '客户修改', 'customer:update', NULL, NULL, NULL, NULL, 62, 1);
-INSERT INTO `sys_permission` VALUES (71, 7, 'permission', '客户删除', 'customer:delete', NULL, NULL, NULL, NULL, 63, 1);
-INSERT INTO `sys_permission` VALUES (73, 21, 'permission', '日志查询', 'info:view', NULL, NULL, NULL, NULL, 65, 1);
-INSERT INTO `sys_permission` VALUES (74, 21, 'permission', '日志删除', 'info:delete', NULL, NULL, NULL, NULL, 66, 1);
-INSERT INTO `sys_permission` VALUES (75, 21, 'permission', '日志批量删除', 'info:batchdelete', NULL, NULL, NULL, NULL, 67, 1);
-INSERT INTO `sys_permission` VALUES (76, 22, 'permission', '公告查询', 'notice:view', NULL, NULL, NULL, NULL, 68, 1);
-INSERT INTO `sys_permission` VALUES (77, 22, 'permission', '公告添加', 'notice:create', NULL, NULL, NULL, NULL, 69, 1);
-INSERT INTO `sys_permission` VALUES (78, 22, 'permission', '公告修改', 'notice:update', NULL, NULL, NULL, NULL, 70, 1);
-INSERT INTO `sys_permission` VALUES (79, 22, 'permission', '公告删除', 'notice:delete', NULL, NULL, NULL, NULL, 71, 1);
-INSERT INTO `sys_permission` VALUES (81, 8, 'permission', '供应商查询', 'provider:view', NULL, NULL, NULL, NULL, 73, 1);
-INSERT INTO `sys_permission` VALUES (82, 8, 'permission', '供应商添加', 'provider:create', NULL, NULL, NULL, NULL, 74, 1);
-INSERT INTO `sys_permission` VALUES (83, 8, 'permission', '供应商修改', 'provider:update', NULL, NULL, NULL, NULL, 75, 1);
-INSERT INTO `sys_permission` VALUES (84, 8, 'permission', '供应商删除', 'provider:delete', NULL, NULL, NULL, NULL, 76, 1);
-INSERT INTO `sys_permission` VALUES (86, 22, 'permission', '公告查看', 'notice:viewnotice', NULL, NULL, NULL, NULL, 78, 1);
-INSERT INTO `sys_permission` VALUES (91, 9, 'permission', '商品查询', 'goods:view', NULL, NULL, NULL, 0, 79, 1);
-INSERT INTO `sys_permission` VALUES (92, 9, 'permission', '商品添加', 'goods:create', NULL, NULL, NULL, 0, 80, 1);
-INSERT INTO `sys_permission` VALUES (94, 9, 'permission', '商品修改', 'goods:update', NULL, 'goods:update', NULL, 0, 81, 1);
-INSERT INTO `sys_permission` VALUES (95, 6, 'menu', '缓存管理', NULL, '&#xe681;', '/sys/toCacheManager', '', 1, 82, 1);
-
--- ----------------------------
--- Table structure for sys_role
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT NULL,
-  `createtime` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role
--- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '超级管理员', '拥有所有菜单权限', 1, '2019-04-10 14:06:32');
-INSERT INTO `sys_role` VALUES (4, '基础数据管理员', '基础数据管理员', 1, '2019-04-10 14:06:32');
-INSERT INTO `sys_role` VALUES (5, '仓库管理员', '仓库管理员', 1, '2019-04-10 14:06:32');
-INSERT INTO `sys_role` VALUES (6, '销售管理员', '销售管理员', 1, '2019-04-10 14:06:32');
-INSERT INTO `sys_role` VALUES (7, '系统管理员', '系统管理员', 1, '2019-04-10 14:06:32');
-
--- ----------------------------
--- Table structure for sys_role_permission
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_permission`;
-CREATE TABLE `sys_role_permission`  (
-  `rid` int(11) NOT NULL,
-  `pid` int(11) NOT NULL,
-  PRIMARY KEY (`pid`, `rid`) USING BTREE,
-  INDEX `FK_tcsr9ucxypb3ce1q5qngsfk33`(`rid`) USING BTREE,
-  CONSTRAINT `sys_role_permission_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `sys_permission` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `sys_role_permission_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `sys_role` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role_permission
--- ----------------------------
-INSERT INTO `sys_role_permission` VALUES (1, 1);
-INSERT INTO `sys_role_permission` VALUES (1, 2);
-INSERT INTO `sys_role_permission` VALUES (1, 3);
-INSERT INTO `sys_role_permission` VALUES (1, 4);
-INSERT INTO `sys_role_permission` VALUES (1, 5);
-INSERT INTO `sys_role_permission` VALUES (1, 6);
-INSERT INTO `sys_role_permission` VALUES (1, 7);
-INSERT INTO `sys_role_permission` VALUES (1, 8);
-INSERT INTO `sys_role_permission` VALUES (1, 9);
-INSERT INTO `sys_role_permission` VALUES (1, 10);
-INSERT INTO `sys_role_permission` VALUES (1, 11);
-INSERT INTO `sys_role_permission` VALUES (1, 12);
-INSERT INTO `sys_role_permission` VALUES (1, 13);
-INSERT INTO `sys_role_permission` VALUES (1, 14);
-INSERT INTO `sys_role_permission` VALUES (1, 15);
-INSERT INTO `sys_role_permission` VALUES (1, 16);
-INSERT INTO `sys_role_permission` VALUES (1, 17);
-INSERT INTO `sys_role_permission` VALUES (1, 18);
-INSERT INTO `sys_role_permission` VALUES (1, 21);
-INSERT INTO `sys_role_permission` VALUES (1, 22);
-INSERT INTO `sys_role_permission` VALUES (1, 23);
-INSERT INTO `sys_role_permission` VALUES (1, 30);
-INSERT INTO `sys_role_permission` VALUES (1, 31);
-INSERT INTO `sys_role_permission` VALUES (1, 32);
-INSERT INTO `sys_role_permission` VALUES (1, 34);
-INSERT INTO `sys_role_permission` VALUES (1, 35);
-INSERT INTO `sys_role_permission` VALUES (1, 36);
-INSERT INTO `sys_role_permission` VALUES (1, 38);
-INSERT INTO `sys_role_permission` VALUES (1, 39);
-INSERT INTO `sys_role_permission` VALUES (1, 40);
-INSERT INTO `sys_role_permission` VALUES (1, 42);
-INSERT INTO `sys_role_permission` VALUES (1, 43);
-INSERT INTO `sys_role_permission` VALUES (1, 44);
-INSERT INTO `sys_role_permission` VALUES (1, 46);
-INSERT INTO `sys_role_permission` VALUES (1, 47);
-INSERT INTO `sys_role_permission` VALUES (1, 48);
-INSERT INTO `sys_role_permission` VALUES (1, 49);
-INSERT INTO `sys_role_permission` VALUES (1, 51);
-INSERT INTO `sys_role_permission` VALUES (1, 52);
-INSERT INTO `sys_role_permission` VALUES (1, 53);
-INSERT INTO `sys_role_permission` VALUES (1, 54);
-INSERT INTO `sys_role_permission` VALUES (1, 55);
-INSERT INTO `sys_role_permission` VALUES (1, 56);
-INSERT INTO `sys_role_permission` VALUES (1, 57);
-INSERT INTO `sys_role_permission` VALUES (1, 68);
-INSERT INTO `sys_role_permission` VALUES (1, 69);
-INSERT INTO `sys_role_permission` VALUES (1, 70);
-INSERT INTO `sys_role_permission` VALUES (1, 71);
-INSERT INTO `sys_role_permission` VALUES (1, 73);
-INSERT INTO `sys_role_permission` VALUES (1, 74);
-INSERT INTO `sys_role_permission` VALUES (1, 75);
-INSERT INTO `sys_role_permission` VALUES (1, 76);
-INSERT INTO `sys_role_permission` VALUES (1, 77);
-INSERT INTO `sys_role_permission` VALUES (1, 78);
-INSERT INTO `sys_role_permission` VALUES (1, 79);
-INSERT INTO `sys_role_permission` VALUES (1, 81);
-INSERT INTO `sys_role_permission` VALUES (1, 82);
-INSERT INTO `sys_role_permission` VALUES (1, 83);
-INSERT INTO `sys_role_permission` VALUES (1, 84);
-INSERT INTO `sys_role_permission` VALUES (1, 86);
-INSERT INTO `sys_role_permission` VALUES (1, 91);
-INSERT INTO `sys_role_permission` VALUES (1, 92);
-INSERT INTO `sys_role_permission` VALUES (1, 94);
-INSERT INTO `sys_role_permission` VALUES (4, 1);
-INSERT INTO `sys_role_permission` VALUES (4, 2);
-INSERT INTO `sys_role_permission` VALUES (4, 7);
-INSERT INTO `sys_role_permission` VALUES (4, 8);
-INSERT INTO `sys_role_permission` VALUES (4, 9);
-INSERT INTO `sys_role_permission` VALUES (4, 68);
-INSERT INTO `sys_role_permission` VALUES (4, 69);
-INSERT INTO `sys_role_permission` VALUES (4, 70);
-INSERT INTO `sys_role_permission` VALUES (4, 71);
-INSERT INTO `sys_role_permission` VALUES (4, 81);
-INSERT INTO `sys_role_permission` VALUES (4, 82);
-INSERT INTO `sys_role_permission` VALUES (4, 83);
-INSERT INTO `sys_role_permission` VALUES (4, 84);
-INSERT INTO `sys_role_permission` VALUES (4, 91);
-INSERT INTO `sys_role_permission` VALUES (4, 92);
-INSERT INTO `sys_role_permission` VALUES (4, 94);
-INSERT INTO `sys_role_permission` VALUES (5, 1);
-INSERT INTO `sys_role_permission` VALUES (5, 3);
-INSERT INTO `sys_role_permission` VALUES (5, 4);
-INSERT INTO `sys_role_permission` VALUES (5, 10);
-INSERT INTO `sys_role_permission` VALUES (5, 11);
-INSERT INTO `sys_role_permission` VALUES (5, 12);
-INSERT INTO `sys_role_permission` VALUES (5, 13);
-INSERT INTO `sys_role_permission` VALUES (6, 1);
-INSERT INTO `sys_role_permission` VALUES (6, 4);
-INSERT INTO `sys_role_permission` VALUES (6, 12);
-INSERT INTO `sys_role_permission` VALUES (6, 13);
-INSERT INTO `sys_role_permission` VALUES (7, 1);
-INSERT INTO `sys_role_permission` VALUES (7, 5);
-INSERT INTO `sys_role_permission` VALUES (7, 6);
-INSERT INTO `sys_role_permission` VALUES (7, 14);
-INSERT INTO `sys_role_permission` VALUES (7, 15);
-INSERT INTO `sys_role_permission` VALUES (7, 16);
-INSERT INTO `sys_role_permission` VALUES (7, 17);
-INSERT INTO `sys_role_permission` VALUES (7, 18);
-INSERT INTO `sys_role_permission` VALUES (7, 21);
-INSERT INTO `sys_role_permission` VALUES (7, 22);
-INSERT INTO `sys_role_permission` VALUES (7, 23);
-INSERT INTO `sys_role_permission` VALUES (7, 30);
-INSERT INTO `sys_role_permission` VALUES (7, 31);
-INSERT INTO `sys_role_permission` VALUES (7, 34);
-INSERT INTO `sys_role_permission` VALUES (7, 35);
-INSERT INTO `sys_role_permission` VALUES (7, 36);
-INSERT INTO `sys_role_permission` VALUES (7, 38);
-INSERT INTO `sys_role_permission` VALUES (7, 39);
-INSERT INTO `sys_role_permission` VALUES (7, 40);
-INSERT INTO `sys_role_permission` VALUES (7, 42);
-INSERT INTO `sys_role_permission` VALUES (7, 43);
-INSERT INTO `sys_role_permission` VALUES (7, 44);
-INSERT INTO `sys_role_permission` VALUES (7, 46);
-INSERT INTO `sys_role_permission` VALUES (7, 47);
-INSERT INTO `sys_role_permission` VALUES (7, 48);
-INSERT INTO `sys_role_permission` VALUES (7, 49);
-INSERT INTO `sys_role_permission` VALUES (7, 51);
-INSERT INTO `sys_role_permission` VALUES (7, 52);
-INSERT INTO `sys_role_permission` VALUES (7, 53);
-INSERT INTO `sys_role_permission` VALUES (7, 54);
-INSERT INTO `sys_role_permission` VALUES (7, 55);
-INSERT INTO `sys_role_permission` VALUES (7, 56);
-INSERT INTO `sys_role_permission` VALUES (7, 57);
-INSERT INTO `sys_role_permission` VALUES (7, 73);
-INSERT INTO `sys_role_permission` VALUES (7, 74);
-INSERT INTO `sys_role_permission` VALUES (7, 75);
-INSERT INTO `sys_role_permission` VALUES (7, 76);
-INSERT INTO `sys_role_permission` VALUES (7, 77);
-INSERT INTO `sys_role_permission` VALUES (7, 78);
-INSERT INTO `sys_role_permission` VALUES (7, 79);
-INSERT INTO `sys_role_permission` VALUES (7, 86);
-
--- ----------------------------
--- Table structure for sys_role_user
--- ----------------------------
-DROP TABLE IF EXISTS `sys_role_user`;
-CREATE TABLE `sys_role_user`  (
-  `rid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  PRIMARY KEY (`uid`, `rid`) USING BTREE,
-  INDEX `FK_203gdpkwgtow7nxlo2oap5jru`(`rid`) USING BTREE,
-  CONSTRAINT `sys_role_user_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `sys_role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `sys_role_user_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `sys_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role_user
--- ----------------------------
-INSERT INTO `sys_role_user` VALUES (1, 2);
-INSERT INTO `sys_role_user` VALUES (4, 3);
-INSERT INTO `sys_role_user` VALUES (4, 8);
-INSERT INTO `sys_role_user` VALUES (5, 4);
-INSERT INTO `sys_role_user` VALUES (5, 8);
-INSERT INTO `sys_role_user` VALUES (6, 5);
-INSERT INTO `sys_role_user` VALUES (6, 8);
-INSERT INTO `sys_role_user` VALUES (7, 6);
-INSERT INTO `sys_role_user` VALUES (7, 8);
-
--- ----------------------------
--- Table structure for sys_user
--- ----------------------------
-DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `loginname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `sex` int(11) NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `pwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `deptid` int(11) NULL DEFAULT NULL,
-  `hiredate` datetime(0) NULL DEFAULT NULL,
-  `mgr` int(11) NULL DEFAULT NULL,
-  `available` int(11) NULL DEFAULT 1,
-  `ordernum` int(11) NULL DEFAULT NULL,
-  `type` int(255) NULL DEFAULT NULL COMMENT '用户类型[0超级管理员1，管理员，2普通用户]',
-  `imgpath` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像地址',
-  `salt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FK_3rrcpvho2w1mx1sfiuuyir1h`(`deptid`) USING BTREE,
-  CONSTRAINT `sys_user_ibfk_1` FOREIGN KEY (`deptid`) REFERENCES `sys_dept` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_user
--- ----------------------------
-INSERT INTO `sys_user` VALUES (1, '超级管理员', 'system', '系统深处的男人', 1, '超级管理员', '532ac00e86893901af5f0be6b704dbc7', 1, '2018-06-25 11:06:34', NULL, 1, 1, 0, '../resources/images/defaultusertitle.jpg', '04A93C74C8294AA09A8B974FD1F4ECBB');
-INSERT INTO `sys_user` VALUES (2, '李四', 'ls', '武汉', 0, 'KING', 'b07b848d69e0553b80e601d31571797e', 1, '2018-06-25 11:06:36', NULL, 1, 2, 1, '../resources/images/defaultusertitle.jpg', 'FC1EE06AE4354D3FBF7FDD15C8FCDA71');
-INSERT INTO `sys_user` VALUES (3, '王五', 'ww', '武汉', 1, '管理员', '3c3f971eae61e097f59d52360323f1c8', 3, '2018-06-25 11:06:38', 2, 1, 3, 1, '../resources/images/defaultusertitle.jpg', '3D5F956E053C4E85B7D2681386E235D2');
-INSERT INTO `sys_user` VALUES (4, '赵六', 'zl', '武汉', 1, '程序员', '2e969742a7ea0c7376e9551d578e05dd', 4, '2018-06-25 11:06:40', 3, 1, 4, 1, '../resources/images/defaultusertitle.jpg', '6480EE1391E34B0886ACADA501E31145');
-INSERT INTO `sys_user` VALUES (5, '孙七', 'sq', '武汉', 1, '程序员', '47b4c1ad6e4b54dd9387a09cb5a03de1', 2, '2018-06-25 11:06:43', 4, 1, 5, 1, '../resources/images/defaultusertitle.jpg', 'FE3476C3E3674E5690C737C269FCBF8E');
-INSERT INTO `sys_user` VALUES (6, '刘八', 'lb', '深圳', 1, '程序员', 'bcee2b05b4b591106829aec69a094806', 4, '2018-08-06 11:21:12', 3, 1, 6, 1, '../resources/images/defaultusertitle.jpg', 'E6CCF54A09894D998225878BBD139B20');
-INSERT INTO `sys_user` VALUES (8, '习大大', 'xidada', '北京', 1, '北京', '83c6312d3124527c06f9f32c9f0f4122', 7, '2019-09-25 08:47:38', 3, 1, 7, 1, NULL, '9A77217BD788418683C5D69CDC85B4AA');
-
-SET FOREIGN_KEY_CHECKS = 1;
+insert  into `ACT_GE_BYTEARRAY`(`ID_`,`REV_`,`NAME_`,`DEPLOYMENT_ID_`,`BYTES_`,`GENERATED_`) values
+('122536',1,'Leavebill.bpmn20.xml','122535','<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\n  <process id=\"Leavebill\" name=\"Leavebill\" isExecutable=\"true\">\n    <startEvent id=\"startTask\" name=\"开始\"></startEvent>\n    <userTask id=\"usertask1\" name=\"提交申请\" activiti:assignee=\"#{username}\"></userTask>\n    <userTask id=\"usertask2\" name=\"审批【上级领导】\">\n      <extensionElements>\n        <activiti:taskListener event=\"create\" class=\"com.ms.listener.TaskListenerImpl\"></activiti:taskListener>\n      </extensionElements>\n    </userTask>\n    <userTask id=\"usertask3\" name=\"审批【上上级领导】\">\n      <extensionElements>\n        <activiti:taskListener event=\"create\" class=\"com.ms.listener.TaskListenerImpl\"></activiti:taskListener>\n      </extensionElements>\n    </userTask>\n    <endEvent id=\"endTask\" name=\"结束\"></endEvent>\n    <sequenceFlow id=\"flow1\" sourceRef=\"startTask\" targetRef=\"usertask1\"></sequenceFlow>\n    <sequenceFlow id=\"flow3\" name=\"同意\" sourceRef=\"usertask2\" targetRef=\"usertask3\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'同意\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow4\" name=\"同意\" sourceRef=\"usertask3\" targetRef=\"endTask\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'同意\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow5\" name=\"放弃\" sourceRef=\"usertask1\" targetRef=\"endTask\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'放弃\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow6\" name=\"驳回\" sourceRef=\"usertask2\" targetRef=\"usertask1\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'驳回\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow2\" name=\"提交\" sourceRef=\"usertask1\" targetRef=\"usertask2\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'提交\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow7\" name=\"驳回\" sourceRef=\"usertask3\" targetRef=\"usertask1\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'驳回\'}]]></conditionExpression>\n    </sequenceFlow>\n  </process>\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_Leavebill\">\n    <bpmndi:BPMNPlane bpmnElement=\"Leavebill\" id=\"BPMNPlane_Leavebill\">\n      <bpmndi:BPMNShape bpmnElement=\"startTask\" id=\"BPMNShape_startTask\">\n        <omgdc:Bounds height=\"30.0\" width=\"30.0\" x=\"105.0\" y=\"205.5\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask1\" id=\"BPMNShape_usertask1\">\n        <omgdc:Bounds height=\"80.0\" width=\"100.0\" x=\"240.0\" y=\"180.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask2\" id=\"BPMNShape_usertask2\">\n        <omgdc:Bounds height=\"80.0\" width=\"100.0\" x=\"390.0\" y=\"165.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask3\" id=\"BPMNShape_usertask3\">\n        <omgdc:Bounds height=\"77.0\" width=\"119.0\" x=\"540.0\" y=\"182.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"endTask\" id=\"BPMNShape_endTask\">\n        <omgdc:Bounds height=\"28.0\" width=\"28.0\" x=\"796.3999938964844\" y=\"206.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNEdge bpmnElement=\"flow1\" id=\"BPMNEdge_flow1\">\n        <omgdi:waypoint x=\"134.99993512152818\" y=\"220.4558825437602\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"240.0\" y=\"220.14705882352942\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow2\" id=\"BPMNEdge_flow2\">\n        <omgdi:waypoint x=\"340.0\" y=\"220.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"365.0\" y=\"220.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"365.0\" y=\"205.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"390.0\" y=\"205.0\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow3\" id=\"BPMNEdge_flow3\">\n        <omgdi:waypoint x=\"490.0\" y=\"205.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"515.0\" y=\"205.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"515.0\" y=\"220.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"540.0\" y=\"220.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow4\" id=\"BPMNEdge_flow4\">\n        <omgdi:waypoint x=\"659.0\" y=\"220.3589378811713\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"796.4000332408986\" y=\"220.03319099350583\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow5\" id=\"BPMNEdge_flow5\">\n        <omgdi:waypoint x=\"290.0\" y=\"180.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"110.80000305175781\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"806.2103494824977\" y=\"110.80000305175781\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"806.2103494824977\" y=\"196.9896474657445\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow6\" id=\"BPMNEdge_flow6\">\n        <omgdi:waypoint x=\"440.0\" y=\"245.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"440.0\" y=\"321.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"321.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"260.0\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow7\" id=\"BPMNEdge_flow7\">\n        <omgdi:waypoint x=\"599.5\" y=\"259.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"599.5\" y=\"409.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"409.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"260.0\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n    </bpmndi:BPMNPlane>\n  </bpmndi:BPMNDiagram>\n</definitions>',0),
+('122537',1,'Leavebill.Leavebill.png','122535','ʐNG\r\n\Z\n\0\0\0\rIHDR\0\0B\0\0È\0\0\0٥z\0\0)sIDATxۭ޽lޥ}7pWkU׎*ӆ۪ˠ۾@mE˩ҖumĎUնLλ|lB\\6Ҫ	-禫3婐̴!ҍRD\'\Z!wÑIɛӗ\'lO%iqLlЙۀ}?��߻\'~̟}ϧ#]򉽜8W~ڎ໮󥦆\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0ǁ;LPU뫪ððaȺ d\0j󁗗-Z��B\0@5��kkk/0 \0TS?𛺺򋍄 \0UĘ,>][[󑳁B\0@5��nƂ3B\0@5��Ƣ茄 \0UĐ(l̯пҙ\0!\0򁜲iʵ \0TS?ퟃ�\\b&\0A\0ɜZƂ឴-7 \0TS?к\rC7؉@\0ʩ𞺮6 \0TΘ\r*̷؉@\0ʩX牙	@\0ʩhLȏ̄ \0U#,��0\0PM��0ՑL\0\0PM��l3 \0T΂p 튶ۉ@\0ˆҘ��6 \0TS?pQ:Κ	@\0ˆmm톩Oѥ&\0A\0ɜZ˗/~oړݮ&\0A\0Ȧɻþ𨪜0A\0Ȧߠ��އL\0\0PM=8WɌ\0\0PM=¯묫/4 \0T͸Аmm \0֔(\n̄ \0֔l/˟3 \0T΂pѾ߾KfŜ0jꉶšɖL\0\0PM=CƢqə\0!\0j\nƻҠ՜L\0\0PM=ª4ޠ&\0A\0Ȧߠ{鹙L\0\0P5b7ɘ,ߡ&\0A\0ȦߠEݜ'd&\0A\0Ȧޠ1?1 \0T͸ȐҘ��B\0@5��ĐF3B\0@5��ҍL\0\0P5\nƂ´/ٯ&\0A\0ɜZƢ񣩸ی\0\0PM=鹪&\0A\0ɜZյ՗ŽAי\0!\0j,^ݸީ_𺙜0!\0ܣ팺㣩\0!\0򂗗-Z��B\0@5��䝜!3B\0@5��ϯࠐL\0\0P5⿂յ՟1 \0TS_pP(,0@E쭬��kҸZڜ0\0Ҟ`{Ҙ��0*VҤ羲ʫݩd꒥߰#s砥ݭͭ��࠵엤󦍆ϭ[֤;wＩ׫HZ\nō��2@ƪkk󩲨Ϟ=񲳲󜢄+ꫪJ߼󍣖ǉԜ'ӝ;vܚƢϩJՕ֭HĐ͙\0*ҩSǾߟ߿Ѥݺ뮭͍Χ۝ٕ;ABМ	Con޼񙕉TYzX,.1@E멨hM˴��44ݥvfW\'ŌݑwT%PM\nƂ=iZn&
+s혱礄---uuuߴKԜ'ϑ@甐rUE*Žj4ޠ&
+Ӧݏ��)\rݙՔtp₅ﵛs;ު9Ѵퟧ�׿U\Z񸾜'܈B\0ӌBࠋȍfȨǏߛ̡յխX,^cצnzͻ=9����#>_`!	˝4كL\0e��堤׷w{ݤձұ<367Đܓ��ˆ񧟕`!	K{qސڜ0*ˍ7ݴbՃ䜢Κ֪a;Bs;=ԭǌB񵁆لjLȏ̄Pq֯_��Б#G֦̟^牍�󷆌B񵁆ب؇PҘ��Tݚۚ?JOﰗJ8ՐѰɕㄡC˗ڇ|9\rC̈́PҖО}w\Z|򳁨߻Ｑ۰ީv羐ʫčŢk̠0ɠ԰܌PҢзM۶u殦򐺨nll<ࠬͽ tx��Ţk̠0QƂaAړ췓@ƚڲ槻ۻ󒑬]۴KҘ݌͌Ϡ��呣7࠽X\\򹸚\0#LTڏ|4Oۉ"Λخѵk֤Ƃl̟ 䨓ޕŢs 0uuuƣș\0FԤɻ[[[7훷п얭ņiލ͛7&qϠGyd^��lIvR:.Ϫ ՗ל߳هťߋω0D֖מѶ]fQĠ]ܶ%]]]󺑫ooࠗ?��'ӝ;vܚƢЕCzͻ=yn��#_̧1D,^ݸީzތ\0#ʝyªeš鍴a}ƢĐ__r㰓ʿnZ5bˆ<\'߫wH˔בٻ〈ȃP|40ШΩǵΊ\rBc탙ņR);ن殆3؄ϐÅ̞c&s{蟐юq]Χh՝!��`ܜrȳB\'䝜!3L*ު9Ѵퟦ�ױ㲼΋؆uݵ5ѐ՜r��`ܜrȳBߩϯࠐL\0BqXҡo>󾯩眲šތ6ԕڲ\\Ѓ铷ʭνș\0&ݘԽ��K��ɫ4ͪjNՕl5\nûB\nƂ3LرxfܟϘŢk^ĵښ+ue[΂.m/˟3̃ۿ7bʯy׌B몮ԕl5\nڂpѾ߾KfĴڪ𺲃Ά!ףԡ\rC֦ٰcȘДXŗ܈k!u卛CͲĐƢqə\0&ݘ߽#6񵯢ځAH]	BǜZeΩ\n��ٙ\0&ݘݜ~09��7ꨢk^ĵښ+ue[΂nGhu\ZǮ0$\Z֣O>xVS࠳ΙŔ֜\ʫ;٪rA鼩ٙL\0oX󺒃{ʈ?_󜢮Ŕ֜\ɫ;٪2ћT,ɇ論裴䅱̌0φ\"ݮ܇|ǵߦޜځAH]ͥڲíFɾ\r\r\rІݍiẏtMǉt$夜rG_1[h΅__r㰓ʿnZ5bˆ<\'߫wH3 ɫYϫ;٪ԪՆއƋ?ِ��ձkɮѦ@RWsѮ�˛��؆	B+͒0jc1ߝQvǼɫ¹UW.|缮+;ٖ>𿻂wϐŎ666ߧƀQˉƠlxQМf οNǟδJ̤?ퟅ�ھ򫋏~𡤷ط鴿􏿼븾󛟬=/_����܇}Ϟ޻KЫkkKҠQ\ZW\\qE򯿺ϥϟ=z􌧿󬳥Ͽ𢋥ྺ׿^\Z񯹇􇩭ˤI>p��ܷϮݱǫ纠҃m탱š輈=恨}�휰޹׌L杶솥s𓩪˝;vԚ��ퟍ�>󙏔ȸ䒇ҏퟎ�Ի鱃>8��xĐӥ̆;��񜻯߻۵؞+��ࠏ^~񥡿Ƿޫ]ʻ߷ޤãc(ŭܸҴݗ_}˫똱cΩ࠳V2ȯЯ��ИҢĳiݲĭ턡^ˮ/BЅ֣̌ i&Ų㲡vȦ[W恡~����ޯ~��v��ʧ?󙒜0ˇ҃ӽCKﻫαĐɓ\'\'Ŷ\n1ڳ࠼򉡝|ϕЮǠP򯿺Вǈz뜢-_߼鯷Ҁԯ̓Ȏ}ܳԳ7Ɉҟҷ��;!уm턱ݷx幬ܠ2+ ę٪ 4ՃԏDӭˈ[خځʐp喗֞��eiȨٰӟz��<��Ǳ{܌䙑\ZoPܸ⌋?Ov࠾ꩧJ_̃Ოɋ.ؠڶ۫Ǿg۶mŏ��;Z񹯽윉⃇ӗ^xt+࠻��F��։ؕ꽴g󩿿��A¾M۶ޔՔՈzeX󘏒פࠎކڷ1ЌLO˯šsSQWҸoذa鱖{첒NʰϏ¬��)?Dm̠��jܿܨ;Bѳ螤ju̇(]xᆉ߰šsĶ߿����d��۔˟ߧȧ֤uww��ޛ芡%֫kݣk־tݩ&׸Պ+V}󛟞{喗v^~񥯆sS__ڱѱkɒ%q}��fK2秳0ΰ3鲕A铟��Bqߐŗ^:��qəM墪ݧMU˳¢9iШ]��񷙮ѓ؏|ⓥ࠘ʇ¶��ڵşeAɴޣ��ԝȆ%ӓ��ǣwp}ʏGӯ֨c9̕W_ް�I?޹v}󶕞<䞌ۺڒ_��hݼ֕WݜƤ��/7{1��Ĩqخ쫣3Ţ⃙ퟡ�֏BYи~��\Z7R˳xӟ+~ƈBqNSvX\\|﷛o?켲WڋvՎ:tֹCڋ࠿��ƋҧϞoМ'��լٲmÍąԙW֫Cb2Ӿ��;]ȺϡMܭ򘪗ް��ӳ؝wޛr߾󭱿S𔓏ޚ߼y[ZDܫkk��nBFUsєו׏YȉCʜ"͵ϐğ􅜮\"dacԠWuۊ̆ş��ʹۓ=.?T/.Ѱ裏׾ϙeտ��؜\rʐ󝦛WѬݲ˭mޝޝÜthݺu��ǳg®͗ƠĄ_Ӯ˃Ӝ'yî}ljnn߶ʫκ/ߧJմԴ544ܔʅ!êÐߨӇۯʹ݇(BĝX!ܪڃ<0��ٹ7࠼sꤶŹтP\\ŭ��\'#Oࠏ��ΰR3x^ֻ��܃Ƕơpڅ㧬ɝԿМ'>��\rާT3xµk׎{Օ򂿻雽ףϼӕࠟ��ﾲ剚��p{g܋cǪ˺eBܫtݪK_Ȟʇ۴���ʜ'߈Ν;׼��iq̝��ϝݳλԅ˗\'Ĝ\^[[-җ՛WϜ\ڿݳϥS!}q~}ɒ%qŎӫĆ݁ۍ #˩܀B��]ϸª��w蝜~ވC񱝯~w)ф|,XѠ鬙NU|,ߗPθÝ\\X!��*��ϒ̏655lmmm㍷v͚֪ሸ񹙮+땡qΡ謩۳V>\0śNq\Zȸпͧȷ֝U[ꖯ^}s򢿰ߢЎώޫθ⅄-՛ŔUe֕۴;fЁ٦̀ˮAȹГԏAq˂ٽو𾛮ء<꣫8]Ӭٲ)ۉ*ؚۺR}}}ȫՋBƠ堳��к2!fˠ9A\'ԐǽgǿMT6w뭷֟&Ǐ΄࠹Ϸ^̓+Ǔ򵫿#N<3ۂС͇规MZ࠾��񉟇՝λ񢙓;Ů3࠹̺RWƠČܲݐNѤCP>֭꣫͏ퟎ�ȏࠎǛcc䳶!Cúƅ\\P۰°禥൓Ϳퟯ�\nBquŮAș	AإωۨⰣ&׿gH[aڛۻ㓙3a��֦!áL󡼸ĉ࿮],ߑʋ՟{(n~򛿵[vŔձЖ>*g7(ޤڎ?󙏬\nUÇ􏯾򪉝&󜜥΄ұ܄Щ[0ӱg\Z̊hӿRH򽱩ϛoݱ:\'֏ݸ퟈�о��>溮,T3̍X࠼寗>��Bڂڲ^3Ҷ1󕆆ƿȮА۶q߷鑫~٥ֵѕ`-qāڴܭحL麳?;r[ۛƂࠪ,篳p혱矞޷ӿ[}}}ȗПxŊĦ?ⳕү}듟J߰ůԎw󣿾䓇ؗP<.��٥��ퟜ�)ȫ땱k󷟉?߲{ޝwܱνkݧ(Ŵѕ἟��󶍨ڹs聴5󳻰凣ý㢱ػ΀ʓǾߙڹܑ{󭷯mll<O:��Ȇퟥ�Åȟw؝w%w࠽��󟻍5ה>񅗋BSĬW־Ꝝ󘿽J򹜲ڗد߾νk쿦~}l%ٺ꬏߸qbFĐ򧵥զ��2􎋾X̽f u^۸��`Ϳg��zɩʩѠ4Ѱ՝aÆ\rg\\(!ÐHߗȒƳǛ-ĬWǜ\\󘿽J򫃙稺\"	曛ܳ?Ǿ֒,YӤ Ԓ?՚@ަn-,񷜜bZc1��ԓ󪄎k߻צ/\Zࠜ'޻𕯾U\n6񎠘A({nͫǍ{ӞY󦲭c��x#󵔝2{Ջi迬}lŔڬGqӼ4sgĻPk֬)ݬ9ѓ<伇󯮈ݽ㼠޻����<򈣃>o₅ÐĚ땱쫟1��Вĝ!;BֵˁB°֬ʻ3ޘD󘜧ۧ\'ʗؗ؆v^Fvɒ񈺍Ї]Ň󧵴Ԥ򐇆��\Z񙧟��Gfš𹏿ެ]۴{��000ϋ<��լٲmꀫ̜\ڂμmXĎ⦪QO=��IɆp��ֹ؞ſՏ~ퟏ�s��?��Z񱍯~󌺸◿8栕ݜ|N?��_3x>[ŵ񳞎=zǳc팏࠸⋥\ng7Խ䢊Y󘞿��숱aΑҰԷԕц̢ո��Ȟ_̃Ϣkqi̸#F��ʉ筜\ٲ��͗魷༟[jB㬑8ğ񷿷wC࠿ݠؿ<񽙨˞w��vjƹt򌴬q㸴꯫ﯮ\Z噹C얭󧸶:޿تϻ��ϗ;v칣◟��θזſ��غj��սϠ4ޠԶ礚��Ӻ9׳㺱qи��־��ؖӡ��׻ӷޯ}IGGȐ雸q㉯HM��e��ɉqո˞X��H��Ƶߵ͂ƽ��2bצ��ى첢߭ݤ?ࠫ׮ĉ������ټ؊ہ윐Ԝ'OמA͇¸iלZךۚࠩhhثmں򻻟ɯ؞9rdm򵃩̅ݍ͍菵򓄄\\Њ��ԗsBw࠻ޒ䘃ӿ��͍񸛭χ��ʵdƃP̉bӧ>񤓃܀񝮼ۚ3xĠہĀ#F0Z߼񰻴Խ䢊Y󘞿��Ǥ؏PU.,þúܜrkvx[ݸδ#T~8ҋ/ݰVࠏ�爫㋞#퉭۶m(\\eߋCI㲗࠺աХg߳[\rk򯹉ƦƃͭέoݱƎU̖=/񹹚 4ܫU4򱦆~mڲʫKУ𮨢ț;򻂯��̝Ęe\ZώѸč\\z=~ߘMə⑌񼿖Ь+vm\"ɤߓkW��,>��˔Vb͍]͸ܫϾ:Ծ踯g㇃ղ����II󿿺꫓؟~{ƂP򂳌1ܳࠬ\Z/ձݾݛ/ۙԲؿ󷧜׽˙/ӱ8��pDs3һc퉥/ۜෆп��tCά牓茯3[\rk݀̅k/)zΜ\߻ڠ$ζ]淘󯀼��ݏសξ׮dȑפ9+ś;Suɛټ?ߘʀ҅ҬMǈñǅ:k[vnPv8q׻]߳֝1Ħ󆃕Ӷ1=\Z\Z\Z��עӇƃ>ȃ��/·!}lƨnn￥/9#!(]dݖϮӮ叓ٽ��\'Оɣй򗜬ű ߭͟\'дﭸĐHΒ࠼ɟݱɇr2؜Z׹҄BÐ\\B࠾��˳Ů޴ҡ膳ǎ֤N򯟗ǻϐl+ӷ΢M͂M��М'ב؋ةʐӅࠬ>󾘗g뇃ղ��߂Y@ʺގ?󙏲!H[I~ퟍ�k��ѫ􍯼㙴`/7읚׼9Bq(G��JѝÞWi̦#eＣX��Ýؓ3σ䳏ϗ��|*);gIê	B՗ŢbYш֏BY0Ꝅɜ\Z7UA(Ê��km܃՝ߋ7ࠜ'Uݬ퐡Cgݻ4S7Δ\ZeZĐeYHʝiߨB��篨ʏʹ󷿓񨣏NkZ࠾����uė��BM4!񱎅зϕh䄒񎐶��ӫ\'ƣ򋎎՝!ueȫ񽝣ٲCrԃâџ뜡?񋎄\0ɂĨA(ٙͫǅжя}l靲Șމןڗtɞ 樻`M\\ݦӋ.\n:íʓy䢁ɱH󋭙Pʃ먪Rڑ��ƳvĴѕh��,[֬��ۖ՚ۺR}}}gڢ/6ܜZסN`οܜZȧĻՙ;ӣݟ#^X䅺GX쫌您Ć#ެq��Ą!AȲꪟĆ[ײթܿX׀谟ӫ͍Ţ˫񯅎x\\ҿF��u��̝񳽾֛誤ǶơCڅ㰔ӻ(_ݕ6ԝxވ.5Ĝ{h:o<,1ΠtQ:Nfe��E˻_惐k򘊎C7М\ڲ+̫JCPggg_ۈ߰ըaㅮill,]ݨ;圢NɍϚǭš\'҃ȶċi\\񨼱ɗ��ϸ۔ȣ͵ږ|تݤn��t䨐ќnBÐ冡ٽĲH(ࠧ٨#ﮖӻ¨��ئ\\ϰy.ЏΧ|��\n41O,򺶳U��Bk	.?乶Ͳࠇt࠸XbݜnƂ]vᅬghʅ��9$ϊÐꂽe;CGϞ}}ɒ%ީq~ȬjX\r\r˺RW늨ǜZeǶǜZ󡨎퉝и��ǋ#叉ʡϭ\"΍Η��֛񮏤.PӒҖRlS6ەͅYPW닝3ѳԎ０ʠ��φnOvٜ\}Ӟߞ:͚࠭5ţS򟗇ĩc̐ҥK��걵؝��q.ӧ߶r拣��Kɱ04닝ɫCbǷƮ˟V{ã׾׊ΘҢɵ؞󼲥̏ȕs8М8qôpȏqNQĥ󯿿󪫮zy񢅿\'ҳ̪h,̀ےW닐Čb 򚠠z읜оֳĝ{Ӱռ{﷾񍸂\\ɠҏǯ٢ʗ֬Y򸺫잩W24닝ɫCͲغش]Զɛӱ4݃'>֥䒽,1ЌȫuŮ5\n dhԕےWǜZ@24닝ɫC͂ ځuŮԕČ̀ےW닐Ĝ0h,̀ےW느Ŝ0јUیlݺտ蜙ީ]ޥݲͽ\01ЌLӝ;wވ۰󷝽Ҟ޾>ͫg͗Ƶ\04ځi��\\۽󶞎ώ7繈ٗ;A¶lڲB:ߦݲͽ\01Ќ̀չ��9ȥƟkލ��'k֬IZZZӹ𳏎󳕒¬W־\0јh٦IҜ��tǒƋؾXόk\0\ZC3P񚚚~ڌڳgO{Ҙ݌͘όk\0\ZC3PҎݺ����כomkll<ࠬXόk\0\ZC3PѺ::ZӲ===\r\r\rwٝ떡턀cah*αcǚӑԴմՕֽҬYόk\0\ZC3P1Ҭ󁾾ߓ#AA7ۚڎ.\\ٰަ̺eX󜰐Xځ˰��ɘZ[[ۊƢ5f̺eX󜰐Xځʰ{��Pӛۻݮήill<όYόk\0\ZC30޴ԍ+F;4.rЪU˞֣dݲͽ\0h,΀EY࠾��AGΜY[WWؗ9B֫ĚFÐT՚ۚ?JOﰗJ8ՐѰɕ䧗֭[͓չzӵﭕFB3,Z޺��ꏇ»ǅB⎳3ܶ«̋ZQaý޽}۶=Ăјhمq雦Mۺr7S}ȮϮpcc亦gv=񄓗n߾ݧӳ󍪘ˢ͟X��򂺾ǂјT⎐f`nYڲ槻ۻ󒑬]۴KҘ݌͌\r꿑Ь޼񀬞ơĕ8��͙Ӧn✔렱pĿᴖ=\04��״֌0֖Λ��Ƃl0SҤ9^鞌῰#\0ҐԑAh₅ﮂԉC᢮⃜nfÙӖ׶Ԭь={��\0Ǖ(��±Ùa˃֫𱣎ݺ����:n޵ֶ私\0õʯ惐)3 ż֑ґZ~궞ޞΆƆ܌\0ѯR胐i\nƛ̌󍱣ǚGڙoKKKȻX\0񦵣<ŮѳŐĘOҬ󁾾ߓ#AA7ۚڎƥލ\0hPÊĘ,ߦƐĘ/Ο?޷Ckkk[ڶ]cל0@ĺrĠԎ،󅮝܇ˁIooඨȆǆ;ߜ0Pƍ꣑BѳŐĘWn۩ƕÝ\Z9hժUۑ\0ΩȘAȕ䐄ُ֯_��Б#G֦ո׹B\0uEEɛ��w؋%jhh8䫱\0uEEZ޺��ꏇ»ǅB⎳\0hXQWTĸ��M]ٛɾՖᢆǆ󍎜0aE]QҖϜ\񹮮$K׮ޒ,/3+\0uEƛخޣk֬ɫ_֘\r\0@Êڢ*ġpQ{qӁ\0hXQWȽ\0\0M띮Շ\0h\Z@]¶\0\0MȫԞ\0i\0uƚ\04\r.P{\0&ԕj\0д.@킜0چԕȽ\0@ӀڂՇ\0h\ZPWv\0\0M띮Ԟ\0i@]\04\rȫP{\0&uƚ\0д.P{\0\0چԕj\0дh\ZPWȽ\0@Ԝ0띮Շ\0h\Z@]¶\0\0MȫԞ\0i\0uƚ\04\rȫuƚ\04\rȫP{\0&uj\0д.@킜0چԕȽ\0@ӀڂՇ\0h\ZPWv\0\0M띮է��0M띮Շ\0i@]¶\0\04\rȫԞ\0i\0uƚ\04\r.P{\0&ԕj\0д:B킜0چPWȽ\0@ӀڂՇ\0h\ZPWv\0\0M띮Ԟ\0i@]\04\rȫP{\0&uj\0д.@킜0䰜Zc:ǿ]B\0&\0h\Z\0ͩ\0&\0h\Z\0ͩ\0&\0h\Z\0ͩ\0&ЦYԜ0\0M`M\0д\0ִ\0\0M`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r5\r\0@Ԝ0XԜ0\04\r5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0ִ\0\0M`M\0д\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0XԜ0\04\r5\r\0@Ԝ0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M5\r\0д\0XԜ0\0M`M\0д\0ִ\0\0M`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r\0ִ\0@Ԝ0`M\04\r5\r\0@Ԝ0XԜ0\04\r5\r\0дh\Z\0k\Z\0i\0Ц\0֟4ǡTҰ҃\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0C��Ҕފ˜0\0\0\0IENDς`§,1),
+('140009',1,'Leavebill.bpmn20.xml','140008','<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<definitions xmlns=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:activiti=\"http://activiti.org/bpmn\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:omgdc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:omgdi=\"http://www.omg.org/spec/DD/20100524/DI\" typeLanguage=\"http://www.w3.org/2001/XMLSchema\" expressionLanguage=\"http://www.w3.org/1999/XPath\" targetNamespace=\"http://www.activiti.org/processdef\">\n  <process id=\"Leavebill\" name=\"Leavebill\" isExecutable=\"true\">\n    <startEvent id=\"startTask\" name=\"开始\"></startEvent>\n    <userTask id=\"usertask1\" name=\"提交申请\" activiti:assignee=\"#{username}\"></userTask>\n    <userTask id=\"usertask2\" name=\"审批【上级领导】\">\n      <extensionElements>\n        <activiti:taskListener event=\"create\" class=\"com.ms.listener.TaskListenerImpl\"></activiti:taskListener>\n      </extensionElements>\n    </userTask>\n    <userTask id=\"usertask3\" name=\"审批【上上级领导】\">\n      <extensionElements>\n        <activiti:taskListener event=\"create\" class=\"com.ms.listener.TaskListenerImpl\"></activiti:taskListener>\n      </extensionElements>\n    </userTask>\n    <endEvent id=\"endTask\" name=\"结束\"></endEvent>\n    <sequenceFlow id=\"flow1\" sourceRef=\"startTask\" targetRef=\"usertask1\"></sequenceFlow>\n    <sequenceFlow id=\"flow3\" name=\"同意\" sourceRef=\"usertask2\" targetRef=\"usertask3\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'同意\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow2\" name=\"提交\" sourceRef=\"usertask1\" targetRef=\"usertask2\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'提交\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow5\" name=\"放弃\" sourceRef=\"usertask1\" targetRef=\"endTask\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'放弃\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow6\" name=\"驳回\" sourceRef=\"usertask2\" targetRef=\"usertask1\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'驳回\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow7\" name=\"驳回\" sourceRef=\"usertask3\" targetRef=\"usertask1\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'驳回\'}]]></conditionExpression>\n    </sequenceFlow>\n    <sequenceFlow id=\"flow4\" name=\"同意\" sourceRef=\"usertask3\" targetRef=\"endTask\">\n      <conditionExpression xsi:type=\"tFormalExpression\"><![CDATA[${outcome==\'同意\'}]]></conditionExpression>\n    </sequenceFlow>\n  </process>\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_Leavebill\">\n    <bpmndi:BPMNPlane bpmnElement=\"Leavebill\" id=\"BPMNPlane_Leavebill\">\n      <bpmndi:BPMNShape bpmnElement=\"startTask\" id=\"BPMNShape_startTask\">\n        <omgdc:Bounds height=\"30.0\" width=\"30.0\" x=\"105.0\" y=\"203.5\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask1\" id=\"BPMNShape_usertask1\">\n        <omgdc:Bounds height=\"80.0\" width=\"100.0\" x=\"240.0\" y=\"178.5\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask2\" id=\"BPMNShape_usertask2\">\n        <omgdc:Bounds height=\"80.0\" width=\"100.0\" x=\"390.0\" y=\"178.5\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"usertask3\" id=\"BPMNShape_usertask3\">\n        <omgdc:Bounds height=\"77.0\" width=\"119.0\" x=\"540.0\" y=\"180.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape bpmnElement=\"endTask\" id=\"BPMNShape_endTask\">\n        <omgdc:Bounds height=\"28.0\" width=\"28.0\" x=\"796.3999938964844\" y=\"206.0\"></omgdc:Bounds>\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNEdge bpmnElement=\"flow1\" id=\"BPMNEdge_flow1\">\n        <omgdi:waypoint x=\"135.0\" y=\"218.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"240.0\" y=\"218.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow2\" id=\"BPMNEdge_flow2\">\n        <omgdi:waypoint x=\"340.0\" y=\"218.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"390.0\" y=\"218.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow3\" id=\"BPMNEdge_flow3\">\n        <omgdi:waypoint x=\"490.0\" y=\"218.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"540.0\" y=\"218.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow4\" id=\"BPMNEdge_flow4\">\n        <omgdi:waypoint x=\"659.0\" y=\"218.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"727.6999969482422\" y=\"218.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"727.6999969482422\" y=\"220.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"796.3999938964844\" y=\"220.0\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow5\" id=\"BPMNEdge_flow5\">\n        <omgdi:waypoint x=\"290.0\" y=\"178.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"110.80000305175781\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"806.2103494824977\" y=\"110.80000305175781\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"806.2103494824977\" y=\"196.9896474657445\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow6\" id=\"BPMNEdge_flow6\">\n        <omgdi:waypoint x=\"440.0\" y=\"258.5\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"440.0\" y=\"321.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"321.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"258.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge bpmnElement=\"flow7\" id=\"BPMNEdge_flow7\">\n        <omgdi:waypoint x=\"599.5\" y=\"257.0\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"599.5\" y=\"409.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"409.8000030517578\"></omgdi:waypoint>\n        <omgdi:waypoint x=\"290.0\" y=\"258.5\"></omgdi:waypoint>\n      </bpmndi:BPMNEdge>\n    </bpmndi:BPMNPlane>\n  </bpmndi:BPMNDiagram>\n</definitions>',0),
+('140010',1,'Leavebill.Leavebill.png','140008','ʐNG\r\n\Z\n\0\0\0\rIHDR\0\0B\0\0È\0\0\0٥z\0\0\"IDATxۭ޽̝U٨𜚵ÜDLQÆۣD\r\Z#񜚯۰b͢#ǽ{ơƦޜn*Z)אٔK,4Plͨņ^>ܶݜ"饔Q˓촴ӂ-Ӓؾw=;}缝fǓ꽬گک̞Ϯ>]󹞵޵ȍ\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0q𶃜0Պsss&ĐBYJ׈\0(}=ѧ猙ﱒF\0(S=УɩꄣhŜ02Ճ/ԴԜd$\0͐\0P\Z֪��Ə	@#\0ԩxÒɜj$\0͐\0PǺ`U֚��04B\0@iT*Օ---_7F\0(S=м5CMFЈ\0eʇnЖ˳̄\0JĒʜ՜ZyFЈ\0eʇȦhQ\04B\0@ڪkR\\n$\0͐\0P\ZҜZTΖϵF\0(S=07F\0(S=О☆Ј\0őϡTΖm$\0͐\0PǺᵔͰF\0(S=0#ƃFЈ\0ƑʔNM5z#hŜ0Rɖ˟H񌑜04B\0@ڪ©)6\Z	@#\0ՆSSӉɦٮ$\0͐\0P\Zmmmǧ۠ϑ\04B\0@ټ-Մ}񖐜0\Z!\0L5^ٳg߇H\0\Z!\0L5NٗɈ\0\Z!\0L5K---\'	@#\0Ն܎PSSԇ̈́\0˔<QʔN5F\0(SMЪZξڈ\0\Z!\04*֊ʖ֖ϛ	@#\0ԩ&Xޚf#hŜ02Մؗ̕YFЈ\0ƑʔnJΐ#hŜ02Մ̓3ՀH\0\Z!\0L5U).7F\0(Θ\r˖̗\Z	@#\0ԩ&؛��@#\0ԩ&hO񋣁hŜ0Rɗ˖˿6F\0(SMpzjǖ	@#\0ԩ&ؑ㡣hŜ0Rɔ*Ǧ۠ݑ\04B\0@iT̕OŸǈ\0\Z!\0L5´̈́\0JéʩŔl7F\0(Ͷֶ䔝чH\0\Z!\0Lޖꂾxk(\0͐\0Pƺ`Ќٳࠣ$\0͐\0Pƺ`Gܫd$\0͐\0PƺŖ֖ӌ\0J#^Gȩʩ䆂hhݽާ.YҤ̗\r0\Z\0@ʉިT*ȜZ	aeYvܫϼҳɺ::~oD\0TͪV̟6@ĪꪹevȚ5k֤I\0斩TVԴռވ\0\ri��묫;ؕ\\u֕=\'\0(Ц秥əj2@Cڶm[w6.]۶նמ`t\0Tΐu֑\0\ZΦMۖeC髪ږ&O\Z%\0(ȊƲSjŦ	!Ş焻��T#t𠁽󧏿zƌﱚ\0P>΍͋S3ՀH\0\re󦍫ӣ鯮˗-\0(e#tEˋ̈́ѐVО}ľ(ۻw﫸ҕ��̘\0Ջ̆U̕k̈́ѐ.ܬҹĭ͋>h₅w[rjnnޛ��a,[׬ЃuAϿ��ϵϐ\0ԶjO񋣁4ܦƦϥǧ%ͯmm]Ը\0(и\rªֺk#4Ņ˗ߘ\Z߾b#t뭷��η:\0P^΍ͧȺ`ő\0\ZRl}[ڲ淂˩ޙ&ߜr\'\0(u#4#ƃFhXݝݧs_ʬãオֺǑr̔*ǦFhݑ\0Ɣeٻڻۗ?��>𠶿��٣λҥKפ؜\rɔ��¬҇})ƙ򊈫cWΖ?Ң#)˕Ǟ{,۾}{׿��ҜZϙթӦ)󷘱cG��ܚ˗o˫!М0ύʋƧ٨$!ŕ󆨖جڒE쿻?Yy%喠̴ZՄҪjj:15Bۍ0Ĩ&̵ɸxC^	y58+Ζ-aŚۚϏΐ#)ϊy2ΫµԗB^\rϊĕK8\noKΐ_ܵ1̻wmͺ࠸E��ݖ񾼌ӸÕ^ɫʢƑʥΘڹs绌0ꃵ՝[ӵ����,㤱9O㝮Vy%Ъʁr5B;㞡#̺Ѩy翽ƘΣ󳷸WȫyUW͐ֆ9\nȜZWZZZN2(̧��ͱ9O⊁y%Ъ%Ϭ4ˑɅ눵55}݈\0î,ןŐk|Γ٢@^ɫzɫ+β\n+BOT*֓̈́`UȫyְyeƑςQZUΖࠬ$Q҇~ɂ\">芜\1 ФՆ[ɑ덥RYҒӲu#̺јѺYXŧ<ɫ䕼҈	9JΈ-Oΐӑ\0F]Xܼ檬��ըH̏yWȫyU/yeƑςQڽZΎ2(ˈο٣-EE|̓٢@^ɫzʫ+βr֊委ͱh׽󲜲k~��"},>芜\1 ФUޤՕF9\nŕəZ`$Q񺛏;qȫͱ9ЍXї򪮜Zl+β��\"ƥF8ۂb߾l놇ӿXڰɢ5иL<ו|ŀܒWԞYiԣpH̆U̕kS��Ƨ؜'G`ɂ㉗입WȫyUύЕF9Jyն׾859��?RlLѵE60Rs��YXͤj��=ɫ䕼ېFɊÜƩխp��ڠ?\Z%`قbՅjߔ򊞍T^YiԣЋmoʡycنɓ(G߂*򊞍|Ӓ(Ga*ЍC4B;ۛۏ3BU1 ФUC䕕F9\nEʙ9!ڞMP֚ޚ霰\nVŀܒW򊈑\ZyU颁ΐkqrܑʁy%ФՐô򪐱Ȏϋݲ򷣂Ƒĳ菝x��=��Ϻ뭽Ҁ---RRmߵkV݆qq<ϨiĄb@^ɫy%䩵ɚξka[ݗbh󦍫ްࠏo��կ񇟏׬ْ7񶻶O>ڝr˭/࠷߹/Ǧ꿤ĺ̨),Ţ@^ɫy%䩵&5Aϧٯ$TGGǿϟ?��tћҤݹ朙H=��茙ӓڡ֍MM3ۜnXї򊞉͐ӥv,ő٩񙞢CʽȖƢٮ;ۨYըх瞷ށ{ɜZںۺRB�İʁy%Ф֐1Ғ\rzF˻SӳoؗT̝Kj꒥ضvv��sژظq㟙Ԧm̽نWa!򊞉+Qbܥffz˻Ϣ񙬞ӳʄ/^|yjƽ?cɷط࠙g߽UwͰʁy%Ф֐1ު֊sʹ_*65ͭΙ֗_ݽ��Ǎ۲��\ZuϞ=ֻࠗОޝ��[[6ɱ۪ג4AȌ޽{͖믮~ɥťة\n ��䖐1NMзR󲆱򕯾Ս��Ν;kϏϛ𢫶65ҟ��ƽA䪙ӥͥFíА\nV!Ф֐1֫AŦ邋/̭��݂6CVǜZҵ؝wqrퟀ�ڸkooN\"),ĂUȫy%4B̕C��ۖ˯߼󛨅ֹˮ۪ඹ;ܜZ͢E̶Ƒٓaݺuժİ\nV!Ф՘˜ݱcƻ<cs餸��mΐ!5l#گ߻��yȴL��쳷E说üƀX薺יO򓣾碋/ν��^:��﫿��؇W࠺գ��\r󘵫ؖؓӓƿؚŹ1󝯾W󸆍{��ؚȟ|񅚗~缟ʅ񫮹嗹eި֜؊ɏl޼ymݤ~饗^ġ*utF񞠑nǛnܜ\񞡻ܜZɒƋܮ޵׬\"]}��̖��Ӣߩ,S1Ϟy䒚񟷁��/~񋵷#~󛟤��Ҝļ׿ǝw��҈ԧϨ1󙏾vŇݸ㍵��֚࠿��/࠼򠿓;࠹Ϭޯ}o׭۶��ʕևǕJyeުܜ؜nԅ뀂y]ү߾˖-۰wx֯��\ݜZw޵ؕ��d죏?>MУϾ򴊢{;䩜\ѸࠒʼWŅb`*斀F!��ÚƟ����_1񒗾Tkb��࠶駟νޡƛϘ㘛{͖Ťнß��nT\\ڊ#oվ��߆×M]4Fs獩��!ӗb*νܷ࿔ooݶ⟫ιfi{{󱞭̱ᶵֵĹ	ҪՆCܦ7ᩭ꾅\Z<y󎬝۵B´󺒂��mŜnqࠓ΂B1Pй΁Ï>ؿM9矛{��VmƨѦĸ\"��?ܯ߻jȪQ̲ΤEhčۉ\'ࠜ\󽢊d��ު}.ׂ嬒\'߸bm{����M7޴؊V|���Æ���*>��׾F��.yeߨع/9.��__ࠁ#՘훹r挳菟陿񯜦з揻��־Η*ͅv65ÙԦ̭)��¶\Z��򜧚baѐի^E‼񲾷󆠞{ﭭԌ��˗_⾛ԎԈ}��񯶜ːͬŶӼъ񷞏毜ZœN:)󊗾ӿoкu캿୷޶֕̿��܈ɫQϑ��۵ꨮ᰻񏿾`ʓ򌟸nԇק֪ࠟո֯1w~;ܜZ%ɦC��__ΐq+/\nƀަU��޲\"��ܟ\4ҕlZᰁՈZ̆(Ȅ6˸��㯳؁ђ؏򓵆)o|buɘͶӗc˖-ْ%Kj��թ߶94悅ܿܐӾܡ��ҰP夡��ː1͈e¾c˨殼򊚻quܥťGڇ\"ߢϙ0ҟE䇾򑡯ۧ��o࠽vƀ$薈x\\ o<˛Ȋΐ߈l޼y̶ǜrՈE蟫~ȨŢަ|[\\|웫Ϲ̗OڋW֖П��啹N̷S\nÙϭʹcƻͰ^ӥ8qщҾο��ΎϟЙԦ쁃Gtŭjﯜ={��華{94BȟI񺾧Ѻ2{أԋ?܎ǆޡ+BƸ\"=i|#?j2\Z¼˶󞷾ڕ𢽠q%<>7Bƶǈ􉷶ȣ:;;kϜ'࠸sޭ(㹣ϯ!񹨜㨼ퟟ���ʢ߷e񣢻RރУ��d^Ŗ٢ࠓߤD΁Ү˦ȸHA4 yq;\\!ٷȆƏ򤜧?Yܷ(_މߟٕ/h٧߻j罠ͦ��갨㿜'y5Ҽjœ쭔¸࠭ՓN��(~럓Ƌ׎𾶸\"񊫯튍𶡶nο񦛿-V	㱥mJգʬ+s\rͩq\ZAEnÜZx꘷qĸQ蕯RТ萦񊍱䲜"ؐΉ|ϻＳ��ؗcȓɜ"b/p^Ɇբ#4ԱXBݖӕWƆhЃ򂯟ʋѢJbݍOڛΐΓڊߋ+풜\GςGQٿ9򳏯|u랯~w��󃔢wݖؗɸŽؿ񪐼]҃]՗Wι렽ߒ㒗ע퟼�B񽆎ɱ޳󈗄ʇz455��֛ӯսϯජfԧ࠿~i򜺔׷׷ࠠپnԻЙbԼϐʜ'ֵQ̌��ڜ"ԗƹA;؊P~򖞹!Y,@㼄jϴAֱƇ>󙏌ڜ"ۓ򜢳��񾙧ߙ��񗌴ʱ��V^\r׈E䬷ŃϾ\rҊ8Ͱէٵ.ϹĹ}Ùʷ໗ܪٖ䲪ɧ��T䮀̴ҰŊǀ&<V̊ࠃ^5橃��\\TˆqᯖԢ栫租~zܨϸO񰙹󧿝ޝޥ��d₅wGτǽ˗삭{ĸ&i2��禯߹愵B銦Գ؜'ub􊪤6Bł6��øӎ˕K.ڤѭqyјOӅ±>ׯቢfȫ͈旺󫽱琽郵ֳࠜ'ϨGѱٯ#TOƀަՐWδ렽ߒ߫��˕ʸ蕯cΌ��q?h߈϶E#\'Rs|aܧ/ج��ĸ5ϣרѢޏ>񤄴Aiӽ̗䞜Z&ˠͫбĸՃۄ򜧪ز7mɓѲ̪񓴜\mͯuvčѐƒ翷ڃ׼Ėԉ.XȢ1˿Fɑ󪚔>uОN)̋D񷪮ޗ艘͏F1_]/��\pA��sԘ˞ҋ{◫q̮ܮڴ؟|p\"VƎ9睧ӓ뚆]#T݇(ࠑ<ެ󭔹��"ʍي6ٗȞ��⯛ٶ­qƇǓ~ޗߘ`MpВd͓͘يΐx߆UύP#蕴)z렽ߒX\\A/Ήӆگ*\"Vٲ9񘳔rkmm��ވ椽_;d<DmӖזlĦ����3O˖-󣬆ںÑ\Zꉽ߬󦦊Ѹ;ғ҆RhŁ+B񾿁ЏON˷9[/+B򪼢ݏÚ\nΐ#疔?uОO)͗ϲCfǫŲȎ;˓䠨񺂹Òs󸸫λˍНMΦ񢅧̞=ܯڧޛׄ믮~ɥť7%슆[zٜrͅ˫ѽ#ϒN䧱#ߘ󓹢Y9өLa\n̘𲷋ГRϫB򪬣ݏĒM~^M܂ǎ׻)ƱsbNΏҘ국⢒FȱnŎț՘\Z샓㼅��˝M\rڌ]ߙڹp󶭣ۀݽ޻Ҥޕ⩘аD׵׷؎\'ʷ\\Ŝrֹʅҭ%\nИI͝񤜚\'\r,\\㊽ѹ��ƶ̣˅fjڡ#s䨧G釯 m퇨ݏĒַ#Tϧ׻)Ʊ󥫺ÝvןҐȠ+ϜZ!F#=ￜ7*q񪬎ҎZdBǭڙ՘ΐ֩➳ա͛7kVoƒ񡑕ќn않̱>\rK^ٯž͐cՈMOѣoXbֶXۡhâ����%ѨѢ࠻ޯޑW}ϥ\0ŮήߖזH˶êАʁɒWu\Zּ2_	͐cȒɴ爜'䬃ĝ&_7`%Ȗزꩨ𧹳诸袋ތ󯎆z��ݛZZZרܕB10󪜢NÒW櫡b͗ǚ̍Pݛ��摞#гɤ玝;+uտ۳g΁85犜'߈׮ޚۇ\\{ڱ��˦鷛nܹ߹羜ז���ƀTϫ񼜲K^ٯņɱYJѳوDcϳ/ۜZ˽񶹸趥˖ڜࠤɒڽ˅ϋ6Q;ǽ5C̎?��ݳNݜ0W뷓ۃg࠽��ͺ/^\\ʹ띚!XhԼ\ZГѤֹJhĘו©ƣևЙل\Z!X(}^·iX򊞉͐䞐}󐃴Ǒ4@v6ȓѢ@^ɫy%䩓^�rхʁYߢcʽǚ߸ۓ➻ܜ0Ņb@^ɫy%䩜0\Z!Xї򊞉9\nFH(䕼ӗB΂ʁy%ФՐĜ0hĄb@^ɫy%䩜0\nXї򊞉͐\0\n 򊞉͐\0\n 򊞉͐\0\n 򊞉͐\0\nŀÕȫy%G@aXїB^ɫ9\n\0\nŀܒ򊈑\0PX(䕐WB΂BB1 τܒr\0ʁy%ФՐĜ00Pȫy%τ@#劘1 Фռr\0͐Pȫy%τ@#$򊞍ڇ|пgcǞԣoxF@aXїB^\r㒇ݺ}󶿦\r[׬Yײ��\0(,򊈫A<��\\֪ծߞߗK𯖊&=򳁇𻊯{F@aQ«��ȫy5^ӟ囩һ\"Vڢ̟#ƺu벥Kפ]]]YľE��	@aQߨɢ򪊗̩(˲䟹啝Iבұ{#\0ɹٹ-œǘSݽާǕ񔛓͆ŧȧؙ!k֬ڒΖϰ*\0PΐרŦ̘qݑ`,تФؽ{��򎦅W]uUO{{󉆇\08Lƒ񗨂ťFı઼ԡ۶mޙ\0ܶۚzđ\0Ӛߗΐn#±rU߉ѩӦEِںֻۢԆ	\0ț6BT̊Ʋő☸*ЄK)����:x𠾹󧿽cƌw-\0ޠқނ̖̲LǍ۷ЍΠۻۧZΞ`՜0@ԶHT̔,\\mĸZϊ3YVО}ľ(ۻw滛ࠚܛ]聀ҷB;ǪŒݦĸZϊ3Y.ܬҹõ⑇-\\ٰnه\0ڠסڠ��*ϊ3ٖ-[��ﺧࠟ۲nΕH\0Јm;R#䄹Ζ̲LƦƦϥǧ2׷ֶϷ\Z\00TsԙΕ̲Lǅ˗ߘ\Z߾bߝz뮿^ʔη:\0Fɱ㪼ө۬իWn/ܾgʹ\r^Ĝn\0Ј1֧2uvv޶s菽)ҎΎ˕Ꚇ\0Ј1֧ӝ|󍷮YҤ}鳜Z\0Fȉ㪼өۮٓb˦Ҝ0\04BL(W屧\0ʆJȕyͩ\0"yr\0P4 Ѐ0ʆ䖈=\0@р܂ه\0(\Zї ��0E򜮤\0h@^\0\rȫ䟜0"yƜ\0P4 ϐ{\0"䖲\0P4<B0ʆїȽ\0@Ҝ0򜮹\0(\Z@^!��0E򜮤\0h@^\0\rȫѻ\0"yr\0P4 Ѐ0ʆ䖈=\0@р܂ه\0(\ZїȽ\0\0E򜮹\0h@^!��0Eȫ䟜0h\0yƜ\0\r ϐ{\0"䖲\0P4<B0ʆ䖈=\0@р܂ه\0(\Zї ��0E򜮤\0h@^\0\rȫѻ\0"yr\0P4 ϐ{\0\0ʆ䖲\0@р݂0ʆE򜮹\0(\Z@^!��0Eȫ䟜0h\0yƜ\0\r ϐ{\0T*\ZĘаߋ͐\0h\00ǁ\0ʆ\0s\Z\0h\00ǁ\0ʆ\0s\Z\0h\00ǁ\0ʆ\0s\Z\0h\0ͩ浜0@Ҝ0ٓ\0\0\r9\r\0@Ҝ0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E`N\0P4\0浜0\0E`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r9\r\0@Ҝ0ٓ\0\0\r9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0浜0\0E`N\0P4\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0`N\0\r\0浜0@Ҝ0ٓ\0\0\r9\r\0@Ҝ0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E9\r\0P4\0ٓ\0\0E`N\0P4\0浜0\0E`N\0\rʆ\0(\Z\0ͩ\0@㘜rB҈af\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0򽿳Ń\\vؼӜ0\0\0\0IENDς`§,1),
+('145008',3,'source',NULL,'{\"resourceId\":\"145007\",\"properties\":{\"process_id\":\"test001\",\"name\":\"test001\",\"documentation\":\"\",\"process_author\":\"\",\"process_version\":\"\",\"process_namespace\":\"http://www.activiti.org/processdef\",\"executionlisteners\":\"\",\"eventlisteners\":\"\",\"signaldefinitions\":\"\",\"messagedefinitions\":\"\"},\"stencil\":{\"id\":\"BPMNDiagram\"},\"childShapes\":[{\"resourceId\":\"sid-84ED7661-1B18-48BB-BDE8-BBF5A7786D41\",\"properties\":{\"overrideid\":\"startEvent\",\"name\":\"开始\",\"documentation\":\"\",\"executionlisteners\":\"\",\"initiator\":\"\",\"formkeydefinition\":\"\",\"formproperties\":\"\"},\"stencil\":{\"id\":\"StartNoneEvent\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-14DA9102-7AA2-40D9-847A-4C1BD9AA53A7\"}],\"bounds\":{\"lowerRight\":{\"x\":572.75,\"y\":53},\"upperLeft\":{\"x\":542.75,\"y\":23}},\"dockers\":[]},{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\",\"properties\":{\"overrideid\":\"userTask1\",\"name\":\"提交申请\",\"documentation\":\"\",\"asynchronousdefinition\":\"false\",\"exclusivedefinition\":\"false\",\"executionlisteners\":\"\",\"multiinstance_type\":\"None\",\"multiinstance_cardinality\":\"\",\"multiinstance_collection\":\"\",\"multiinstance_variable\":\"\",\"multiinstance_condition\":\"\",\"isforcompensation\":\"false\",\"usertaskassignment\":{\"assignment\":{\"assignee\":\"#{username}\"}},\"formkeydefinition\":\"\",\"duedatedefinition\":\"\",\"prioritydefinition\":\"\",\"formproperties\":\"\",\"tasklisteners\":\"\"},\"stencil\":{\"id\":\"UserTask\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-04CE77C8-5DE9-4610-A0E2-520B0B105DF8\"},{\"resourceId\":\"sid-978CA35C-766A-4059-B0C7-73E26537008F\"}],\"bounds\":{\"lowerRight\":{\"x\":609.75,\"y\":190},\"upperLeft\":{\"x\":509.75,\"y\":110}},\"dockers\":[]},{\"resourceId\":\"sid-4E0B3487-5830-4B06-A811-A1834C04239D\",\"properties\":{\"overrideid\":\"userTask2\",\"name\":\"审批【上级】\",\"documentation\":\"\",\"asynchronousdefinition\":\"false\",\"exclusivedefinition\":\"false\",\"executionlisteners\":\"\",\"multiinstance_type\":\"None\",\"multiinstance_cardinality\":\"\",\"multiinstance_collection\":\"\",\"multiinstance_variable\":\"\",\"multiinstance_condition\":\"\",\"isforcompensation\":\"false\",\"usertaskassignment\":\"\",\"formkeydefinition\":\"\",\"duedatedefinition\":\"\",\"prioritydefinition\":\"\",\"formproperties\":\"\",\"tasklisteners\":{\"taskListeners\":[{\"event\":\"create\",\"implementation\":\"com.ms.listener.TaskListenerImpl\",\"className\":\"com.ms.listener.TaskListenerImpl\",\"expression\":\"\",\"delegateExpression\":\"\"}]}},\"stencil\":{\"id\":\"UserTask\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-E48C2DDC-4B92-4DB4-BE84-4951CD8A736B\"},{\"resourceId\":\"sid-03BB0E45-1245-4C1B-BC28-BD799A71F3A8\"}],\"bounds\":{\"lowerRight\":{\"x\":609.75,\"y\":320},\"upperLeft\":{\"x\":509.75,\"y\":240}},\"dockers\":[]},{\"resourceId\":\"sid-EB3B3FC5-5742-4D88-8759-4DA47AC11AC7\",\"properties\":{\"overrideid\":\"userTask3\",\"name\":\"审批【上上级】\",\"documentation\":\"\",\"asynchronousdefinition\":\"false\",\"exclusivedefinition\":\"false\",\"executionlisteners\":\"\",\"multiinstance_type\":\"None\",\"multiinstance_cardinality\":\"\",\"multiinstance_collection\":\"\",\"multiinstance_variable\":\"\",\"multiinstance_condition\":\"\",\"isforcompensation\":\"false\",\"usertaskassignment\":\"\",\"formkeydefinition\":\"\",\"duedatedefinition\":\"\",\"prioritydefinition\":\"\",\"formproperties\":\"\",\"tasklisteners\":{\"taskListeners\":[{\"event\":\"create\",\"implementation\":\"com.ms.listener.TaskListenerImpl\",\"className\":\"com.ms.listener.TaskListenerImpl\",\"expression\":\"\",\"delegateExpression\":\"\"}]}},\"stencil\":{\"id\":\"UserTask\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-D79E0C45-3006-4231-AF25-F76C77087F61\"},{\"resourceId\":\"sid-6FF75193-971C-4B79-A69E-B9063DFF885E\"}],\"bounds\":{\"lowerRight\":{\"x\":610,\"y\":470},\"upperLeft\":{\"x\":510,\"y\":390}},\"dockers\":[]},{\"resourceId\":\"sid-8AAC8CF2-C946-49D9-8CDF-6465E97695E2\",\"properties\":{\"overrideid\":\"endEvent\",\"name\":\"结束\",\"documentation\":\"\",\"executionlisteners\":\"\"},\"stencil\":{\"id\":\"EndNoneEvent\"},\"childShapes\":[],\"outgoing\":[],\"bounds\":{\"lowerRight\":{\"x\":573.75,\"y\":583},\"upperLeft\":{\"x\":545.75,\"y\":555}},\"dockers\":[]},{\"resourceId\":\"sid-14DA9102-7AA2-40D9-847A-4C1BD9AA53A7\",\"properties\":{\"overrideid\":\"flow1\",\"name\":\"\",\"documentation\":\"\",\"conditionsequenceflow\":\"\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}],\"bounds\":{\"lowerRight\":{\"x\":559.0290207035831,\"y\":109.62515940065455},\"upperLeft\":{\"x\":558.0178542964169,\"y\":52.99984059934545}},\"dockers\":[{\"x\":15,\"y\":15},{\"x\":50,\"y\":40}],\"target\":{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}},{\"resourceId\":\"sid-D79E0C45-3006-4231-AF25-F76C77087F61\",\"properties\":{\"overrideid\":\"flow4\",\"name\":\"同意\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'同意\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-8AAC8CF2-C946-49D9-8CDF-6465E97695E2\"}],\"bounds\":{\"lowerRight\":{\"x\":559.9278889417579,\"y\":554.9687516174072},\"upperLeft\":{\"x\":559.7752360582421,\"y\":470.0937483825928}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":14,\"y\":14}],\"target\":{\"resourceId\":\"sid-8AAC8CF2-C946-49D9-8CDF-6465E97695E2\"}},{\"resourceId\":\"sid-E48C2DDC-4B92-4DB4-BE84-4951CD8A736B\",\"properties\":{\"overrideid\":\"flow3\",\"name\":\"同意\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'同意\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-EB3B3FC5-5742-4D88-8759-4DA47AC11AC7\"}],\"bounds\":{\"lowerRight\":{\"x\":559.9319270856481,\"y\":389.156251388886},\"upperLeft\":{\"x\":559.8180729143519,\"y\":320.843748611114}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":50,\"y\":40}],\"target\":{\"resourceId\":\"sid-EB3B3FC5-5742-4D88-8759-4DA47AC11AC7\"}},{\"resourceId\":\"sid-04CE77C8-5DE9-4610-A0E2-520B0B105DF8\",\"properties\":{\"overrideid\":\"flow2\",\"name\":\"提交申请\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'提交申请\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-4E0B3487-5830-4B06-A811-A1834C04239D\"}],\"bounds\":{\"lowerRight\":{\"x\":559.75,\"y\":239.390625},\"upperLeft\":{\"x\":559.75,\"y\":190.609375}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":50,\"y\":40}],\"target\":{\"resourceId\":\"sid-4E0B3487-5830-4B06-A811-A1834C04239D\"}},{\"resourceId\":\"sid-03BB0E45-1245-4C1B-BC28-BD799A71F3A8\",\"properties\":{\"overrideid\":\"flow6\",\"name\":\"驳回\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'驳回\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}],\"bounds\":{\"lowerRight\":{\"x\":648.75,\"y\":280},\"upperLeft\":{\"x\":610.1171875,\"y\":150}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":648.75,\"y\":280},{\"x\":648.75,\"y\":150},{\"x\":50,\"y\":40}],\"target\":{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}},{\"resourceId\":\"sid-6FF75193-971C-4B79-A69E-B9063DFF885E\",\"properties\":{\"overrideid\":\"flow7\",\"name\":\"驳回\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'驳回\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}],\"bounds\":{\"lowerRight\":{\"x\":647.75,\"y\":430},\"upperLeft\":{\"x\":610.25,\"y\":150}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":647.75,\"y\":430},{\"x\":647.75,\"y\":150},{\"x\":50,\"y\":40}],\"target\":{\"resourceId\":\"sid-53ADE6AB-B24D-4DD4-BE2B-7FFE91F11E3F\"}},{\"resourceId\":\"sid-978CA35C-766A-4059-B0C7-73E26537008F\",\"properties\":{\"overrideid\":\"flow5\",\"name\":\"放弃\",\"documentation\":\"\",\"conditionsequenceflow\":\"${msg==\'放弃\'}\",\"executionlisteners\":\"\",\"defaultflow\":\"false\"},\"stencil\":{\"id\":\"SequenceFlow\"},\"childShapes\":[],\"outgoing\":[{\"resourceId\":\"sid-8AAC8CF2-C946-49D9-8CDF-6465E97695E2\"}],\"bounds\":{\"lowerRight\":{\"x\":544.8359375,\"y\":569},\"upperLeft\":{\"x\":422.75,\"y\":150}},\"dockers\":[{\"x\":50,\"y\":40},{\"x\":422.75,\"y\":150},{\"x\":422.75,\"y\":569},{\"x\":14,\"y\":14}],\"target\":{\"resourceId\":\"sid-8AAC8CF2-C946-49D9-8CDF-6465E97695E2\"}}],\"bounds\":{\"lowerRight\":{\"x\":1200,\"y\":1050},\"upperLeft\":{\"x\":0,\"y\":0}},\"stencilset\":{\"url\":\"stencilsets/bpmn2.0/bpmn2.0.json\",\"namespace\":\"http://b3mn.org/stencilset/bpmn2.0#\"},\"ssextensions\":[]}',NULL),
+('145009',1,'source-extra',NULL,'ʐNG\r\n\Z\n\0\0\0\rIHDR\0\0ܜ0\0y\0\0\0σ𽜰\0\0 cHRM\0\0z&\0\0\0\0򜰜0\0h\0\0u0\0\0로0\0:ٜ0\0pܺQ<\0\0\0gAMA\0\0ю|󑓜0\0\0sRGB\0ώꜰ\0\0bKGD\0��\0��Ԝ0\0\0	pHYs\0\0Ŝ0\0āի\0\0 \0IDATxۭ݋ܕUݷ𵧸WQQɼ\"ʙiٗ*ݤ)/e1Ɩ粶<Zެ�����ҐHy55B惣©*ɗ圢Wك͌~ؚӇ6#ȳÞ缽|������cў��\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0@ʨ\0Plnܭփ߽��/^|xUUՎ˖-빺��ΝCϞ=kvݱǕ}򴹮Ï��2ڌͮ!샜0E���%%ؖWWﹰ၌၃îܬz��ˊB<֯_ߺ뮐YY^xᅰͶ۬ڹ瞿^ܜ0@щA��wĮާߺj.䖖׮׫_|񅰧?��:䑃ˏ:餇ua\0(\n؜\rʹ+V͸8£耿񍎹ͽ����ǝv؈п��,Iɖ\0\0[ʏ~ퟏ�Ϝ\񿟹Ϸ:~듟\n%%%𽶘cϰ��{ﾷ.ۨ��ݺ̰\0lg߹晵55؝u֕ޒݜ汭כƃ>8̜9rгιgǇ|𡝖v\0ZUyy񀎝;Ͻ﷿ۥقnĮݺŁǹ܇]pEx©:߾֨\0њ۷￺䔏߻׈󯶛n!߿涗^ܗׅ]\0Vsꩧߔׁ֫ǝw\\̦ѣϽ6d2ڭϿ��]؅\0h=z��߱ή醑-�NUUU��.\0@kŏ��ϴϮkH˳TWW��ۏؽa\0E֔ԜĮ͇]K��3ݵכ諾Ћ\0ТˊʎʡԷk��ݷ,YӤӺ/샜0Ԩۚڃӊ	ͩ-mװ₾گ샜0ԨںھꆏͩGϞi߮ڮܜ0\0-v۔յnϦǆ撶\0Z8xԔ̪ήn՟ھ^iiiήܜ0\0-*ԉ,XӤI̾ͥ˗ȑ޷u_؅\0hQյ֏࠶۫Ԛ󧾵כ«׮Щް\0Тә�����򊚌Խa\0Eu鑡��˭mݩտ��.\\xܮܜ0\0-jĈԗϝ[񔓏ޜ\Z?ॗ_̗оcԨQ3t_؅\0h\r7��웛[[Ԓ?h𰡋VϜ\yݖܜ0\0΢刑��򭟿��吹젿ںʪ궹󦍒ua\05޵׿��SǾْo>s猰z��kמQQQQĝ\0\0ͭҲrʾ󭷻ɧߺ��ָ{��ᅋƟ��Kʫ˯\Z9r䅝v\0Zޔʓ+cូ裏~vﾷߛد࠭?�ܹԶǿ��+W��Q��ܜ0SYY9eခ󞸢ʓ.\\ퟐ�ԿĤŃyϿ��nݱƵ̗Ͼt��ꯉF\0-ͼݼ@&ӹ-޾睳ϜÎ:뉸xސ;wՓOƃ;,쵓N돏ٲeѭ؞۸ɒ%󣻼󈑣ȩ(®\0P̡��ϋַ>=Ǟӽ��޽{w��ӧ̘1a鐡+\r\Z4oㄉK*++w^޺��{ܼ񳿨b4ŝ\0h޶۩��Nɡ��q򅪋?ޮ7��bޫƑܜ0@ܗ^^~eݜ\몘pД6ȵv6áʂ쒶-K&ә߶ڬ֟n 샜0[˽b}:ǜۼ鍫4|;־眚?쩠\0@8\"VИߍո֋¾´oǊ7Șߨ􁱾S𸄼y 샜0E犼׏͹҆Ȫޏࠣ󏽴��̷ɛlͣc\rȵ2��ϋȥgԔĴ\0-赮ȓǴ��Ҷε̘o儯ʶwŵǸЎم\0ִqvЕꨜ'욏ة\ZÀ|Ƚq񲥯��͜\ٲݾ-ζǑߧ򯝝슘kbݓ/v-JӅh䢥[��ĮکŚۚÓԅOź.ւX;ŜZۿϔٍc Ǵ\0엏ۯҍfִ̓ʛtgվ¾nj) /nš~ėŝ\0(􊵷ʜ'יwUݼ<Vې픚ǆن\0\0̳C��ʫ̫7ޢݔ쀃��B��\r®\0PTӲc馐ߍU]p<ۗ\Z߼f͚m㧧񇗇򵶟\r��\Z®\0P4ӊ	c7p<Θ��eeeU͎=Ѩ񍚊sv\0v\0@؅\0\0a\0`󥳙ƹۛ釂.\0ѕʤ2+򻝵a\0\0aW\0\0v\0@؅\0\0a\0\0ŝ\0RӒۼnހ؅\0֪#F̘ޟ�ܜ0\0ܚ\0\00\0\0®\0\0ܜ0\0 샜0啧��3˴a\0ٚ͏%ߪ뿚p\00\0\0®\0\0ܜ0\0 샜00\0эfؤLIɶځЋ\0lU2ڌ.헕Չܬ֎Z\0\0Ձ+///||ըQîԖŝ\0h޶۩��࠺/ʔ56Ĵ\0h̘1bv6۽3Oϩ++Ыܜ0@[򻍼o˰⃗h®\0Ѧ̞=򡸙ٙȾEאv6h𦜓ܜ0@ܓZZz{ݔn䔕eeeO땂.\0Ѧ䰔{Щ糙͓ÇЖ)ŝ\0mƕҒ[ܺ.ስa\0hԦ͛זܓ(姳Aؒcܜ0@ܕQQQ7ה̄q3n&p\0խťƃԙlMĀ[я 샜0mWې-Ǜ��ϋЋ\0l5bؽʰqiiʹڈܜ0VaB䝮ȑ^]A؅\0לn񹹯ƽl6󏝡sd՜0\0ڷIӦ}ΤŤӕ̗Z]]ݧήϨ󁂅óϾv߹補rXڌ隵뻱ǅۣϽ��s1ݰ\0Ԗ	&헩SȻԙ퟽򵫙fܭBϞ=Ӛ՚󡅿0ĕ+Vť˖Ʃɧ˷޶ܳ��{uG؅\0ZؓO<񅚚ڱܮ۫ǝvکԯ[KKٻwnعsfȽߡϽ��ZOɖ\0@󋺙l��콽��͘͠��L߾����pĜr׍vf��Ь؟~]{��sV,|%̝zoX𪟂㚏Ƶﯜne=w\n%:kȐʓǰ�Ʒ߸䐋/߸⭷޺]WZ߉9\0оحܭכ禂ԃܗFǪesB֮&Ԯ}7,ڳ\\ص񎐗܆?ŮݺƘ��̯לra\0hFϼ򈁥%%콳Νںg Ȭ׮=ȗ͜\׆ыǗ牧ԙߏ>󬉺!샜0ͤԉ|ڟ࠾uMΑΝԜ"Ԭ^פ엯|[܉;쐂!샜0ͤԴ��zmܔ󵵛_vC#߼0i\Zʪի։a\0h&յՇŕٲ۷nݐvfԉ\r#ʤEΚ󍘅\0ZKȎ=C&Դ4鐩ۦ!샜0mS\n۽>2dÁأ؞§ࠁڄЋ\0՝ܭ��໎ǐܹ󎜚İ\0՝ꆑZu¦Μn͡Mꠅ\0@Ң떜-·Ֆ	kVUž{~>ն죙ܜ0@ېFsߙ^ִّ͜ӭŗ-z3챏C��8ŝ\08μ走൱ڛoε֋ì)wƞ��ﭵBEΜ]\0hǪ؍Ʌ؍\rڅϞ玝Éܜ0@qj뢴͕ބ텡ن\0\0^	󌽆#تم\0@؅\0ەX;6:��lǿܿk{-a\0˕?bݖ̓q̵ֆϭTPi\n㕘ËΝkȖûٳ\0ͫ޳��G򡵐Xwƺנվ&וѪc}*V虩j҃bݜ뫘G琝Կ-Јҝ\0h]b͋uFͿε6֕񀻩͇cݕ쨹ۼ֏ǕѺǺ\\ͱҦ䄳Sў՚v4ͷ֜'֞¾d؇̲|M󫜮ϋ��B��ҎʵWȟҽZ\n®\0ܕѾ갖{0ל'C��8��̇㜢ݟ꧱đᛵ6̜]\0زމ��¾jCڰ-ΎѦ䞷³.\\떾5ݡΈ0+֛ѾLew0ҋ\0[濿]򻩂ӆ[ѥК֟ۿ᜴ۂ1Ҷ̗i¾\Z坐쁘󄪪հ>#ܜ0ѺӅe䳻i4��X̣흾5қFqʯǕ^̵3��ࠈ-ݳE[aĿӄ\0ZاC��BӴ׮چpn̗B��wǺҜBޣ]값kщ+a㍬@슫(ܓ먩N̵7ױ҆źy݉)Ѿkvȿ񄜧B��B��rӴǺ-a\0˅k󕹰۸Цѻi~?΃M#ߏnྎva䍣\0-kSa5΋ι/e+����椵B؅\0֠;̝;7ؿп��&O޼җߴԍaٲeܽӞ~򩰿����Ê+߳��+򾎙2ĬݓO=��싊J΋��Lc\0\0Z̤IԂYgݕܿܟ��񥐖V׻|㍷Ƈzɉخܯߡ۫΋؞{mﱚ5k)S¡ǜӁ󗬙֮]ܤ󭷝vᤓN˽̉\'΋ߏ?��n\\ȩɉO>񤸹п^4wǝw��ݼV��~Ʉ]\0`K[ٰa.َٳ\'<ퟀ�ZZZ۞9޺��æ}��:衐ңȜ񻬱G٭؝¬YԲ茞=;��ȝӡC}ŹƷޑN=��sϽ߽��GМ䠿򗡮ܮ\n}󶭏=񵩬&|𺐽bĈpݱȥ𕗟ޅ{W^^��̣םϡ݆}ࠔ®\0P,ן~󰘡ǅѣG烤CȜ:th鞽{ﱽ��@ĨW߲֜~ھт륗ן×Bheee8󌳳٨ήn޻\'˗/_৵݂ ڮ̘1خa޼yّݤʪ*��U{��Ϟ޺̘l��ק[◘`˓Ĉt࠾ިiϬs��ZӈiIII.Ɏ߾=7Z;~��˜róƒ\0M߽w􈣎ȅ弯޻컫ϫο��ê㒝4G؁گ��ƫθ\"<𠃡҇ͅ򤰠«ϋӦ~��>}򴸿^��ߺںz޺ʯ7凗WՄg˟cJ޿5jԌa\0ۏ\nۗhC̸ᅗrӂN>񤖹y1ą؞z+̜92챃ِڳgеϧҜဿ󡿾쀲s]\\ח^{ů񋹜0۰B{񥗇ۂо��񢵂n\ZڝوnÏ~��ߥΜ߱ƙᗛn	G}t^z)��?YozEKJԅcУZⴅ߷I̫Ɲ\0hWiA󺘇>vE\Z!m\rSȎ\rW]uU锩S8�r#ѩ嶰Ï]tQ١ƛr瞹䒫Fx瓦)ԦМFÏ?����ȧ߹&|󛟜\��hܼ͠򓟌Ͽ��xk搵Ֆ��PՁwԨQWjC󺻬ӯhͩ󭷟n4��̽wٳλsuMmذaBn6͑ޠ߳򯾱̡7࠹Mn낍7ࠜ叩ݯܸ\ZC\n؛Ӧ񦋧ӏO̅햴矻ǿ퟿�ݦ퇏}I&ԉi࠘ś󞱇C۳3՗ק����샜0-\"ƚcǎ΍NõI┃\rꚵknt𣟹Ⱥ9ޛ҂􎻭ծqᴆcι澧М\ٲ7\"MΈ+@λ۞o	Ç_ҏٗťǶ١ȫ㾗b𝣽_ŝ\0ưنQӴ>nڏ{͵ׄ7࠼3wܰJîiT𧿽ix喗©ǜӛ^�|ĮǂvôR݆͓ԉtZa诜\bKɨɈش_ꐽ{V߻ǭGࠕ®\0P$Ӎ߹瞜6ΓMӊi>nZ÷s菡w࠻]ՄXږЮ$kؑD\Zڍ󺿸ǿǛ妞O첮h��ќrẩϾ󬮔ِۮ𛟾6׶pљ9r尢&U6lؿǐlŗ؅\0ˀ۠,U\Zᮜ\f,̈́ЪP:\'ƚ\rI첞��ش4Yڠnc\nĮͷޚۦ\Zõ1=z��ܟͷȄ\0ԡ��9۲ɠے?a\0\0ŝ\0\0v\0@؅\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0v\0v\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0@؅\0ځֵuuې򟃯C؅\0ۑԋ׮ݯ\r[ފ+BȎަ鄰\04ߊʪʙڰ宛֬m։a\0h&ڬv̂vʛjޘӦΝܬ͚5ĵB؅\0ۉ1ǜ3ŮϮŷ߸䯺ҥ̙3guگ}��ư\04Øv/ٷo߀ŋߢί投a򴩕555��.\0ьν��L絊ˊα𖪈ˆޚ؞zɪ܍ޞ߇ݗv0t鑱qsߋ/ࠜoڴiŰւWZ֬YԞ߼y򒚚ڳb��a\0h⁛WWwśoࠝiㄉ˫++߸p⣵յ箪˜n��n[͒:ۋ֬y󵗟򩧞ڑ͊ݝ\"趾Z\0\0Ґ7࠿䒇\\ըїc\rɏە󧞼yrxᅗÌٳāT̟զ֢Xꣀ1.Fv-$Β7Sۂg-//߲nΈ·ˋ.ܬJߞܢ\Z\0\0®\0\0ܜ0\0 샜00\0\0®\0Ц종ܜ0V徂��%Yg\0hM؆: ֪Xc��柛럱ލ��؅\0ښձ^ʵ{��ގե࠿Θ?֦ŝ\0-y4֎Ҫ򏛺5񕚅Ћ\0ԵGȚ-׌P?ӻŖ 샜0[ò��.˕똧؜눾ל"ŝ\0-ھ՟Ȗ窾._ȄzDkhn֞\0ZSۂа࠿e±G򡷌̨NFvVܣc��X/7z>-;֮\\[ƕܜ0@[ԛ¾cݡ%ԤӘ\0-憭@؅\0זШ®\0еڃ&uس\0ն��aZCн0ԯ׋®\0ЦŰ{gͯźۨݙ?޻KK퟼�0\0lՌ샜0ΥࠢMɯǩi4ا��2Eېv6dl𗔅Ņ\Z*ŝ\0-ږП۟ǆ󐬌م\0`̥d\0hmGǺG̺��&9(לn\0ڲШ΅4\0\0ŝ\0\0v\0ږח=\"ࠟ5׮8Ǽ]ŝ\0MJ7˘ԟϊշҳ)\0/Цڋ՜0-᫘;Țߨ𠘿I;Æ\rۼԉ��_Q^^~E䷜5jԕZK!#ܜ0ퟒ�ƺ;וȿkD.ĔԼЛȠ􆶜"샜0[ҟ򛱡��cݞ˲ׅҎk8q刑䃽Tȍ˦ԋ;wＯ��\0[˯b]ׁ䩶¿еb̉΂�񞿛>|xՖ#샜0[˙¾ϩɟ򛓲ȏʵق䝲awt~ض3´ܜ0@QH#ٟϵ@àzQȿp-ȫ׮齹Ҋ7򞫻t鳑Kvb񟱖ǚƑ񴥡ܜr򓓆m⾮ʧ-Ғŝ\0\\֟ǕN݀󷴺ݰQ[]෗-E؅\0˅󷮠񩅏珟?1܍.i\"׬,++{HKv6ɢ¢&ԉ����ŝ\0XŋՒ]\\plr㓲ڬĹmבSõЍqܠ\05췅ϻƺ|~l±^Ο٠Bq��މd򗄠Ɲ۴ϭl̑]\05ś��՘ƺߠڅ󯶾aۊ믺׎ޏZŁM1ҋ\0liO직ً۸/ΊpfA؝µܜ0@1ISJĺSΈUԟO7ؘۡ֕ս]]��:w;ٔӘ\0V򱘻ǜ\Zk࠘؇\Z쓱^\n��ޔ̳ˮ4,K6êl#ܜ0юMڴ곥%%׬^޺Ѫ몾uuuٖ��Ϗ࠹ͧ¢E̲ϻw��Ϟ޿����Ю򵕕U곆п��>󬬱��śߛkZ̻��ܣҜZ࠭®\0ъ&Lذ_Ȏޮ͡wо��ԍ6ڐį̼ܘóիWϐğ鐡C٭כ¹眳ÆŻݵיMߏ׾��m򳮘Ѣ˲e˾נBЅ`մiԎާ࠽ﵛ\'샜0-슜'߸bmm혝vکc͜HdK󆷾fΜًم߷ܻѰۖĿ0��W��s菭����춗^󜲔vۙl��؟ǔǚK\ZҍfϞ򶭛:uꕻ|䒇Ǉ<ן.@KӔֶ鯔i彪ԩƀ[料[鯞Z\0\0?ݏڵkGߥMݕ_	3&ݜ^ްex����5˗5ܧH#ޜrA7کƛ׭ו֥ï֨[خ!��򾫲剟󛨬\0ͬǌܶܭ؎Mݥs\'ǹ/͌֋慬]Mɝ󮘲繰k򝡮vM̼ǽ����ٿͪիෛ(샜0Ψ҇9ФŤw޹ʩ̋��Եﹾf悰4Ǟ>ܴš܍��gOќra\0h&ڌ猽򵫫뢴ڵ+6:]a��љ챃)𞠓®\0ьJKKЫի׶M=_Wرe`74㋇ӦѬ^޺`ݐvfR[[{@ZG׭л����\0h>ޚꆑݏ\0߇l6ܑ	a\0h%:��ԑCȮڄЋ\0Ս)鷹Ȑ\rގ]zǞ��®\0Ѷmػgs#ݯ9Cp讻h®\0ѶśGlhՅڵ+4ǶɃ\0\0Ɋ˗ÂW��v߱HXӪ*��tc΂؅\0چ4ۻϴʰh焍Υܮ%ݪћaȽޘۯ׷ơ샜0ƭ廯ǅύΝxs̭^fO٫��n~oɕ\Z(r笂@;UެN.ٮnЭո��ꙍD؅\0˓SĭϬ&n/ƀ4\0hǺ��g趜ZΈ.\0\0®\0\0[ܠ\r󴬭ح⽺mƹ[\rӘ\0\0˛ј̳󟍵oѾ޿֮.��ݿ\\͞Ѧ4񾟍խ֍�v\0˛۱��֬X̢=kܘԢ��[ܭεӉZkv{iޑ]\0b׆aࠜn��򇎈��ƺq́ҾoėƳ��ǳFַ暙\0(��ՏMx9t;ƺ>VZ��Юᶵ񀼶_󇚣샜0PLҜܴڹҶ͵8Vm³ߏ5O۶̴\0b��淿먪Ƒڣb=뉘?o⵻ĺ>ࠟ_؅\0đޝc},׊XB��ǜ0\0 \0IDATƴ\nĜ'C��۸m򗼱¾\nCӫ{li\0\0ūO̝c͉��r�蓨��|ݤΙݾᱭ�Fv\0˗ռ}*Տ_HɥƆ򑞫c��Ƶן뜪Wjؐ4Zݔ؅\0Xő۴՘�ɵFͫ󏥩\r��Տ۩շfජɟƁ؅\0(Űzq>۵˩Zđϟل{MiOͳg\0mƞŝ\05޾󭡍ڵۼ疗^ʭ࠸⌫Ϗڵkԯ_WWF̘Ҟ֔4޻ο��₍ߧㅋÃ<љߪ뫵~��}ꂮ\0еڽ{��u떞{߳򋯇]v٥ؿɥ׬ȟ��avcRѽ淿ٮ猙:t豑`޽��=GΜZJJJªÛ=��򓟆q䇥곟��޷֝[VV^z馵?��􋐆س\0ݯ)(80ӷ࠾;lԍ6٠ؼ��O߾Ⓥ/ͅմ2ڶ��s!r瞷ݺuʝۂpĻlσ=4|༟ܨ9;vݤx~󍷃\\&Oޜ߲կş��٣΋Ͽ��dHﳗۺꬃ࠿��򴿜0mȑ]\0ù��᱕\Zڍuⱹ瞛ۉ\nڋ,ȍ߶땫|퟇�i\ZJ��K_򒮘ǜ\s͵໳Ο?އw޵Wټ򋳿/ޟ\nᩳ&؜rˆGnS8o𳑶م\0޷򾶳߅Î:(��ޮܭrӋf̘֭[׮��aҷ޹sRɼ⊜'îܕ/ܞ뇿ퟆ�oL\nևy䦿ࠚ֫׍2/]ڴ<񤓡࠸E隵kn򁇟={��Lȅ۴ʛFtԼ⵹ްwӟ����۬SRЯ//߲Ⱦڡ®\0@Ԧ$Āی۷/:4j\'NܘfϜ\ʗ0Թw࠽w8��¶ēNX��ݵD7%Ma؜i\ZC\Zan0lذu󽻶\r��3fL8㌳rГɳ򜝺tʽƛn۩ޗ7Hڳ菍ҿ؞KK̟ⷹŝ\0`KJ󞛆O+++s6]ȕ��ȵ禰܂lz��ۻBm:wsîӆ[܃ژ.⃎8 <��̙ι睰уųκ+Lڴ)\\t҅ຝڨn��朿{�xᅗΪүuḤb=kذ\0՛i5Ćҏޔţۇ~xξ����aܚAaڴiڕ򷯿w\ZŽｳrsϓHmژoϽ��惯aǝׁצԚK듨Qî,ǯ4?Μ"Ɲ˸ڦl\rߧ.P\0>ѽ��R]i4w����≮SӔƴÚᚧ̟ࠝۦ|ɰSRӆTõ؞ۋݓȎ΍֝{ﾳS+Ӓh)oɜr7ݠ˗vv ]ŖѺ AĲ#ĩ?-疖ʭЮFKñiUƤͬNٲ%7g��	˗/ϝO祥6巿����1؏ퟍ�˴㬳Ў]іПࠜ4̯|绹nݱư|𰰊)Ǽgޠ?��ڧ߱ŷ1Ʊ\0\0ZZ��цGKsuԊiՃ4Қ\\w޵کʹ矟ϜƟ\r7ި,Ά߸⊫࠹睹ՠӱǓ-݇ۂqZi翷ڐUUv۩ȜƵ��đ\'࠼r.dМ\ٲ��ΝۦIŐ{񅗧ƺŕ%***׽Ǵ!®\0юݹ晛ި+MhX}!iۉǖ=xO`ꐡ��۠s)LoϻJA7IđiĹ񫓐nXV-IwrڞӘ\0͹V\'٢aɄv\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0v
+X]WWǋE ��ŝ\0=ܴꓹڰ官Ҝ"t땩׎ܜ0@󩨪ʚʜr[޲e̒硝vfӍfǬXѠ׸Ζͭk̖͙3\\\'ŝ\0s̱S뫪^z㍷��Μ9sVǠ󢑇��ܜ0@3ˡ��睲\\ݸ񫺑򖮜\Ǐࠞ]SS󟺡샜0ά٣ϝ׉dNϬͬoŎժЭ}饗ʲڬ겻ѻa\0h	Cǎ7羼򋽦Mܶ@_+tƥ͚5춉Ԝ'/ɩɹ+��vݵuuGݽ��NܸزӲ��>V[[󎱿˰࠽��,ͣܤɒ7_��࠺꩙Ѭٛ!î쫠\0оũ\rq󹇞y偅˖}9֐𸛱牓\'Ǘ^x!̜93tсƼQkb-ʕ.䢴a\0قҪ\rq3ŭ|ײ򲫣折xϺ쳋ϴ�Ʊ\0\0 샜00\0\0®\0\0ܜ0\0 샜00\0@ܠޝ\0`kR+ޞΦ#畅z#_ܜ0\0mƊX��ޱ&jհ\0і<ԑ玎��!񐌰\0Цݔ뽘󣵏uӖܜ0\0[̻c-ʕk@��mi͆\0\0V̈.\0еI˭ɵΐ??wܘOǺU\Zדa\0-\Zҏ֩Yѫ\nïZʬ³ԓƱ\0\0[ӟȚ6V߂cֹл;ԯƐ޳ᘎ𢁀Ή9Ҏڄ9;Ě쪭v\0ڒ˼Aϩ\0@{Qƅ®\0@[��ބsCԧ��\0ؚܒ빘Ǻ՗\ZלZۑ갔kݕZ%샜0Ե_ȇ݃ܴBÒ풶\0ڲrԨn࠼ѿ> ֠Xȅ\Zč퇹ܜ0Vf~ͮю.8֦3ŕ\Zޛߟ֦a\0-Javh̩Ȓ𝣿࠳ͱڤ샜0Եꏩ3b]ڟ/ծ!|u̅ѦiU󠎮\0еʜn��úȇڰ|E>_뷭v\0ڢtqZ��1rӈoZƬΔP맭j?Lc\0\0֦iǻb͏��Le؝kпBĳ۔~م\0֦i%ƣܸ޳xڊم\0ڋAW؅\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0v\0v\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0@؅\0\0a\0\0˙-\0\0ˑѡîФ2?o㩫ˋ˯ht쫑Ć]ʳ2ҋ\0gH))ڲ~Ώ¸\r]C؅\0ڄѣG΋۪ͼ}Y莝յŝ\0MɦԷ踗n⼉ÇЖ1ŝ\0-ƝҹݺMݺ;ނ؅\0ڔϝ܎̛񱺯䴕]۴٨[ܜ0@ےߚѦ޵MݶO<oʮ!샜0mџӿd2٦r̟Ԉa\0hԦϟ?1܍Ƒܜrݟ`UYYڃڄЋ\0Չ5ڌ搹Ǎ/Tkŝ\0M̦ӏ7췺jծ 샜0mڂӅjԣՖ^VVV6^wv6-Mețǁ�� 샜0[˿>ɤ2#Ԅa\0تԕս]𸳧ϣta\0ت嘝ؖ8êlΎZ\0\0ۭ۾}򿮘Ң���抲ںڢ��,Ͽ��ǿ>ᬳЎs_3ڌ׳華t땩Ӛ֫Ͽ��渍؅\0ZQڧ?��ʮϮگ_ߐˇϞdŸ��_񊛨m􋃦��e˖?��?��߻慎{lƟݖc\Z\0ՓԦͺ猙7��윧>񉰫λǭיƨĮܜnYя={����|pȝvڥp\Z坰aڣ샜0-tcݸ࠾󅝷޹��԰޶ک<ً·͟?��"샜0- M]x󍷏ݻﾳ#ύΞѠ̞rWx\rЎز̚|Gɞ6G㛁خނУ��ǟ~xЎܜ0@3JĕUU��h*辵񷡅իnvMɖՄU̾f=��닋K��]\0ƕӅh頔7dҌ\'B͚֯9ނoִ\n\rl&��ݡCǽ}��ư\04ӴݘZqi9ۯnd��Ӽ򶭻?nެ®\0ьҺ۩ŅǤk׶��6ĭכn縙-˺ܜ0ЎěFŵtڲ㷰cݬϓ-̈.\0ԣꏨב-ҐV��vVұKϦࠫљȰ®\0І��СSط/��\rB؅\0ڮۭطз軟!샜0m[࠳ͦ��؅\0ڮ5+箔עᬯyn廯șНֻŝ\0MY:wrڷȕ˧7yΪ%3ÌI7ȅӞ\nYkX0ڱ4Rܠձّ܍Үݎ_߰֐wУCYnʘ(^FvK#՛tőڏުHܜ0@񊣵T֮F)zƱ\0@;׏ѫ4mڑ]\0\0ŝ\0\0ָA8��<.܄{tڌsלZƱ\0\0ءҜZ﫱ޘ��񣩡䰅򦁹ȅꖫBนX韐7և暙\0(noȚ\'טXԢ͊��bM˵󘫜Zަq̙MԂXԛK󌬂\0״\n󖨟ŬX>じ߈֛̟ȜZ쿶z]:��m:gd{kޑ]\0b܋C��󁷣ͫcƵ߮ɵ쇞W׏ţ󵿬9®\0\0ŤͱMkؘģՖ<��թČc\0\0(nߊ��¾Ϯ\Z}*֓юɵ󦞻Kͣ󻽅]\0\0ˉ\Zҝ=ׇb͌5 ՏeH˰|2ՏSآʗǿ_꧰$۶ǆۆ\0\0PݺŚ1֘Xƺ%Ⱦ߿.ƞ/ǜrЗMҜޫࠒhd\0xM̗Ȃ��ҚZҡhȟ�׿ź^X񱾡~ņ\rIąKƝ\0\0˅\ZލK̝던oĺ6��߰_̋C��F}g6񞯆򕜄]\0\0˂\nǗ紛㠚Ƶ]𸁍ݗնԸsv\0ۖ醘\0Zí؟֬Yԉs^y喜��ٮ𬙳6񾵵uaĈ얍MԹﻫϏ.ݬϿ9簞ܸ<ퟀ���֫}בć󥑶6b��=[x6zϋ/ߜvڥ؜��\Ү��ƙΉ¶ܟ��3gN鐡Ćĵ��߂򦎟5jT())	̖Μn��𩏿\Zƍ׫о��wߙwnYYYx饗׽ދ/ݐ/Mѱg\0٨𛸰`.����ܭroy첇B߾}¥؞ڋ˩ĳm��烡λuꔻ7ǷٜǞzh𞷾ؑs:v���?}��3\\pEa򤉡+_񊸥/λ򫯇!CǤ��ߺ뱧?��>ݯL2ҋ\0lձǟߋ{ʒɮ\nΜrЏ=��эRѝѠAn��^⠃ΝOӂV͸תX_򒗲Ƕ囫Ϲߟu��뼻\\~񥹏ؾ~\n�r˭ڍaޡ#ܜ0@Ԓɻڏ~:衜㴗wܭ׋M/رcFX׬ٺҗ窅ࠞ޻菉±ʜ'ވܭVࠤkzϟ��0ܱ)Ty䑛��ϝ7ʼtꓰ䔏ǟ��k׮༼4j��ƞ={Ɖ&僭\Zƍ#۩߱򳜷࠽a✧?񉺯󕯾��Ȫˊ͞ח؟YD_񕂮\0Юĩ	)&󦍋Cǎͅډ\'ƙ3؟ʵǴ��N?��Ƚᄓֽ��m2ȖJS6Gږц؛6샟߷o࠰ﾷƱcƄ3θ#��ȏݥK؜ࠩƛnZගrR@󻪫򋀋/ܰULa\0h3ҼֆҐˊ˜\Mfƽwݱ޹)��߿ۗ߶ߐ܎ݜőӭ!]|ׂ񁇜��l睳Nx衇Ùgݕ&Mڔ.ۨ÷ܮ]ķz��ӷǑGһ̂ݗ◾\\؅\0څ՜ZBĨf≮˂ҝÏ?<W࠺ַ6򾩩Ѝ͈0mڴܪ��տg\ZŽｳrsՓHmژoϽyǎۋ܇v؆_ۮP{ࠒtд=䳋.ܒoY̱Z\0ё󮻯ڥؒhﹱ䴻iɱݦĩ\riDՁԏ>ܙ?7Mh֐TRқVp�惼ԩSssu��ݔ̴tZ\nÛrĜr7ퟕ�6(]ŖѺ AĲ#ީ?-ϕ֝mЮFKñiUƤ͔Nٲ%7��	˗/ϝO礋Ӷ巿����냏ퟌ�ȢʳԔɳϾ;w࠾��߳ޯ嗬ٱƛİ℃)ǜ򞵅��ŧ߹ƯJѲ́\0٬i5ô*A\ZΕM]ƕӈhr޵إƅ$砿~٣λrr5ݴ±4ۺ⊜'ϻ|瞷義?Oa:ƊùѩǕ\n}ﳟ˭tѾϻ9ǝv˝ɷя~47z}򉜧胹ʕ+ï��iZE\nݗ_|qn˃Z͢¢bާNӑ\\2Z\0@҈/TόࠪԨQW뉳{��۳ŗS҅Xਜ"̶,Όߟܠ|ꜢأϾZkAƱ\0\0ۭ݄ޜ\H*ӄ]\0\0v\0@؅\0\0a\0\0ŝ\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0@؅\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0a\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0 ��Ӭ]]ކ¸=̌ܜZݐvfRVV��˵,^ܸ2nǨİ\04ӎ;N\\۴ʆ¹󧯋ܜnݐvfR]]��殍fӚҥΘըҠ؝Õ®\0ьμ򈉱辴wΘª++ΟĜÏ>򩝐vfT]]}򌙳V-[׌3ր%K׼yѢE_̫˻D7ŝ\0{첓bкq딩Kߖگ࠼򾙌杸=Tꈰ\0Ԁǎϩɹ慗_\\6k֬E簶ؙՕշ޴ӋȆ��?ĥͣT\0(Æ\r\Z7ɞ́BGZ֝w߹穧޶��ϝ;اuu��%ڎݻwФ2E񙫪˂Ï?ן~󐵫עﰚGwѢEON߾��}֏ܯߛ!;홣Ι路��\0hࠒԆչ䒇ܷoޗcſllˬ?ॉԃ/ܐfΜ:衢oαǺ%׿ۘM؅\0֐cι&ޜhopP^^~eݜ\՗]vٕ޹6Ŝ]\0\0ŝ\0\0v\0@؅\0\0a\0\0ŝ\0\0v-)Ρ{񆎧%Qo˵ǖ!샜0mрX5񽮍߻��ݡM47֜0\0ZԥѮȕi̽󇟍5<Хֺܜ0@۳&׿ʵؘ񀛌ȵ#V��	۴Ә\0Vҽjo͵φ޿=Տ絘GԱ˄\0Ԗ3cm먤��X+bΖ&ړҝ\05ܘ먪Όu`ħR\0޿Vնќͬ\0͝=Ί��Èoۢ𿲻cԉa\0h̙ġ��=<ߟƯ��Ƈv6i\\~܆r˗(8��cݢUܜ0@[԰Cɧ7𜜺@��h.P\0քʍš*�م\0Z˞¾ƑԩϮڡĥɨFvVӂn\ZٝёJԪڋҝ\05,ɵ%ࠟݏ؋úk릻̝ȕܜ0@[ւ?ơs¾´~Ѯɇ࠻Ոa\0h좷Zɟʬ=ӿΊݝ\0\0ךFv-%ͧ󭘋c헖ࠓ®\0Ц3HEİ܄[v6ܻͯה췖.X{Nېv6dмȝЉ󶓶v6fZѢΌj\0\0ܜ0\0 샜00\0\0®\0\0ܜ0\0 샜0 샜00\0\0®\0\0ܜ0\0 샜00\00\0\0®\0\0ܜ0\0 샜00\0\0®\0\0®\0\0ܜ0\0 샜00\0\0®\0\0ܜ0\0 샜0 샜00\0\0®\0\0ܜ0\0 샜00\00\0\0®\0\0ܜ0\0 샜00\0\0®\0\0®\0\0le:h\0P̆\r��󷦞ޢܼ􊆇>3jԨ\nݣБ]\0(͞=򩸙֙ȏٿ��؅\0ڌl6;n3O[QQQģܜ0@ܑZZ򇼮ݦN��؅\0ڔܯ߻J݌ߘfʤ2K珟?Eאv6\'܍޻ʧ��®\0Цe2ٿo┑ڄЋ\0Չ񕖞h㩥eeeO듂.\0Ц姨lpUǬ6󿆏^΋ܜ0@ەʤF7v֝ŝ\0M9rdۊP֨ퟫ�~܂wv-͟[Ła\0ٚ��&әΥܜ0V±ʋݻwϐ6Ń\0\0ƪՓN젓SsR&ӹʺۺPܠ4X׍П6lؔ𜓥ťĆ̘1[ǐv"wꩧޔ7ז֞ĬنNʄ\Zߛ؜'Ƴ��yE|��G��v"k\nϷgԙ㿀ˇŗ\rʯq^ࠧ޳Ͻo詂.\0PǜrV77ŚϡXiii4hP8��{쑶޶ܐćϰjժѤɒ0cƌ0iҤ0y򤰶םޡCǩǞz뺆yvb۟ɤ2w5dӔr?��cι&l࠽��k׮ښiǝáǝ֋߿񋟂_��[[ܮ6ѭ߶Wݥ1𞮃\0P,\r\Z4$nR=VYYYc�ک~釿\nǟ~x閭ܦއYYY8Ü'>񉰭ڴѬٲƧNٿ��ࠞө��\0Ԧ醠{CCѝ{ﾃ֗^vڥ׏��굱֞ߥՓOއׅ]\0VĮm!?G7Ψ~缟ʍʽ0Ӵǯ󛫂sے뷝v\0ZMZ^,ǐ©?ΑM��À{҅枷౸󎗵a\0`Ӕח��!CǼЋޯlىĽЩMIළ/|aޣ͏󭵿Vc\0\0>ȫc;챃܃ǜr{ĤŤ֚ښʷݳϊMݰݙͶ׶HۯXyewݱa혱\r˒ߦМZ5jƯN؅\0جڌǋܜįɱخ́򯩎fݻwΘ>|x��߅p.ǌ<8��E>[Zط\nϼ󌃡Sb]ۓv\0>ȴVة1𞒝]ݦ߇bȝ1o޼Ǫ**j\n򑜲󇜲H̾t��(aW؅\0hޜZï࠾��꩏Ƈ7đߘďl8i��я1`

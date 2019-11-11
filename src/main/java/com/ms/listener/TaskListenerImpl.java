@@ -16,10 +16,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @Version： 1.0
  **/
 public class TaskListenerImpl implements TaskListener {
-
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -38,7 +34,4 @@ public class TaskListenerImpl implements TaskListener {
         // 设置下一个任务的办理人
         delegateTask.setAssignee(leaderUser.getName());
     }
-
-
-
 }

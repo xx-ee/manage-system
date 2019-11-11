@@ -34,8 +34,8 @@ public class ResultObj {
 	public static final ResultObj  DEPLOY_SUCCESS=new ResultObj(Constast.OK, "发布成功");
 	public static final ResultObj  DEPLOY_ERROR=new ResultObj(Constast.ERROR, "发布失败,请检查流程是否正确");
 
-	public static final ResultObj  START_PROCESS_SUCCESS=new ResultObj(Constast.OK, "启动成功");
-	public static final ResultObj  START_PROCESS_ERROR=new ResultObj(Constast.ERROR, "启动失败");
+	public static final ResultObj  START_PROCESS_SUCCESS=new ResultObj(Constast.OK, "流程启动成功");
+	public static final ResultObj  START_PROCESS_ERROR=new ResultObj(Constast.ERROR, "流程启动失败");
 
 	public static final ResultObj  MISSION_SUCCESS=new ResultObj(Constast.OK, "任务完成");
 	public static final ResultObj  MISSION_FAILURE=new ResultObj(Constast.ERROR, "任务完成失败");
