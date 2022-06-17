@@ -24,7 +24,7 @@
         <hutool.version>4.6.6</hutool.version>
         <lang3.version>3.9</lang3.version>
         <pinyin4j.version>2.5.1</pinyin4j.version>
-        <fastjosn.version>1.2.61</fastjosn.version>
+        <fastjosn.version>1.2.83</fastjosn.version>
         <start-class>com.ms.MsApplication</start-class>
         <activiti.version>5.22.0</activiti.version>
     </properties>
